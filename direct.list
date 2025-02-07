@@ -1,0 +1,18 @@
+### Apple 直连
+DOMAIN, time.apple.com, DIRECT
+DOMAIN-SUFFIX, ess.apple.com, DIRECT
+DOMAIN-SUFFIX, gsas.apple.com, DIRECT
+DOMAIN-SUFFIX, push.apple.com, DIRECT
+#DOMAIN-SUFFIX, push-apple.com.akadns.net, DIRECT
+DOMAIN-SUFFIX, gdmf.apple.com, DIRECT
+# gdmf 为苹果系统更新检测域名
+
+DOMAIN-SUFFIX, apple.com, DIRECT
+DOMAIN-SUFFIX, icloud.com, DIRECT
+DOMAIN-SUFFIX, icloud-content.com, DIRECT
+
+
+
+### Cable Auth 相关域名规则
+DOMAIN, cable.auth.com, DIRECT
+#edge 使用 ios 的 passkey 需要
