@@ -1,0 +1,47 @@
+name: Sync and Process ADLite Rules
+
+on:
+  schedule:
+    - cron: '0 6 * * *'  # 每天 06:00 自动运行
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  sync-and-process:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ 拉取仓库代码
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # 2️⃣ 下载外部规则文件并命名为 adlite.list
+      - name: Download rules file
+        run: |
+          wget https://raw.githubusercontent.com/deezertidal/private/refs/heads/main/rule/ADLite.list -O adlite.list
+
+      # 3️⃣ 处理文件，在每行 IP 后添加 `,no-resolve`
+      - name: Process file
+        run: |
+          python3 <<EOF
+          import re
+          with open("adlite.list", "r") as file:
+              lines = file.readlines()
+          processed_lines = [re.sub(r'(\d{1,3}(\.\d{1,3}){3}\/\d+)', r'\1,no-resolve', line) for line in lines]
+          with open("adlite.list", "w") as file:
+              file.writelines(processed_lines)
+          EOF
+
+      # 4️⃣ 确保 `rules/` 目录存在，并移动 `adlite.list`
+      - name: Move processed file
+        run: |
+          mkdir -p rules  # 确保 rules 目录存在
+          mv adlite.list rules/adlite.list  # 移动文件
+
+      # 5️⃣ 提交并推送到 `main` 分支的 `rules/` 目录
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@users.noreply.github.com"
+          git add rules/adlite.list  # 添加文件
+          git commit -m "Sync and Process ADLite Rules" --allow-empty
+          git push origin main  # 推送到 main 分支
