@@ -1,27 +1,27 @@
 ### Apple 代理
-DOMAIN, xp.apple.com
-DOMAIN-SUFFIX, podcasts.apple.com
-DOMAIN-SUFFIX, podcasts.itunes.apple.com
-DOMAIN-SUFFIX, play.itunes.apple.com
-DOMAIN-SUFFIX, bookkeeper.itunes.apple.com
-DOMAIN-SUFFIX, mesu.apple.com
+DOMAIN,xp.apple.com
+DOMAIN-SUFFIX,podcasts.apple.com
+DOMAIN-SUFFIX,podcasts.itunes.apple.com
+DOMAIN-SUFFIX,play.itunes.apple.com
+DOMAIN-SUFFIX,bookkeeper.itunes.apple.com
+DOMAIN-SUFFIX,mesu.apple.com
 # 苹果词典服务需要
-DOMAIN-SUFFIX, apple-relay.apple.com
+DOMAIN-SUFFIX,apple-relay.apple.com
 # Apple Intelligence 登录 ChatGPT 需开启代理的域名
-DOMAIN, gateway.icloud.com
+DOMAIN,gateway.icloud.com
 # Apple News 需要  Loon 已在 news 脚本中包含此规则
-#DOMAIN-KEYWORD, buy.itunes.apple.com
+#DOMAIN-KEYWORD,buy.itunes.apple.com
 # 检测购买区域 选无付款方式需要
 
 ### 江苏反诈劫持
 # 一般劫持到IP-CIDR,221.228.32.13/32
-DOMAIN-SUFFIX, limbopro.com
-DOMAIN-SUFFIX, linux.do
-DOMAIN-KEYWORD, pikpak
-DOMAIN-SUFFIX, sntp.uk
-DOMAIN-SUFFIX, lainbo.com
+DOMAIN-SUFFIX,limbopro.com
+DOMAIN-SUFFIX,linux.do
+DOMAIN-KEYWORD,pikpak
+DOMAIN-SUFFIX,sntp.uk
+DOMAIN-SUFFIX,lainbo.com
 
 ### deepseek
-DOMAIN-SUFFIX, deepseek.com
-DOMAIN-SUFFIX, portal101.com
-DOMAIN-SUFFIX, volces.com
+DOMAIN-SUFFIX,deepseek.com
+DOMAIN-SUFFIX,portal101.com
+DOMAIN-SUFFIX,volces.com
