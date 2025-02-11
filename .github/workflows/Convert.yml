@@ -18,15 +18,22 @@ jobs:
 
       - name: 转换规则格式
         run: |
-          for file in MR/lq/*; do
+          file_count=0
+          for file in MR/lq/*.{list,txt}; do
             [ -f "$file" ] || continue
             filename=$(basename "$file")
-            echo "payload:" > "MR/cat/${filename}.yaml"
+            filename_no_ext="${filename%.*}"
+            echo "payload:" > "MR/cat/${filename_no_ext}.yaml"
             while IFS= read -r line; do
               [[ "$line" =~ ^#.*$ || -z "$line" ]] && continue
-              echo "  - DOMAIN-SUFFIX,$line" >> "MR/cat/${filename}.yaml"
+              echo "  - DOMAIN-SUFFIX,$line" >> "MR/cat/${filename_no_ext}.yaml"
             done < "$file"
+            file_count=$((file_count + 1))
           done
+          if [ "$file_count" -eq 0 ]; then
+            echo "No files found in MR/lq, skipping commit."
+            exit 0
+          fi
 
       - name: 提交转换后的规则
         run: |
