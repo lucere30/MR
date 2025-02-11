@@ -39,7 +39,7 @@ jobs:
           git config user.email "action@github.com"
           mkdir -p balloon  # 确保 balloon 目录存在
           mv adlite.list balloon/  # 移动文件到 balloon 目录
-          git add balloon/merged_rules.txt  # 添加 balloon 目录下的文件
+          git add balloon/adlite.list  # 添加 balloon 目录下的文件
           if ! git diff --cached --quiet; then
               git commit -m "Update adlite"
               git push origin HEAD:main
