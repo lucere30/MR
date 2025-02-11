@@ -21,9 +21,9 @@ DOMAIN-KEYWORD,pikpak
 DOMAIN-SUFFIX,sntp.uk
 DOMAIN-SUFFIX,lainbo.com
 
-
-DOMAIN-SUFFIX,kelee.one,Final
-DOMAIN-SUFFIX,whatshub.top,Final
+###
+DOMAIN-SUFFIX,kelee.one
+DOMAIN-SUFFIX,whatshub.top
 
 ### deepseek
 DOMAIN-SUFFIX,deepseek.com
