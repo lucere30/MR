@@ -35,8 +35,12 @@ jobs:
       # 4️⃣ 提交并推送到 `main/balloon` 文件夹
       - name: Commit and push changes
         run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@users.noreply.github.com"
-          git add adlite.list  # 添加文件
-          git commit -m "Sync and Process ADLite Rules" --allow-empty
-          git push origin main:balloon  # 推送到 main 分支的 balloon 文件夹
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
+          mkdir -p balloon  # 确保 balloon 目录存在
+          mv adlite.list balloon/  # 移动文件到 balloon 目录
+          git add balloon/merged_rules.txt  # 添加 balloon 目录下的文件
+          if ! git diff --cached --quiet; then
+              git commit -m "Update adlite"
+              git push origin HEAD:main
+          fi
