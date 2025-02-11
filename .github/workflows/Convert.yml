@@ -1,8 +1,8 @@
-name: Convert LQ Rules to Cat Format
+name: Convert
 
 on:
   schedule:
-    - cron: "0 8 * * *" # 每天 08:00 运行
+    - cron: "0 6 * * *" # 每天 06:00 运行
   workflow_dispatch: # 允许手动触发
 
 jobs:
@@ -12,10 +12,14 @@ jobs:
       - name: 检出仓库代码
         uses: actions/checkout@v4
 
+      - name: 确保源目录存在
+        run: |
+          mkdir -p MR/lq MR/cat
+
       - name: 转换规则格式
         run: |
-          mkdir -p MR/cat
           for file in MR/lq/*; do
+            [ -f "$file" ] || continue
             filename=$(basename "$file")
             echo "payload:" > "MR/cat/${filename}.yaml"
             while IFS= read -r line; do
@@ -29,5 +33,5 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
           git add MR/cat/*.yaml
-          git commit -m "auto convert" || echo "No changes to commit"
+          git commit -m "自动转换 LQ 规则为 Cat 格式" || echo "No changes to commit"
           git push
