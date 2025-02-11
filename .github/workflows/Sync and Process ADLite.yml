@@ -1,4 +1,4 @@
-name: Sync and Process ADLite Rules
+name: Sync and Process ADLite
 
 on:
   schedule:

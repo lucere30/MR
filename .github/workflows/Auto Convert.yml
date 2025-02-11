@@ -1,4 +1,4 @@
-name: Auto Convert To Cat
+name: Auto Convert
 
 on:
   schedule:
