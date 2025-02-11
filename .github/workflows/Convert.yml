@@ -1,6 +1,8 @@
 name: Convert Rules to Clash Format
 
 on:
+  schedule:
+    - cron: '0 0 * * *'  # 每天 UTC 0:00 运行
   push:
     paths:
       - 'MR/lq/*.list'
@@ -24,10 +26,16 @@ jobs:
           # 创建输出目录
           mkdir -p MR/cat
 
+          # 记录是否有文件被转换的标志
+          converted=false
+
           # 处理 MR/lq 目录下的所有 .list 和 .txt 文件
           for file in MR/lq/*.{list,txt}; do
             # 检查文件是否存在
             [ -f "$file" ] || continue
+            
+            # 标记有文件被处理
+            converted=true
             
             # 获取文件名（不含扩展名）
             filename=$(basename "$file" | sed 's/\.[^.]*$//')
@@ -50,11 +58,15 @@ jobs:
               echo "  - ${line}" >> "$output_file"
             done < "$file"
           done
+          
+          # 将转换状态保存到环境变量中
+          echo "CONVERTED=${converted}" >> $GITHUB_ENV
 
       - name: Commit changes
+        if: env.CONVERTED == 'true'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add MR/cat/*.yaml
-          git commit -m "chore: Convert rules to Clash format" || echo "No changes to commit"
+          git diff --staged --quiet || git commit -m "chore: Convert rules to Clash format"
           git push
