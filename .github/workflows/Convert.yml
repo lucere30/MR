@@ -5,8 +5,8 @@ on:
     - cron: '0 0 * * *'  # 每天 UTC 0:00 运行
   push:
     paths:
-      - 'lucere30/MR/lq/*.list'
-      - 'lucere30/MR/lq/*.txt'
+      - 'lq/*.list'
+      - 'lq/*.txt'
   workflow_dispatch:
 
 jobs:
@@ -23,28 +23,28 @@ jobs:
           ls -la
           echo "MR directory contents (if exists):"
           ls -la MR || echo "MR directory not found"
-          echo "lucere30/MR/lq directory contents (if exists):"
-          ls -la lucere30/MR/lq || echo "lucere30/MR/lq directory not found"
+          echo "lq directory contents (if exists):"
+          ls -la lq || echo "lq directory not found"
 
       - name: Convert rules to Clash format
         run: |
           # 确保输出目录存在
-          mkdir -p MR/cat
+          mkdir -p cat
           
           # 初始化转换标志
           CONVERTED=false
           
           # 检查源文件目录是否存在
-          if [ ! -d "lucere30/MR/lq" ]; then
-            echo "Error: Source directory lucere30/MR/lq does not exist"
+          if [ ! -d "lq" ]; then
+            echo "Error: Source directory lq does not exist"
             exit 1
           fi
           
           # 检查是否有源文件
           shopt -s nullglob
-          files=(lucere30/MR/lq/*.{list,txt})
+          files=(lq/*.{list,txt})
           if [ ${#files[@]} -eq 0 ]; then
-            echo "No .list or .txt files found in lucere30/MR/lq/"
+            echo "No .list or .txt files found in lq/"
             exit 0
           fi
           
@@ -56,7 +56,7 @@ jobs:
             filename=$(basename "$file" | sed 's/\.[^.]*$//')
             
             # 创建输出文件
-            output_file="MR/cat/${filename}.yaml"
+            output_file="cat/${filename}.yaml"
             
             # 写入 yaml 头部
             echo "payload:" > "$output_file"
@@ -80,8 +80,8 @@ jobs:
           # 检查是否有生成的文件
           if [ "$CONVERTED" = true ]; then
             echo "Conversion completed successfully"
-            echo "Generated files in MR/cat/:"
-            ls -la MR/cat/
+            echo "Generated files in cat/:"
+            ls -la cat/
           else
             echo "No files were converted"
             exit 1
@@ -90,12 +90,12 @@ jobs:
       - name: Commit and push changes
         run: |
           # 检查是否有 yaml 文件
-          if [ -n "$(find MR/cat -maxdepth 1 -name '*.yaml' -print -quit)" ]; then
+          if [ -n "$(find cat -maxdepth 1 -name '*.yaml' -print -quit)" ]; then
             git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git config --local user.name "github-actions[bot]"
             
             # 使用 find 命令添加文件
-            find MR/cat -name "*.yaml" -exec git add {} \;
+            find cat -name "*.yaml" -exec git add {} \;
             
             # 检查是否有改动
             if git diff --staged --quiet; then
@@ -105,6 +105,6 @@ jobs:
               git push
             fi
           else
-            echo "No yaml files found in MR/cat/"
+            echo "No yaml files found in cat/"
             exit 1
           fi
