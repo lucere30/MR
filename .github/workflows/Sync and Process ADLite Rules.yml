@@ -32,11 +32,11 @@ jobs:
           EOF
 
 
-      # 4️⃣ 提交并推送到 `main` 分支的 `rules/` 目录
+      # 4️⃣ 提交并推送到 `main/balloon` 文件夹
       - name: Commit and push changes
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@users.noreply.github.com"
           git add adlite.list  # 添加文件
           git commit -m "Sync and Process ADLite Rules" --allow-empty
-          git push origin main  # 推送到 main 分支
+          git push origin main:balloon  # 推送到 main 分支的 balloon 文件夹
