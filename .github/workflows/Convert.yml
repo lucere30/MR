@@ -5,8 +5,8 @@ on:
     - cron: '0 0 * * *'  # 每天 UTC 0:00 运行
   push:
     paths:
-      - '${{ github.repository_owner }}/MR/lq/*.list'
-      - '${{ github.repository_owner }}/MR/lq/*.txt'
+      - 'MR/lq/*.list'
+      - 'MR/lq/*.txt'
   workflow_dispatch:
 
 jobs:
@@ -15,72 +15,41 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          ref: ${{ github.head_ref || github.ref_name }}
-
-      - name: List repository contents
-        run: |
-          echo "Current directory contents:"
-          ls -la
-          echo "Repository owner: ${{ github.repository_owner }}"
-          echo "${{ github.repository_owner }}/MR directory contents (if exists):"
-          ls -la ${{ github.repository_owner }}/MR || echo "MR directory not found"
-          echo "${{ github.repository_owner }}/MR/lq directory contents (if exists):"
-          ls -la ${{ github.repository_owner }}/MR/lq || echo "MR/lq directory not found"
 
       - name: Convert rules to Clash format
         run: |
-          # 创建输出目录
-          mkdir -p ${{ github.repository_owner }}/MR/cat
-
-          # 记录是否有文件被转换的标志
-          converted=false
-
-          # 处理目录下的所有 .list 和 .txt 文件
-          shopt -s nullglob
-          for file in ${{ github.repository_owner }}/MR/lq/*.{list,txt}; do
-            # 检查文件是否存在
-            [ -f "$file" ] || continue
-            
-            echo "Processing file: $file"
-            
-            # 标记有文件被处理
-            converted=true
+          # 确保输出目录存在
+          mkdir -p MR/cat
+          
+          # 处理所有 .list 和 .txt 文件
+          for file in MR/lq/*.{list,txt}; do
+            # 检查文件是否存在（防止没有匹配文件时的错误）
+            [ -e "$file" ] || continue
             
             # 获取文件名（不含扩展名）
             filename=$(basename "$file" | sed 's/\.[^.]*$//')
             
             # 创建输出文件
-            output_file="${{ github.repository_owner }}/MR/cat/${filename}.yaml"
+            output_file="MR/cat/${filename}.yaml"
             
             # 写入 yaml 头部
             echo "payload:" > "$output_file"
             
-            # 处理每一行规则并转换格式
-            while IFS= read -r line || [[ -n "$line" ]]; do
-              # 跳过空行和注释行
-              [[ -z "$line" || "$line" =~ ^[[:space:]]*# ]] && continue
-              
-              # 移除可能存在的回车符并去除前后空格
-              line=$(echo "$line" | tr -d '\r' | awk '{$1=$1};1')
-              
-              # 直接写入规则，保持原始格式
-              echo "  - ${line}" >> "$output_file"
-            done < "$file"
-            
-            echo "Created output file: $output_file"
+            # 处理文件内容
+            sed -n '/^[^#]/p' "$file" | sed '/^$/d' | sed 's/^/  - /' >> "$output_file"
           done
-          
-          # 将转换状态保存到环境变量中
-          echo "CONVERTED=${converted}" >> $GITHUB_ENV
 
-      - name: Commit changes
-        if: env.CONVERTED == 'true'
+      - name: Check for changes
+        id: check_changes
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add ${{ github.repository_owner }}/MR/cat/*.yaml
-          git status
-          git diff --staged --quiet || git commit -m "chore: Convert rules to Clash format"
-          git push origin ${{ github.head_ref || github.ref_name }}
+          git add MR/cat/*.yaml
+          git status --porcelain | grep "MR/cat/" > /dev/null
+          echo "changed=$?" >> $GITHUB_OUTPUT
+
+      - name: Commit and push if changed
+        if: steps.check_changes.outputs.changed == 0
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git commit -m "chore: Convert rules to Clash format"
+          git push
