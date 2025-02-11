@@ -84,9 +84,9 @@ jobs:
         run: |
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
-          mkdir -p balloon  # 确保 balloon 目录存在
-          mv merged_rules.txt balloon/  # 移动文件到 balloon 目录
-          git add balloon/merged_rules.txt  # 添加 balloon 目录下的文件
+          mkdir -p lq  # 确保 lq 目录存在
+          mv merged_rules.txt lq/  # 移动文件到 lq 目录
+          git add lq/merged_rules.txt  # 添加 lq 目录下的文件
           if ! git diff --cached --quiet; then
               git commit -m "Update merged rules [skip ci]"
               git push origin HEAD:main
