@@ -5,8 +5,8 @@ on:
     - cron: '0 0 * * *'  # 每天 UTC 0:00 运行
   push:
     paths:
-      - 'MR/lq/*.list'
-      - 'MR/lq/*.txt'
+      - 'lucere30/MR/lq/*.list'
+      - 'lucere30/MR/lq/*.txt'
   workflow_dispatch:
 
 jobs:
@@ -24,13 +24,13 @@ jobs:
       - name: Convert rules to Clash format
         run: |
           # 创建输出目录
-          mkdir -p MR/cat
+          mkdir -p lucere30/MR/cat
 
           # 记录是否有文件被转换的标志
           converted=false
 
           # 处理 MR/lq 目录下的所有 .list 和 .txt 文件
-          for file in MR/lq/*.{list,txt}; do
+          for file in lucere30/MR/lq/*.{list,txt}; do
             # 检查文件是否存在
             [ -f "$file" ] || continue
             
