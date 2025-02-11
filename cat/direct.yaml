@@ -1,0 +1,7 @@
+payload:
+  - DOMAIN,time.apple.com
+  - DOMAIN-SUFFIX,ess.apple.com
+  - DOMAIN-SUFFIX,gsas.apple.com
+  - DOMAIN-SUFFIX,push.apple.com
+  - DOMAIN-SUFFIX,gdmf.apple.com
+  - DOMAIN,cable.auth.com
