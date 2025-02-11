@@ -1,54 +1,60 @@
-name: Convert LQ Rules to Cat Format
+name: Convert Rules to Clash Format
 
 on:
-  schedule:
-    - cron: "0 6 * * *" # 每天 06:00 运行
-  workflow_dispatch: # 允许手动触发
+  push:
+    paths:
+      - 'MR/lq/*.list'
+      - 'MR/lq/*.txt'
+  workflow_dispatch:
 
 jobs:
   convert:
     runs-on: ubuntu-latest
     steps:
-      - name: 检出仓库代码
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: 确保源目录存在
-        run: |
-          mkdir -p MR/lq MR/cat
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
 
-      - name: 转换规则格式
+      - name: Convert rules to Clash format
         run: |
-          file_count=0
+          # 创建输出目录
+          mkdir -p MR/cat
+
+          # 处理 MR/lq 目录下的所有 .list 和 .txt 文件
           for file in MR/lq/*.{list,txt}; do
+            # 检查文件是否存在
             [ -f "$file" ] || continue
-            filename=$(basename "$file")
-            filename_no_ext="${filename%.*}"
-            output_file="MR/cat/${filename_no_ext}.yaml"
+            
+            # 获取文件名（不含扩展名）
+            filename=$(basename "$file" | sed 's/\.[^.]*$//')
+            
+            # 创建输出文件
+            output_file="MR/cat/${filename}.yaml"
+            
+            # 写入 yaml 头部
             echo "payload:" > "$output_file"
-            while IFS= read -r line; do
-              [[ "$line" =~ ^#.*$ || -z "$line" ]] && continue
-              echo "  - DOMAIN-SUFFIX,$line" >> "$output_file"
+            
+            # 处理每一行规则并转换格式
+            while IFS= read -r line || [[ -n "$line" ]]; do
+              # 跳过空行和注释行
+              [[ -z "$line" || "$line" =~ ^[[:space:]]*# ]] && continue
+              
+              # 移除可能存在的回车符并去除前后空格
+              line=$(echo "$line" | tr -d '\r' | awk '{$1=$1};1')
+              
+              # 直接写入规则，保持原始格式
+              echo "  - ${line}" >> "$output_file"
             done < "$file"
-            file_count=$((file_count + 1))
           done
-          if [ "$file_count" -eq 0 ]; then
-            echo "No files found in MR/lq, skipping commit."
-            exit 0
-          fi
 
-      - name: 检查转换后的文件
+      - name: Commit changes
         run: |
-          echo "Converted files:"
-          ls -lah MR/cat/
-
-      - name: 提交转换后的规则
-        run: |
-          if [ -n "$(ls -A MR/cat/)" ]; then
-            git config --global user.name "github-actions"
-            git config --global user.email "github-actions@github.com"
-            git add MR/cat/*.yaml
-            git commit -m "自动转换 LQ 规则为 Cat 格式" || echo "No changes to commit"
-            git push
-          else
-            echo "No YAML files to commit. Skipping git operations."
-          fi
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add MR/cat/*.yaml
+          git commit -m "chore: Convert rules to Clash format" || echo "No changes to commit"
+          git push
