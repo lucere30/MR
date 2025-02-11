@@ -16,15 +16,41 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Debug directory structure
+        run: |
+          echo "Current directory structure:"
+          pwd
+          ls -la
+          echo "MR directory contents (if exists):"
+          ls -la MR || echo "MR directory not found"
+          echo "MR/lq directory contents (if exists):"
+          ls -la MR/lq || echo "MR/lq directory not found"
+
       - name: Convert rules to Clash format
         run: |
           # 确保输出目录存在
           mkdir -p MR/cat
           
-          # 处理所有 .list 和 .txt 文件
-          for file in MR/lq/*.{list,txt}; do
-            # 检查文件是否存在（防止没有匹配文件时的错误）
-            [ -e "$file" ] || continue
+          # 初始化转换标志
+          CONVERTED=false
+          
+          # 检查源文件目录是否存在
+          if [ ! -d "MR/lq" ]; then
+            echo "Error: Source directory MR/lq does not exist"
+            exit 1
+          fi
+          
+          # 检查是否有源文件
+          shopt -s nullglob
+          files=(MR/lq/*.{list,txt})
+          if [ ${#files[@]} -eq 0 ]; then
+            echo "No .list or .txt files found in MR/lq/"
+            exit 0
+          fi
+          
+          # 处理每个文件
+          for file in "${files[@]}"; do
+            echo "Processing file: $file"
             
             # 获取文件名（不含扩展名）
             filename=$(basename "$file" | sed 's/\.[^.]*$//')
@@ -36,20 +62,49 @@ jobs:
             echo "payload:" > "$output_file"
             
             # 处理文件内容
-            sed -n '/^[^#]/p' "$file" | sed '/^$/d' | sed 's/^/  - /' >> "$output_file"
+            while IFS= read -r line || [ -n "$line" ]; do
+              # 跳过空行和注释行
+              [[ -z "$line" || "$line" =~ ^[[:space:]]*# ]] && continue
+              
+              # 移除可能存在的回车符并去除前后空格
+              line=$(echo "$line" | tr -d '\r' | awk '{$1=$1};1')
+              
+              # 写入规则
+              echo "  - $line" >> "$output_file"
+            done < "$file"
+            
+            echo "Created file: $output_file"
+            CONVERTED=true
           done
+          
+          # 检查是否有生成的文件
+          if [ "$CONVERTED" = true ]; then
+            echo "Conversion completed successfully"
+            echo "Generated files in MR/cat/:"
+            ls -la MR/cat/
+          else
+            echo "No files were converted"
+            exit 1
+          fi
 
-      - name: Check for changes
-        id: check_changes
+      - name: Commit and push changes
         run: |
-          git add MR/cat/*.yaml
-          git status --porcelain | grep "MR/cat/" > /dev/null
-          echo "changed=$?" >> $GITHUB_OUTPUT
-
-      - name: Commit and push if changed
-        if: steps.check_changes.outputs.changed == 0
-        run: |
-          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git commit -m "chore: Convert rules to Clash format"
-          git push
+          # 检查是否有 yaml 文件
+          if [ -n "$(find MR/cat -maxdepth 1 -name '*.yaml' -print -quit)" ]; then
+            git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git config --local user.name "github-actions[bot]"
+            
+            # 使用 find 命令添加文件
+            find MR/cat -name "*.yaml" -exec git add {} \;
+            
+            # 检查是否有改动
+            if git diff --staged --quiet; then
+              echo "No changes to commit"
+            else
+              git commit -m "chore: Convert rules to Clash format"
+              git push
+            fi
+          else
+            echo "No yaml files found in MR/cat/"
+            exit 1
+          fi
