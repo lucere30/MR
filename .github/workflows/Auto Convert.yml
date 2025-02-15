@@ -2,7 +2,7 @@ name: Auto Convert
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # 每天 UTC 21:00 运行
+    - cron: '0 21 * * *'  # 每天 UTC 21:00 运行
   push:
     paths:
       - 'lq/*.list'
