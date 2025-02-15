@@ -2,7 +2,7 @@ name: Sync and Process ADLite
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # 每天 00:00 自动运行
+    - cron: '0 20 * * *'  # 每天 20:00 自动运行
   workflow_dispatch:  # 允许手动触发
 
 jobs:
