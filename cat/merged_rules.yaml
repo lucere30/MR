@@ -7153,17 +7153,6 @@ payload:
   - DOMAIN-SUFFIX,zzcartoon.com
   - DOMAIN-SUFFIX,zzcloud.me
   - DOMAIN-SUFFIX,zzux.com
-  - IP-CIDR6,2001:67c:4e8::/48,no-resolve
-  - IP-CIDR6,2001:b28:f23c::/47,no-resolve
-  - IP-CIDR6,2001:b28:f23d::/48,no-resolve
-  - IP-CIDR6,2001:b28:f23f::/48,no-resolve
-  - IP-CIDR6,2607:fb10::/32,no-resolve
-  - IP-CIDR6,2620:100:3000::/40,no-resolve
-  - IP-CIDR6,2620:10c:7000::/44,no-resolve
-  - IP-CIDR6,2620:120:e000::/40,no-resolve
-  - IP-CIDR6,2a00:86c0::/32,no-resolve
-  - IP-CIDR6,2a03:5640::/32,no-resolve
-  - IP-CIDR6,2a0a:f280::/32,no-resolve
   - URL-REGEX,^https?:\/\/www\.amazon\.com\/(Amazon-Video|gp\/video)\/
   - USER-AGENT,*Spotify*
   - USER-AGENT,*YouTubeMusic*
@@ -8258,3 +8247,13 @@ payload:
   - IP-CIDR,220.181.174.34/32,no-resolve
   - IP-CIDR,220.181.174.162/32,no-resolve
   - IP-CIDR,220.181.174.226/32,no-resolve
+  - IP-CIDR6,2001:67c:4e8::/48,no-resolve
+  - IP-CIDR6,2001:b28:f23c::/47,no-resolve
+  - IP-CIDR6,2001:b28:f23f::/48,no-resolve
+  - IP-CIDR6,2607:fb10::/32,no-resolve
+  - IP-CIDR6,2620:100:3000::/40,no-resolve
+  - IP-CIDR6,2620:10c:7000::/44,no-resolve
+  - IP-CIDR6,2620:120:e000::/40,no-resolve
+  - IP-CIDR6,2a00:86c0::/32,no-resolve
+  - IP-CIDR6,2a03:5640::/32,no-resolve
+  - IP-CIDR6,2a0a:f280::/32,no-resolve
