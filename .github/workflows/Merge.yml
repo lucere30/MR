@@ -34,8 +34,8 @@ jobs:
           # 将所有下载的文件合并到一个 source_rules.txt 文件中
           cat source_rules_* > source_rules.txt
 
-      # 使用 Python 处理规则：对非 IP-CIDR 规则进行去重，对 IP-CIDR 规则进行合并，并在输出时追加 ,no-resolve
-      - name: Process rules (deduplicate & merge IP-CIDR with no-resolve)
+      # 使用 Python 处理规则：对非 IP-CIDR 规则进行去重，对 IP-CIDR 和 IP-CIDR6 规则进行合并，并在输出时追加 ,no-resolve
+      - name: Process rules (deduplicate & merge IP-CIDR and IP-CIDR6 with no-resolve)
         run: |
           python - << 'EOF'
           import ipaddress
@@ -44,13 +44,14 @@ jobs:
           with open('source_rules.txt', 'r') as f:
               lines = [line.strip() for line in f if line.strip() and not line.startswith('#')]
 
-          # 用于存储非 IP-CIDR 规则（直接集合去重）
+          # 用于存储非 IP-CIDR 和 IP-CIDR6 规则（直接集合去重）
           others = set()
-          # 用于存储 IP-CIDR 规则的 ipaddress 对象
+          # 用于存储 IP-CIDR 和 IP-CIDR6 规则的 ipaddress 对象
           ipcidr_networks = []
+          ipcidr6_networks = []
 
           for line in lines:
-              # 判断规则是否为 IP-CIDR 规则（格式：IP-CIDR,网络[,其他]）
+              # 判断规则是否为 IP-CIDR 或 IP-CIDR6 规则（格式：IP-CIDR,网络[,其他] 或 IP-CIDR6,网络[,其他]）
               if line.startswith("IP-CIDR,"):
                   parts = line.split(',')
                   if len(parts) >= 2:
@@ -63,11 +64,24 @@ jobs:
                           others.add(line)
                   else:
                       others.add(line)
+              elif line.startswith("IP-CIDR6,"):
+                  parts = line.split(',')
+                  if len(parts) >= 2:
+                      network_str = parts[1].strip()
+                      try:
+                          net = ipaddress.ip_network(network_str, strict=False)
+                          ipcidr6_networks.append(net)
+                      except ValueError:
+                          # 如果解析失败，则视为普通规则
+                          others.add(line)
+                  else:
+                      others.add(line)
               else:
                   others.add(line)
 
-          # 合并 IP-CIDR 网络（collapse_addresses 会同时去重和合并相邻/包含的网段）
+          # 合并 IP-CIDR 和 IP-CIDR6 网络（collapse_addresses 会同时去重和合并相邻/包含的网段）
           merged_ipcidrs = list(ipaddress.collapse_addresses(ipcidr_networks))
+          merged_ipcidr6s = list(ipaddress.collapse_addresses(ipcidr6_networks))
 
           # 将结果写入 merged_rules.txt 文件
           with open('merged_rules.txt', 'w') as out:
@@ -77,6 +91,9 @@ jobs:
               # 再写入合并后的 IP-CIDR 规则，末尾追加 ,no-resolve
               for net in sorted(merged_ipcidrs, key=lambda n: (n.version, n.network_address, n.prefixlen)):
                   out.write("IP-CIDR," + str(net) + ",no-resolve\n")
+              # 再写入合并后的 IP-CIDR6 规则，末尾追加 ,no-resolve
+              for net in sorted(merged_ipcidr6s, key=lambda n: (n.version, n.network_address, n.prefixlen)):
+                  out.write("IP-CIDR6," + str(net) + ",no-resolve\n")
           EOF
 
       # 如果生成的 merged_rules.txt 有变化，则提交更新到仓库
@@ -93,4 +110,3 @@ jobs:
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
