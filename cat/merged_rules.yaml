@@ -4640,7 +4640,7 @@ payload:
   - DOMAIN-SUFFIX,ooyala.com
   - DOMAIN-SUFFIX,open.com.hk
   - DOMAIN-SUFFIX,open.firstory.me
-  - DOMAIN-SUFFIX,openai.com
+  - DOMAIN-SUFFIX,open.spotify.com
   - DOMAIN-SUFFIX,openallweb.com
   - DOMAIN-SUFFIX,opendemocracy.net
   - DOMAIN-SUFFIX,opendn.xyz
@@ -5634,7 +5634,6 @@ payload:
   - DOMAIN-SUFFIX,spike.com
   - DOMAIN-SUFFIX,sports.williamhill.com
   - DOMAIN-SUFFIX,spotflux.com
-  - DOMAIN-SUFFIX,spotify.com
   - DOMAIN-SUFFIX,spreadsheet.new
   - DOMAIN-SUFFIX,spreadshirt.es
   - DOMAIN-SUFFIX,spreaker.com
