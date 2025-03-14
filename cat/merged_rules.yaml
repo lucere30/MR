@@ -133,6 +133,7 @@ payload:
   - DOMAIN-SUFFIX,2017.hk
   - DOMAIN-SUFFIX,2021hkcharter.com
   - DOMAIN-SUFFIX,2047.name
+  - DOMAIN-SUFFIX,2047.one
   - DOMAIN-SUFFIX,2049bbs.xyz
   - DOMAIN-SUFFIX,21andy.com
   - DOMAIN-SUFFIX,21join.com
@@ -683,6 +684,7 @@ payload:
   - DOMAIN-SUFFIX,bcvcdn.com
   - DOMAIN-SUFFIX,bdsmvideos.net
   - DOMAIN-SUFFIX,beaconevents.com
+  - DOMAIN-SUFFIX,bearteach.com
   - DOMAIN-SUFFIX,bebo.com
   - DOMAIN-SUFFIX,beeg.com
   - DOMAIN-SUFFIX,beepool.com
@@ -1043,6 +1045,7 @@ payload:
   - DOMAIN-SUFFIX,c3pool.com
   - DOMAIN-SUFFIX,cableav.tv
   - DOMAIN-SUFFIX,cablegatesearch.net
+  - DOMAIN-SUFFIX,cachefly.com
   - DOMAIN-SUFFIX,cachefly.net
   - DOMAIN-SUFFIX,cachinese.com
   - DOMAIN-SUFFIX,cacnw.com
@@ -1521,6 +1524,7 @@ payload:
   - DOMAIN-SUFFIX,curvefish.com
   - DOMAIN-SUFFIX,cusp.hk
   - DOMAIN-SUFFIX,cusu.hk
+  - DOMAIN-SUFFIX,cutout.pro
   - DOMAIN-SUFFIX,cutscenes.net
   - DOMAIN-SUFFIX,cw.com.tw
   - DOMAIN-SUFFIX,cwb.gov.tw
@@ -2042,6 +2046,7 @@ payload:
   - DOMAIN-SUFFIX,faceless.me
   - DOMAIN-SUFFIX,facesofnyfw.com
   - DOMAIN-SUFFIX,facesoftibetanselfimmolators.info
+  - DOMAIN-SUFFIX,factchecklab.org
   - DOMAIN-SUFFIX,factpedia.org
   - DOMAIN-SUFFIX,fail.hk
   - DOMAIN-SUFFIX,faith100.org
@@ -2137,7 +2142,6 @@ payload:
   - DOMAIN-SUFFIX,feedburner.com
   - DOMAIN-SUFFIX,feeder.co
   - DOMAIN-SUFFIX,feedly.com
-  - DOMAIN-SUFFIX,feedly.comfastgpt.run
   - DOMAIN-SUFFIX,feeds.fileforum.com
   - DOMAIN-SUFFIX,feedsportal.com
   - DOMAIN-SUFFIX,feedx.net
@@ -2438,6 +2442,7 @@ payload:
   - DOMAIN-SUFFIX,gcmasia.com
   - DOMAIN-SUFFIX,gcpnews.com
   - DOMAIN-SUFFIX,gcr.io
+  - DOMAIN-SUFFIX,gdaily.org
   - DOMAIN-SUFFIX,gdbt.net
   - DOMAIN-SUFFIX,gdzf.org
   - DOMAIN-SUFFIX,geek-art.net
@@ -2473,6 +2478,7 @@ payload:
   - DOMAIN-SUFFIX,getmdl.io
   - DOMAIN-SUFFIX,getoutline.org
   - DOMAIN-SUFFIX,getpricetag.com
+  - DOMAIN-SUFFIX,getsession.org
   - DOMAIN-SUFFIX,getsocialscope.com
   - DOMAIN-SUFFIX,getsync.com
   - DOMAIN-SUFFIX,gettr.com
@@ -4353,6 +4359,7 @@ payload:
   - DOMAIN-SUFFIX,netflav.com
   - DOMAIN-SUFFIX,netflix.com
   - DOMAIN-SUFFIX,netflix.net
+  - DOMAIN-SUFFIX,netlify.app
   - DOMAIN-SUFFIX,netmarble.com
   - DOMAIN-SUFFIX,netme.cc
   - DOMAIN-SUFFIX,netsarang.com
@@ -5598,6 +5605,7 @@ payload:
   - DOMAIN-SUFFIX,soundcloud.com
   - DOMAIN-SUFFIX,soundofhope.kr
   - DOMAIN-SUFFIX,soundofhope.org
+  - DOMAIN-SUFFIX,soundon.fm
   - DOMAIN-SUFFIX,soup.io
   - DOMAIN-SUFFIX,soupofmedia.com
   - DOMAIN-SUFFIX,sourceforge.net
@@ -5933,6 +5941,7 @@ payload:
   - DOMAIN-SUFFIX,tfc-taiwan.org.tw
   - DOMAIN-SUFFIX,tfhub.dev
   - DOMAIN-SUFFIX,tfiflve.com
+  - DOMAIN-SUFFIX,tg-me.com
   - DOMAIN-SUFFIX,th.hao123.com
   - DOMAIN-SUFFIX,thaicn.com
   - DOMAIN-SUFFIX,thb.gov.tw
@@ -7018,6 +7027,7 @@ payload:
   - DOMAIN-SUFFIX,x-art.com
   - DOMAIN-SUFFIX,x-berry.com
   - DOMAIN-SUFFIX,x-wall.org
+  - DOMAIN-SUFFIX,x.ai
   - DOMAIN-SUFFIX,x.co
   - DOMAIN-SUFFIX,x.com
   - DOMAIN-SUFFIX,x.company
