@@ -445,6 +445,7 @@ DOMAIN-SUFFIX,aol.com
 DOMAIN-SUFFIX,aolcdn.com
 DOMAIN-SUFFIX,aolchannels.aol.com
 DOMAIN-SUFFIX,aolnews.com
+DOMAIN-SUFFIX,aomedia.org
 DOMAIN-SUFFIX,aomiwang.com
 DOMAIN-SUFFIX,ap.org
 DOMAIN-SUFFIX,apache.org
@@ -4962,6 +4963,7 @@ DOMAIN-SUFFIX,pp.ru
 DOMAIN-SUFFIX,pp.ua
 DOMAIN-SUFFIX,ppy.sh
 DOMAIN-SUFFIX,prayforchina.net
+DOMAIN-SUFFIX,prcleader.org
 DOMAIN-SUFFIX,premeforwindows7.com
 DOMAIN-SUFFIX,premproxy.com
 DOMAIN-SUFFIX,presentation.new
