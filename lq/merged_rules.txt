@@ -33,6 +33,7 @@ DOMAIN-KEYWORD,1e100
 DOMAIN-KEYWORD,abema
 DOMAIN-KEYWORD,abematv.akamaized.net
 DOMAIN-KEYWORD,amazon
+DOMAIN-KEYWORD,anthropic
 DOMAIN-KEYWORD,apiproxy-device-prod-nlb-
 DOMAIN-KEYWORD,appledaily
 DOMAIN-KEYWORD,avoddashs
@@ -40,6 +41,7 @@ DOMAIN-KEYWORD,avtb
 DOMAIN-KEYWORD,bbcfmt
 DOMAIN-KEYWORD,beetalk
 DOMAIN-KEYWORD,blogspot
+DOMAIN-KEYWORD,claude
 DOMAIN-KEYWORD,discovery.uplynk.com
 DOMAIN-KEYWORD,dlercloud
 DOMAIN-KEYWORD,dropbox
