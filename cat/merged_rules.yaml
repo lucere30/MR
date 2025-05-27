@@ -2519,6 +2519,7 @@ payload:
   - DOMAIN-SUFFIX,gekikame.com
   - DOMAIN-SUFFIX,gelbooru.com
   - DOMAIN-SUFFIX,gemini.com
+  - DOMAIN-SUFFIX,gemini.google
   - DOMAIN-SUFFIX,generated.photos
   - DOMAIN-SUFFIX,geni.us
   - DOMAIN-SUFFIX,genius.com
