@@ -469,7 +469,6 @@ payload:
   - DOMAIN-SUFFIX,api-verify.recaptcha.net
   - DOMAIN-SUFFIX,api.ai
   - DOMAIN-SUFFIX,api.amplitude.com
-  - DOMAIN-SUFFIX,api.linksalpha.com
   - DOMAIN-SUFFIX,api.mixpanel.com
   - DOMAIN-SUFFIX,api.proxlet.com
   - DOMAIN-SUFFIX,api.pureapk.com
@@ -478,7 +477,6 @@ payload:
   - DOMAIN-SUFFIX,api.termius.com
   - DOMAIN-SUFFIX,api.tiktokv.com
   - DOMAIN-SUFFIX,apiary.io
-  - DOMAIN-SUFFIX,apidocs.linksalpha.com
   - DOMAIN-SUFFIX,apigee.com
   - DOMAIN-SUFFIX,apk-dl.com
   - DOMAIN-SUFFIX,apk.support
@@ -1946,7 +1944,6 @@ payload:
   - DOMAIN-SUFFIX,entermap.com
   - DOMAIN-SUFFIX,entnt.com
   - DOMAIN-SUFFIX,entrust.net
-  - DOMAIN-SUFFIX,epa.gov.tw
   - DOMAIN-SUFFIX,epac.to
   - DOMAIN-SUFFIX,episcopalchurch.org
   - DOMAIN-SUFFIX,epochhk.com
@@ -2984,7 +2981,6 @@ payload:
   - DOMAIN-SUFFIX,helloss.pw
   - DOMAIN-SUFFIX,hellotxt.com
   - DOMAIN-SUFFIX,hellouk.org
-  - DOMAIN-SUFFIX,help.linksalpha.com
   - DOMAIN-SUFFIX,helpeachpeople.com
   - DOMAIN-SUFFIX,helplinfen.com
   - DOMAIN-SUFFIX,helpshift.com
@@ -4583,7 +4579,6 @@ payload:
   - DOMAIN-SUFFIX,ntdtv.ru
   - DOMAIN-SUFFIX,ntdtvla.com
   - DOMAIN-SUFFIX,ntrfun.com
-  - DOMAIN-SUFFIX,ntsna.gov.tw
   - DOMAIN-SUFFIX,ntu.edu.tw
   - DOMAIN-SUFFIX,nu.nl
   - DOMAIN-SUFFIX,nubiles.net
@@ -6632,7 +6627,6 @@ payload:
   - DOMAIN-SUFFIX,use.typekit.net
   - DOMAIN-SUFFIX,usefreevpn.com
   - DOMAIN-SUFFIX,usembassy.gov
-  - DOMAIN-SUFFIX,userapi.nytlog.com
   - DOMAIN-SUFFIX,usercontent.goog
   - DOMAIN-SUFFIX,users.skynet.be
   - DOMAIN-SUFFIX,usertrust.com
@@ -7113,7 +7107,6 @@ payload:
   - DOMAIN-SUFFIX,www.kindleren.com
   - DOMAIN-SUFFIX,www.klip.me
   - DOMAIN-SUFFIX,www.lib.virginia.edu
-  - DOMAIN-SUFFIX,www.linksalpha.com
   - DOMAIN-SUFFIX,www.lorenzetti.com.br
   - DOMAIN-SUFFIX,www.m-sport.co.uk
   - DOMAIN-SUFFIX,www.monlamit.org
