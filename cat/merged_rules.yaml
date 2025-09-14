@@ -4045,6 +4045,7 @@ payload:
   - DOMAIN-SUFFIX,mcaf.ee
   - DOMAIN-SUFFIX,mcfog.com
   - DOMAIN-SUFFIX,mcreasite.com
+  - DOMAIN-SUFFIX,mcusercontent.com
   - DOMAIN-SUFFIX,md-t.org
   - DOMAIN-SUFFIX,me.me
   - DOMAIN-SUFFIX,me.ns.ci
@@ -5953,6 +5954,7 @@ payload:
   - DOMAIN-SUFFIX,taiwanyes.com
   - DOMAIN-SUFFIX,taiwanyes.ning.com
   - DOMAIN-SUFFIX,talk853.com
+  - DOMAIN-SUFFIX,talkatone.com
   - DOMAIN-SUFFIX,talkboxapp.com
   - DOMAIN-SUFFIX,talkcc.com
   - DOMAIN-SUFFIX,talkonly.net
