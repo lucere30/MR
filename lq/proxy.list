@@ -4,14 +4,18 @@ DOMAIN-SUFFIX,podcasts.apple.com
 DOMAIN-SUFFIX,podcasts.itunes.apple.com
 DOMAIN-SUFFIX,play.itunes.apple.com
 DOMAIN-SUFFIX,bookkeeper.itunes.apple.com
-DOMAIN-SUFFIX,mesu.apple.com
 # 苹果词典服务需要
-DOMAIN-SUFFIX,apple-relay.apple.com
-# Apple Intelligence 登录 ChatGPT 需开启代理的域名
+DOMAIN-SUFFIX,mesu.apple.com
+# Apple Intelligence
+DOMAIN,apple-relay.apple.com
+DOMAIN,apple-relay.cloudflare.com
+DOMAIN,apple-relay.fastly-edge.com
+DOMAIN,gspe1-ssl.ls.apple.com
+# Apple News 需要  Loon 已在 news脚本中包含此规则 
 DOMAIN,gateway.icloud.com
-# Apple News 需要  Loon 已在 news 脚本中包含此规则
-#DOMAIN-KEYWORD,buy.itunes.apple.com
 # 检测购买区域 选无付款方式需要
+#DOMAIN-KEYWORD,buy.itunes.apple.com
+
 
 ### 江苏反诈劫持
 # 一般劫持到IP-CIDR,221.228.32.13/32
