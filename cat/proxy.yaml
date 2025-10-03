@@ -5,7 +5,10 @@ payload:
   - DOMAIN-SUFFIX,play.itunes.apple.com
   - DOMAIN-SUFFIX,bookkeeper.itunes.apple.com
   - DOMAIN-SUFFIX,mesu.apple.com
-  - DOMAIN-SUFFIX,apple-relay.apple.com
+  - DOMAIN,apple-relay.apple.com
+  - DOMAIN,apple-relay.cloudflare.com
+  - DOMAIN,apple-relay.fastly-edge.com
+  - DOMAIN,gspe1-ssl.ls.apple.com
   - DOMAIN,gateway.icloud.com
   - DOMAIN-SUFFIX,limbopro.com
   - DOMAIN-SUFFIX,linux.do
