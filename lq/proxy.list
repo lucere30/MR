@@ -15,7 +15,7 @@ DOMAIN-SUFFIX,apple-relay.fastly-edge.com
 DOMAIN-SUFFIX,gspe1-ssl.ls.apple.com
 DOMAIN-SUFFIX,cp4.cloudflare.com
 DOMAIN-SUFFIX,apps.mzstatic.com
-DOMAIN-SUFFIX,guzzoni.apple.com
+#DOMAIN-SUFFIX,guzzoni.apple.com
 
 # Apple News 需要  Loon 已在 news脚本中包含此规则 
 DOMAIN,gateway.icloud.com
