@@ -4,15 +4,22 @@ DOMAIN-SUFFIX,podcasts.apple.com
 DOMAIN-SUFFIX,podcasts.itunes.apple.com
 DOMAIN-SUFFIX,play.itunes.apple.com
 DOMAIN-SUFFIX,bookkeeper.itunes.apple.com
+
 # 苹果词典服务需要
 DOMAIN-SUFFIX,mesu.apple.com
+
 # Apple Intelligence
-DOMAIN,apple-relay.apple.com
-DOMAIN,apple-relay.cloudflare.com
-DOMAIN,apple-relay.fastly-edge.com
-DOMAIN,gspe1-ssl.ls.apple.com
+DOMAIN-SUFFIX,apple-relay.apple.com
+DOMAIN-SUFFIX,apple-relay.cloudflare.com
+DOMAIN-SUFFIX,apple-relay.fastly-edge.com
+DOMAIN-SUFFIX,gspe1-ssl.ls.apple.com
+DOMAIN-SUFFIX,cp4.cloudflare.com
+DOMAIN-SUFFIX,apps.mzstatic.com
+DOMAIN-SUFFIX,guzzoni.apple.com
+
 # Apple News 需要  Loon 已在 news脚本中包含此规则 
 DOMAIN,gateway.icloud.com
+
 # 检测购买区域 选无付款方式需要
 #DOMAIN-KEYWORD,buy.itunes.apple.com
 
@@ -25,10 +32,12 @@ DOMAIN-KEYWORD,pikpak
 DOMAIN-SUFFIX,sntp.uk
 DOMAIN-SUFFIX,lainbo.com
 
+
 ###
 DOMAIN-SUFFIX,kelee.one
 DOMAIN-SUFFIX,whatshub.top
 DOMAIN-SUFFIX,wd-turbo.com
+
 
 ### deepseek
 DOMAIN-SUFFIX,deepseek.com
