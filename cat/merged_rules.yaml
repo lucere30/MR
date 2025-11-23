@@ -4415,6 +4415,7 @@ payload:
   - DOMAIN-SUFFIX,name.com
   - DOMAIN-SUFFIX,namgyal.org
   - DOMAIN-SUFFIX,namgyalmonastery.org
+  - DOMAIN-SUFFIX,namu.wiki
   - DOMAIN-SUFFIX,nanopool.org
   - DOMAIN-SUFFIX,nanyang.com
   - DOMAIN-SUFFIX,nanyangpost.com
@@ -4950,6 +4951,7 @@ payload:
   - DOMAIN-SUFFIX,picgo.net
   - DOMAIN-SUFFIX,picidae.net
   - DOMAIN-SUFFIX,picjs.xyz
+  - DOMAIN-SUFFIX,picsart.com
   - DOMAIN-SUFFIX,picturedip.com
   - DOMAIN-SUFFIX,picturesocial.com
   - DOMAIN-SUFFIX,picuki.com
