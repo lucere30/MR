@@ -150,7 +150,6 @@ DOMAIN-SUFFIX,24smile.org
 DOMAIN-SUFFIX,25u.com
 DOMAIN-SUFFIX,2du5.com
 DOMAIN-SUFFIX,2lipstube.com
-DOMAIN-SUFFIX,2mdn.net
 DOMAIN-SUFFIX,2shared.com
 DOMAIN-SUFFIX,2waky.com
 DOMAIN-SUFFIX,3-a.net
@@ -5637,6 +5636,7 @@ DOMAIN-SUFFIX,sijihuisuo.com
 DOMAIN-SUFFIX,silkbook.com
 DOMAIN-SUFFIX,silvergatebank.com
 DOMAIN-SUFFIX,simbolostwitter.com
+DOMAIN-SUFFIX,simianx.ai
 DOMAIN-SUFFIX,simp.ly
 DOMAIN-SUFFIX,simplecd.me
 DOMAIN-SUFFIX,simplecd.org
@@ -7401,6 +7401,7 @@ DOMAIN-SUFFIX,yesasia.com
 DOMAIN-SUFFIX,yesasia.com.hk
 DOMAIN-SUFFIX,yespornplease.com
 DOMAIN-SUFFIX,yeyeclub.com
+DOMAIN-SUFFIX,yfsp.tv
 DOMAIN-SUFFIX,ygto.com
 DOMAIN-SUFFIX,yhcw.net
 DOMAIN-SUFFIX,yibada.com
