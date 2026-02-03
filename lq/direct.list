@@ -11,3 +11,6 @@ DOMAIN-SUFFIX,gdmf.apple.com
 ### Cable Auth
 DOMAIN,cable.auth.com
 #edge 使用 ios 的 passkey 需要
+
+### SpotifyCDN   不同省份可能连通性不同
+DOMAIN-SUFFIX,spotifycdn.com
