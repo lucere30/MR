@@ -5528,6 +5528,7 @@ payload:
   - DOMAIN-SUFFIX,seesmic.com
   - DOMAIN-SUFFIX,seevpn.com
   - DOMAIN-SUFFIX,seezone.net
+  - DOMAIN-SUFFIX,sef.org.tw
   - DOMAIN-SUFFIX,sehuatang.net
   - DOMAIN-SUFFIX,sehuatang.org
   - DOMAIN-SUFFIX,sejie.com
@@ -7215,6 +7216,7 @@ payload:
   - DOMAIN-SUFFIX,www.eastturkistan.net
   - DOMAIN-SUFFIX,www.gmiddle.com
   - DOMAIN-SUFFIX,www.gmiddle.net
+  - DOMAIN-SUFFIX,www.hoyolab.com
   - DOMAIN-SUFFIX,www.hustlercash.com
   - DOMAIN-SUFFIX,www.idlcoyote.com
   - DOMAIN-SUFFIX,www.imdb.com
