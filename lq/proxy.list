@@ -45,7 +45,7 @@ DOMAIN-SUFFIX,hero-sms.com
 ###
 DOMAIN-SUFFIX,kelee.one
 DOMAIN-SUFFIX,whatshub.top
-DOMAIN-SUFFIX,wd-turbo.com
+#DOMAIN-SUFFIX,wd-turbo.com
 DOMAIN-SUFFIX,apnews.com
 
 
