@@ -14,3 +14,6 @@ DOMAIN,cable.auth.com
 
 ### SpotifyCDN   不同省份可能连通性不同
 #DOMAIN-SUFFIX,spotifycdn.com
+
+###
+DOMAIN-SUFFIX,creamdatapro.com
