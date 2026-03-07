@@ -1710,6 +1710,7 @@ DOMAIN-SUFFIX,dmm.co.jp
 DOMAIN-SUFFIX,dmm.com
 DOMAIN-SUFFIX,dns-dns.com
 DOMAIN-SUFFIX,dns-stuff.com
+DOMAIN-SUFFIX,dns.cloudflare.com
 DOMAIN-SUFFIX,dns04.com
 DOMAIN-SUFFIX,dns05.com
 DOMAIN-SUFFIX,dns1.us
@@ -2725,6 +2726,7 @@ DOMAIN-SUFFIX,google.com.vn
 DOMAIN-SUFFIX,google.cv
 DOMAIN-SUFFIX,google.cz
 DOMAIN-SUFFIX,google.de
+DOMAIN-SUFFIX,google.dev
 DOMAIN-SUFFIX,google.dj
 DOMAIN-SUFFIX,google.dk
 DOMAIN-SUFFIX,google.dm
