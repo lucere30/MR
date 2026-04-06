@@ -516,6 +516,7 @@ payload:
   - DOMAIN-SUFFIX,appsto.re
   - DOMAIN-SUFFIX,aptoide.com
   - DOMAIN-SUFFIX,arcgis.com
+  - DOMAIN-SUFFIX,archive-it.org
   - DOMAIN-SUFFIX,archive.fo
   - DOMAIN-SUFFIX,archive.is
   - DOMAIN-SUFFIX,archive.li
@@ -1714,6 +1715,7 @@ payload:
   - DOMAIN-SUFFIX,dns-dns.com
   - DOMAIN-SUFFIX,dns-stuff.com
   - DOMAIN-SUFFIX,dns.cloudflare.com
+  - DOMAIN-SUFFIX,dns.sb
   - DOMAIN-SUFFIX,dns04.com
   - DOMAIN-SUFFIX,dns05.com
   - DOMAIN-SUFFIX,dns1.us
@@ -1734,6 +1736,7 @@ payload:
   - DOMAIN-SUFFIX,doctorvoice.org
   - DOMAIN-SUFFIX,documentingreality.com
   - DOMAIN-SUFFIX,dogfartnetwork.com
+  - DOMAIN-SUFFIX,doh.sb
   - DOMAIN-SUFFIX,dojin.com
   - DOMAIN-SUFFIX,dok-forum.net
   - DOMAIN-SUFFIX,dolc.de
@@ -1752,6 +1755,7 @@ payload:
   - DOMAIN-SUFFIX,doosho.com
   - DOMAIN-SUFFIX,doourbest.org
   - DOMAIN-SUFFIX,dorjeshugden.com
+  - DOMAIN-SUFFIX,dot.sb
   - DOMAIN-SUFFIX,dotgov.gov
   - DOMAIN-SUFFIX,dotplane.com
   - DOMAIN-SUFFIX,dotsub.com
