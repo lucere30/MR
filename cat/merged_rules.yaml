@@ -146,6 +146,7 @@ payload:
   - DOMAIN-SUFFIX,228.net.tw
   - DOMAIN-SUFFIX,233abc.com
   - DOMAIN-SUFFIX,233v2.com
+  - DOMAIN-SUFFIX,24hbook.com
   - DOMAIN-SUFFIX,24hrs.ca
   - DOMAIN-SUFFIX,24smile.org
   - DOMAIN-SUFFIX,25u.com
@@ -4011,6 +4012,7 @@ payload:
   - DOMAIN-SUFFIX,marxist.com
   - DOMAIN-SUFFIX,marxist.net
   - DOMAIN-SUFFIX,marxists.org
+  - DOMAIN-SUFFIX,mas.to
   - DOMAIN-SUFFIX,mash.to
   - DOMAIN-SUFFIX,mashable.com
   - DOMAIN-SUFFIX,maskedip.com
@@ -4411,6 +4413,7 @@ payload:
   - DOMAIN-SUFFIX,ned.org
   - DOMAIN-SUFFIX,nekoslovakia.net
   - DOMAIN-SUFFIX,neo-miracle.com
+  - DOMAIN-SUFFIX,neodb.social
   - DOMAIN-SUFFIX,neoforged.net
   - DOMAIN-SUFFIX,neowin.net
   - DOMAIN-SUFFIX,nephobox.com
