@@ -7116,6 +7116,7 @@ payload:
   - DOMAIN-SUFFIX,wikia.com
   - DOMAIN-SUFFIX,wikibooks.org
   - DOMAIN-SUFFIX,wikidata.org
+  - DOMAIN-SUFFIX,wikifunctions.org
   - DOMAIN-SUFFIX,wikileaks-forum.com
   - DOMAIN-SUFFIX,wikileaks.ch
   - DOMAIN-SUFFIX,wikileaks.com
@@ -7136,6 +7137,7 @@ payload:
   - DOMAIN-SUFFIX,wikiquote.org
   - DOMAIN-SUFFIX,wikis.tw
   - DOMAIN-SUFFIX,wikisource.org
+  - DOMAIN-SUFFIX,wikispecies.org
   - DOMAIN-SUFFIX,wikiunblocked.org
   - DOMAIN-SUFFIX,wikiversity.org
   - DOMAIN-SUFFIX,wikivoyage.org
