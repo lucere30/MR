@@ -1488,6 +1488,7 @@ DOMAIN-SUFFIX,compose-spec.io
 DOMAIN-SUFFIX,compress.to
 DOMAIN-SUFFIX,connect.facebook.net
 DOMAIN-SUFFIX,conoha.jp
+DOMAIN-SUFFIX,console.typesafe.ai
 DOMAIN-SUFFIX,constitutionalism.solutions
 DOMAIN-SUFFIX,contactmagazine.net
 DOMAIN-SUFFIX,content.office.net
@@ -2477,6 +2478,7 @@ DOMAIN-SUFFIX,g.co
 DOMAIN-SUFFIX,g.kfd.me
 DOMAIN-SUFFIX,g0v.social
 DOMAIN-SUFFIX,g6hentai.com
+DOMAIN-SUFFIX,ga.jspm.io
 DOMAIN-SUFFIX,gab.com
 DOMAIN-SUFFIX,gabia.net
 DOMAIN-SUFFIX,gabocorp.com
