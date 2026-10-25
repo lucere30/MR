@@ -2,10 +2,10 @@
   "files": [
     {
       "source": "lq/adlite.list",
-      "converted_lines": 60627,
-      "unique_entries": 60595,
+      "converted_lines": 60998,
+      "unique_entries": 60966,
       "types": {
-        "DOMAIN-SUFFIX": 60499,
+        "DOMAIN-SUFFIX": 60870,
         "IP-CIDR": 128
       },
       "no_resolve_lines": 128,
