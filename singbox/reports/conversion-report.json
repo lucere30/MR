@@ -9,8 +9,7 @@
         "IP-CIDR": 128
       },
       "no_resolve_lines": 128,
-      "skipped": [],
-      "windows_process_supplements": []
+      "skipped": []
     },
     {
       "source": "lq/direct.list",
@@ -21,8 +20,7 @@
         "DOMAIN-SUFFIX": 5
       },
       "no_resolve_lines": 0,
-      "skipped": [],
-      "windows_process_supplements": []
+      "skipped": []
     },
     {
       "source": "lq/merged_rules.txt",
@@ -432,66 +430,7 @@
           "rule": "USER-AGENT,mytv*",
           "reason": "No equivalent sing-box headless rule field"
         }
-      ],
-      "windows_process_supplements": [
-        {
-          "line": 7644,
-          "rule": "USER-AGENT,*Spotify*",
-          "application": "Spotify",
-          "process_names": [
-            "Spotify.exe"
-          ],
-          "sources": [
-            "https://community.spotify.com/forum/en/discussion/comment/7481665"
-          ],
-          "verified_on": "2026-10-25",
-          "equivalent": false,
-          "note": "Optional Windows desktop process match; covers the process connections, not HTTP User-Agent matching"
-        },
-        {
-          "line": 7685,
-          "rule": "USER-AGENT,OneDrive*",
-          "application": "OneDrive",
-          "process_names": [
-            "OneDrive.exe"
-          ],
-          "sources": [
-            "https://learn.microsoft.com/en-us/sharepoint/deploy-on-windows"
-          ],
-          "verified_on": "2026-10-25",
-          "equivalent": false,
-          "note": "Optional Windows desktop process match; covers the process connections, not HTTP User-Agent matching"
-        },
-        {
-          "line": 7696,
-          "rule": "USER-AGENT,Spotify*",
-          "application": "Spotify",
-          "process_names": [
-            "Spotify.exe"
-          ],
-          "sources": [
-            "https://community.spotify.com/forum/en/discussion/comment/7481665"
-          ],
-          "verified_on": "2026-10-25",
-          "equivalent": false,
-          "note": "Optional Windows desktop process match; covers the process connections, not HTTP User-Agent matching"
-        },
-        {
-          "line": 7720,
-          "rule": "USER-AGENT,hearthstone*",
-          "application": "Hearthstone",
-          "process_names": [
-            "Hearthstone.exe"
-          ],
-          "sources": [
-            "https://us.forums.blizzard.com/en/hearthstone/t/pc-game-crashes-multiple-times-unity-error/141864"
-          ],
-          "verified_on": "2026-10-25",
-          "equivalent": false,
-          "note": "Optional Windows desktop process match; covers the process connections, not HTTP User-Agent matching"
-        }
-      ],
-      "windows_process_output": "singbox/merged_rules_windows_process.json"
+      ]
     },
     {
       "source": "lq/proxy.list",
@@ -503,8 +442,7 @@
         "DOMAIN-SUFFIX": 30
       },
       "no_resolve_lines": 0,
-      "skipped": [],
-      "windows_process_supplements": []
+      "skipped": []
     }
   ]
 }
