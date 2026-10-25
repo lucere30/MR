@@ -9,6 +9,7 @@ on:
       - 'lq/*.list'
       - 'lq/*.txt'
       - 'scripts/loon_to_singbox.py'
+      - 'scripts/windows_process_map.json'
       - 'tests/test_loon_to_singbox.py'
       - '.github/workflows/Auto Convert.yml'
   workflow_run:

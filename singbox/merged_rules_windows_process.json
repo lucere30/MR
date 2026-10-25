@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "process_name": [
+        "Hearthstone.exe",
+        "OneDrive.exe",
+        "Spotify.exe"
+      ]
+    }
+  ]
+}

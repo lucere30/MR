@@ -19,10 +19,34 @@ FIELDS = {
 UNSUPPORTED = {"USER-AGENT", "URL-REGEX"}
 
 
-def convert(text, source):
+def load_process_map(path):
+    """Load reviewed exact UA-pattern mappings, never infer executable names."""
+    data = json.loads(path.read_text(encoding="utf-8"))
+    if data.get("version") != 1 or not isinstance(data.get("mappings"), list):
+        raise ValueError(f"{path}: invalid Windows process mapping format")
+    mappings = {}
+    for entry in data["mappings"]:
+        names = entry.get("process_names")
+        patterns = entry.get("user_agents")
+        sources = entry.get("sources")
+        if not entry.get("application") or not entry.get("verified_on") or not sources or not isinstance(sources, list) or not all(isinstance(url, str) and url.startswith("https://") for url in sources):
+            raise ValueError(f"{path}: mapping must include application, verification date and evidence URLs")
+        if not names or not isinstance(names, list) or not all(isinstance(name, str) and name.lower().endswith(".exe") and not any(char in name for char in '*?[]/\\:') and name == name.strip() for name in names):
+            raise ValueError(f"{path}: process_names must contain literal Windows executable basenames")
+        if not patterns or not isinstance(patterns, list) or not all(isinstance(pattern, str) and pattern.strip() and ',' not in pattern for pattern in patterns):
+            raise ValueError(f"{path}: user_agents must contain exact source UA patterns without policies")
+        for pattern in patterns:
+            if pattern in mappings:
+                raise ValueError(f"{path}: duplicate UA mapping: {pattern}")
+            mappings[pattern] = entry
+    return mappings
+
+
+def convert(text, source, process_map=None):
     values = defaultdict(set)
     counts = Counter()
     skipped = []
+    process_supplements = []
     no_resolve = 0
     for number, raw in enumerate(text.splitlines(), 1):
         line = raw.strip().lstrip("\ufeff")
@@ -34,6 +58,19 @@ def convert(text, source):
             raise ValueError(f"{source}:{number}: malformed rule: {line}")
         if kind in UNSUPPORTED:
             skipped.append({"line": number, "rule": line, "reason": "No equivalent sing-box headless rule field"})
+            # The literal UA pattern must be reviewed in the mapping table.
+            # Do not fnmatch against arbitrary UA rules or invent .exe names.
+            mapping = (process_map or {}).get(rest.strip()) if kind == "USER-AGENT" else None
+            if mapping:
+                process_supplements.append({
+                    "line": number, "rule": line,
+                    "application": mapping["application"],
+                    "process_names": mapping["process_names"],
+                    "sources": mapping["sources"],
+                    "verified_on": mapping["verified_on"],
+                    "equivalent": False,
+                    "note": "Optional Windows desktop process match; covers the process connections, not HTTP User-Agent matching",
+                })
             continue
         if kind not in FIELDS:
             raise ValueError(f"{source}:{number}: unsupported rule type {kind}")
@@ -64,10 +101,11 @@ def convert(text, source):
         "types": dict(sorted(counts.items())),
         "no_resolve_lines": no_resolve,
         "skipped": skipped,
+        "windows_process_supplements": process_supplements,
     }
 
 
-def generate(source_dir, output_dir, report_path):
+def generate(source_dir, output_dir, report_path, process_map=None):
     files = sorted(path for path in source_dir.iterdir() if path.is_file() and path.suffix in {".list", ".txt"})
     if not files:
         raise ValueError(f"No .list or .txt files in {source_dir}")
@@ -78,8 +116,16 @@ def generate(source_dir, output_dir, report_path):
         name = path.stem + ".json"
         if name in outputs:
             raise ValueError(f"Duplicate output filename: {name}")
-        data, report = convert(path.read_text(encoding="utf-8-sig"), path.as_posix())
+        data, report = convert(path.read_text(encoding="utf-8-sig"), path.as_posix(), process_map)
         outputs[name] = data
+        supplements = report["windows_process_supplements"]
+        if supplements:
+            process_name = path.stem + "_windows_process.json"
+            if process_name in outputs:
+                raise ValueError(f"Duplicate output filename: {process_name}")
+            names = sorted({name for item in supplements for name in item["process_names"]})
+            outputs[process_name] = {"version": 2, "rules": [{"process_name": names}]}
+            report["windows_process_output"] = (output_dir / process_name).as_posix()
         reports.append(report)
     output_dir.mkdir(parents=True, exist_ok=True)
     for name, data in outputs.items():
@@ -94,6 +140,8 @@ def generate(source_dir, output_dir, report_path):
         print(f"{report['source']}: {report['converted_lines']} converted, {len(report['skipped'])} skipped")
         if report["skipped"]:
             print(f"::warning::{report['source']}: skipped {len(report['skipped'])} USER-AGENT/URL-REGEX rules; see {report_path}")
+        if report["windows_process_supplements"]:
+            print(f"{report['windows_process_output']}: {len(report['windows_process_supplements'])} UA rules have optional Windows process alternatives (not equivalent)")
     return reports
 
 
@@ -102,9 +150,10 @@ def main():
     parser.add_argument("--source", type=Path, default=Path("lq"))
     parser.add_argument("--output", type=Path, default=Path("singbox"))
     parser.add_argument("--report", type=Path, default=Path("singbox/reports/conversion-report.json"))
+    parser.add_argument("--process-map", type=Path, default=Path(__file__).with_name("windows_process_map.json"))
     args = parser.parse_args()
     try:
-        generate(args.source, args.output, args.report)
+        generate(args.source, args.output, args.report, load_process_map(args.process_map))
     except (ValueError, OSError) as error:
         print(f"Conversion failed: {error}", file=sys.stderr)
         return 1
