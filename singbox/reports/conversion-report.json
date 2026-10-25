@@ -1,0 +1,448 @@
+{
+  "files": [
+    {
+      "source": "lq/adlite.list",
+      "converted_lines": 60627,
+      "unique_entries": 60595,
+      "types": {
+        "DOMAIN-SUFFIX": 60499,
+        "IP-CIDR": 128
+      },
+      "no_resolve_lines": 128,
+      "skipped": []
+    },
+    {
+      "source": "lq/direct.list",
+      "converted_lines": 7,
+      "unique_entries": 7,
+      "types": {
+        "DOMAIN": 2,
+        "DOMAIN-SUFFIX": 5
+      },
+      "no_resolve_lines": 0,
+      "skipped": []
+    },
+    {
+      "source": "lq/merged_rules.txt",
+      "converted_lines": 8670,
+      "unique_entries": 8670,
+      "types": {
+        "DOMAIN": 30,
+        "DOMAIN-KEYWORD": 56,
+        "DOMAIN-SUFFIX": 7556,
+        "IP-CIDR": 1018,
+        "IP-CIDR6": 10
+      },
+      "no_resolve_lines": 1028,
+      "skipped": [
+        {
+          "line": 7643,
+          "rule": "URL-REGEX,^https?:\\/\\/www\\.amazon\\.com\\/(Amazon-Video|gp\\/video)\\/",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7644,
+          "rule": "USER-AGENT,*Spotify*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7645,
+          "rule": "USER-AGENT,*YouTubeMusic*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7646,
+          "rule": "USER-AGENT,*com.google.ios.youtubemusic*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7647,
+          "rule": "USER-AGENT,*youtube*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7648,
+          "rule": "USER-AGENT,AbemaTV*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7649,
+          "rule": "USER-AGENT,All4*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7650,
+          "rule": "USER-AGENT,Anime*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7651,
+          "rule": "USER-AGENT,AppleTV*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7652,
+          "rule": "USER-AGENT,Argo*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7653,
+          "rule": "USER-AGENT,BBCiPlayer*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7654,
+          "rule": "USER-AGENT,DAZN*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7655,
+          "rule": "USER-AGENT,DPlus*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7656,
+          "rule": "USER-AGENT,Deezer*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7657,
+          "rule": "USER-AGENT,Disney*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7658,
+          "rule": "USER-AGENT,Disney+*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7659,
+          "rule": "USER-AGENT,Duolingo*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7660,
+          "rule": "USER-AGENT,FOX%20NOW*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7661,
+          "rule": "USER-AGENT,FOXNOW*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7662,
+          "rule": "USER-AGENT,FOXPlus*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7663,
+          "rule": "USER-AGENT,HBO%20GO%20PROD%20HKG*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7664,
+          "rule": "USER-AGENT,HBO%20GO%20PROD*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7665,
+          "rule": "USER-AGENT,HBO%20NOW*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7666,
+          "rule": "USER-AGENT,HBO*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7667,
+          "rule": "USER-AGENT,HBOGOPRODHKG*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7668,
+          "rule": "USER-AGENT,HBOMAX*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7669,
+          "rule": "USER-AGENT,HBONOW*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7670,
+          "rule": "USER-AGENT,HWTVMobile*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7671,
+          "rule": "USER-AGENT,Himalaya*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7672,
+          "rule": "USER-AGENT,Hulu*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7673,
+          "rule": "USER-AGENT,ITV_Player*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7674,
+          "rule": "USER-AGENT,InstantVideo.US*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7675,
+          "rule": "USER-AGENT,JOOX*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7676,
+          "rule": "USER-AGENT,KKTV*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7677,
+          "rule": "USER-AGENT,LINE%20TV*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7678,
+          "rule": "USER-AGENT,LINE*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7679,
+          "rule": "USER-AGENT,LINETV*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7680,
+          "rule": "USER-AGENT,Max*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7681,
+          "rule": "USER-AGENT,My5*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7682,
+          "rule": "USER-AGENT,Naver%20TV*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7683,
+          "rule": "USER-AGENT,NaverTV*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7684,
+          "rule": "USER-AGENT,Niconico*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7685,
+          "rule": "USER-AGENT,OneDrive*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7686,
+          "rule": "USER-AGENT,Overcast*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7687,
+          "rule": "USER-AGENT,PBS*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7688,
+          "rule": "USER-AGENT,PPlus*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7689,
+          "rule": "USER-AGENT,Pandora*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7690,
+          "rule": "USER-AGENT,PayPal*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7691,
+          "rule": "USER-AGENT,PeacockMobile*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7692,
+          "rule": "USER-AGENT,Prime%20Video*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7693,
+          "rule": "USER-AGENT,PrimeVideo*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7694,
+          "rule": "USER-AGENT,Roam*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7695,
+          "rule": "USER-AGENT,SoundCloud*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7696,
+          "rule": "USER-AGENT,Spotify*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7697,
+          "rule": "USER-AGENT,TIDAL*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7698,
+          "rule": "USER-AGENT,TIDAL*dia",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7699,
+          "rule": "USER-AGENT,TVer-Release*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7700,
+          "rule": "USER-AGENT,TaiwanGood*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7701,
+          "rule": "USER-AGENT,TikTok*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7702,
+          "rule": "USER-AGENT,TwDramas",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7703,
+          "rule": "USER-AGENT,Viu*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7704,
+          "rule": "USER-AGENT,ViuTV*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7705,
+          "rule": "USER-AGENT,WeMusic*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7706,
+          "rule": "USER-AGENT,WeTV*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7707,
+          "rule": "USER-AGENT,WhatsApp*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7708,
+          "rule": "USER-AGENT,YouTube*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7709,
+          "rule": "USER-AGENT,YouTubeMusic*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7710,
+          "rule": "USER-AGENT,app/bstar*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7711,
+          "rule": "USER-AGENT,battleroyale*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7712,
+          "rule": "USER-AGENT,com.apple.trustd*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7713,
+          "rule": "USER-AGENT,com.apple.tv*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7714,
+          "rule": "USER-AGENT,com.google.ios.youtube*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7715,
+          "rule": "USER-AGENT,com.google.ios.youtubemusic*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7716,
+          "rule": "USER-AGENT,com.kktv*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7717,
+          "rule": "USER-AGENT,com.kktv.ios.kktv*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7718,
+          "rule": "USER-AGENT,discovery+*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7719,
+          "rule": "USER-AGENT,encoreTVB*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7720,
+          "rule": "USER-AGENT,hearthstone*",
+          "reason": "No equivalent sing-box headless rule field"
+        },
+        {
+          "line": 7721,
+          "rule": "USER-AGENT,mytv*",
+          "reason": "No equivalent sing-box headless rule field"
+        }
+      ]
+    },
+    {
+      "source": "lq/proxy.list",
+      "converted_lines": 33,
+      "unique_entries": 33,
+      "types": {
+        "DOMAIN": 2,
+        "DOMAIN-KEYWORD": 1,
+        "DOMAIN-SUFFIX": 30
+      },
+      "no_resolve_lines": 0,
+      "skipped": []
+    }
+  ]
+}

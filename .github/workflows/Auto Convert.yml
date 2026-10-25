@@ -4,17 +4,42 @@ on:
   schedule:
     - cron: '0 21 * * *'  # 每天 UTC 21:00 运行
   push:
+    branches: [main]
     paths:
       - 'lq/*.list'
       - 'lq/*.txt'
+      - 'scripts/loon_to_singbox.py'
+      - 'tests/test_loon_to_singbox.py'
+      - '.github/workflows/Auto Convert.yml'
+  workflow_run:
+    workflows: [Merge, Sync and Process ADLite]
+    types: [completed]
+    branches: [main]
   workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: auto-convert-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   convert:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Test Loon to sing-box converter
+        run: python3 -m unittest discover -s tests -v
+
+      - name: Convert Loon rules to sing-box format
+        run: python3 scripts/loon_to_singbox.py
 
 
       - name: Convert rules to Clash format
@@ -87,13 +112,15 @@ jobs:
             
             # 使用 find 命令添加文件
             find cat -name "*.yaml" -exec git add {} \;
+            git add -A singbox/
             
             # 检查是否有改动
             if git diff --staged --quiet; then
               echo "No changes to commit"
             else
               git commit -m "chore: Auto Convert"
-              git push
+              git pull --rebase origin main
+              git push origin HEAD:main
             fi
           else
             echo "No yaml files found in cat/"
