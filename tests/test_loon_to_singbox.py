@@ -31,7 +31,7 @@ class ConversionTests(unittest.TestCase):
             with self.subTest(line=line), self.assertRaises(ValueError):
                 converter.convert(line, "sample")
 
-    def test_generation_is_deterministic_and_removes_stale_outputs(self):
+    def test_generation_is_deterministic_and_preserves_old_outputs(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
             source, output = root / "lq", root / "singbox"
@@ -45,7 +45,7 @@ class ConversionTests(unittest.TestCase):
             first = (output / "proxy.json").read_bytes()
             converter.generate(source, output, report)
             self.assertEqual(first, (output / "proxy.json").read_bytes())
-            self.assertFalse((output / "old.json").exists())
+            self.assertEqual((output / "old.json").read_text(), "{}")
             self.assertTrue((output / "README.md").exists())
             self.assertEqual(len(json.loads(report.read_text())["files"]), 1)
             (source / "broken.list").write_text("DOMAIN,a.example,PROXY")

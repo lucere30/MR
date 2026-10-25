@@ -13,12 +13,26 @@
 
 `Auto Convert` 保留原有 Clash 转换，并生成、提交 sing-box 规则集和转换报告。支持手动运行、源文件/转换器变更触发、每天 UTC 21:00（北京时间次日 05:00）定时运行，以及 `Merge`、`Sync and Process ADLite` 成功完成后触发。后者也能处理由 `GITHUB_TOKEN` 提交规则时不会继续触发 push workflow 的情况。
 
+转换和发布由三个脚本负责：
+
+- `scripts/loon_to_clash.py`：一次遍历生成 `cat/*.yaml`，保留规则顺序和重复项，过滤清理后的空行、注释。解析生成的 YAML 并与原规则字符串逐项比较；遇到会改变 YAML 含义的字符时使用引号编码，避免 `null`、映射对象或规则截断。
+- `scripts/loon_to_singbox.py`：生成 sing-box JSON 和兼容性报告，保持现有的规则映射、去重和排序行为。
+- `scripts/auto_convert.py`：每次从最新 `main` 的临时工作副本分别运行两种格式的测试和转换，只有某种格式全部成功后才发布该格式的结果。另一种格式失败时保留其已发布文件，workflow 仍会报告失败，不会将部分结果当成全部成功。
+
+发布前重新检查远端。远端有更新或推送被拒绝时，从最新提交重新转换，最多尝试 3 次；不再将旧转换结果直接 rebase 到新源文件上。没有输出变化时不创建提交。
+
+**不自动删除旧文件。** 删除或重命名 `lq/` 源文件不会删除 `cat/`、`singbox/` 中已存在的文件；两个独立转换脚本也保留旧输出。需要清理时请手动处理。转换过程中使用的临时文件清理不影响仓库中已有规则。
+
 本地生成：
 
 ```sh
+python3 -m pip install PyYAML==6.0.3
 python3 -m unittest discover -s tests -v
+python3 scripts/loon_to_clash.py
 python3 scripts/loon_to_singbox.py
 ```
+
+`auto_convert.py` 会实际向 `origin/main` 推送，供 workflow 使用；本地只生成文件时使用上面两个转换脚本。
 
 ## 兼容性与限制
 

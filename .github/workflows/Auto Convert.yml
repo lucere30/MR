@@ -9,7 +9,11 @@ on:
       - 'lq/*.list'
       - 'lq/*.txt'
       - 'scripts/loon_to_singbox.py'
+      - 'scripts/loon_to_clash.py'
+      - 'scripts/auto_convert.py'
       - 'tests/test_loon_to_singbox.py'
+      - 'tests/test_loon_to_clash.py'
+      - 'tests/test_auto_convert.py'
       - '.github/workflows/Auto Convert.yml'
   workflow_run:
     workflows: [Merge, Sync and Process ADLite]
@@ -21,13 +25,14 @@ permissions:
   contents: write
 
 concurrency:
-  group: auto-convert-${{ github.ref }}
+  group: auto-convert-main
   cancel-in-progress: false
 
 jobs:
   convert:
     if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -35,94 +40,11 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: Test Loon to sing-box converter
-        run: python3 -m unittest discover -s tests -v
+      - name: Install YAML validator
+        run: python3 -m pip install --disable-pip-version-check PyYAML==6.0.3
 
-      - name: Convert Loon rules to sing-box format
-        run: python3 scripts/loon_to_singbox.py
+      - name: Test publication and retry behavior
+        run: python3 -m unittest discover -s tests -p 'test_auto_convert.py' -v
 
-
-      - name: Convert rules to Clash format
-        run: |
-          # 确保输出目录存在
-          mkdir -p cat
-          
-          # 初始化转换标志
-          CONVERTED=false
-          
-          # 检查源文件目录是否存在
-          if [ ! -d "lq" ]; then
-            echo "Error: Source directory lq does not exist"
-            exit 1
-          fi
-          
-          # 检查是否有源文件
-          shopt -s nullglob
-          files=(lq/*.{list,txt})
-          if [ ${#files[@]} -eq 0 ]; then
-            echo "No .list or .txt files found in lq/"
-            exit 0
-          fi
-          
-          # 处理每个文件
-          for file in "${files[@]}"; do
-            echo "Processing file: $file"
-            
-            # 获取文件名（不含扩展名）
-            filename=$(basename "$file" | sed 's/\.[^.]*$//')
-            
-            # 创建输出文件
-            output_file="cat/${filename}.yaml"
-            
-            # 写入 yaml 头部
-            echo "payload:" > "$output_file"
-            
-            # 处理文件内容
-            while IFS= read -r line || [ -n "$line" ]; do
-              # 跳过空行和注释行
-              [[ -z "$line" || "$line" =~ ^[[:space:]]*# ]] && continue
-              
-              # 移除可能存在的回车符并去除前后空格
-              line=$(echo "$line" | tr -d '\r' | awk '{$1=$1};1')
-              
-              # 写入规则
-              echo "  - $line" >> "$output_file"
-            done < "$file"
-            
-            echo "Created file: $output_file"
-            CONVERTED=true
-          done
-          
-          # 检查是否有生成的文件
-          if [ "$CONVERTED" = true ]; then
-            echo "Conversion completed successfully"
-            echo "Generated files in cat/:"
-            ls -la cat/
-          else
-            echo "No files were converted"
-            exit 1
-          fi
-
-      - name: Commit and push changes
-        run: |
-          # 检查是否有 yaml 文件
-          if [ -n "$(find cat -maxdepth 1 -name '*.yaml' -print -quit)" ]; then
-            git config user.name "GitHub Action"
-            git config user.email "action@github.com"
-            
-            # 使用 find 命令添加文件
-            find cat -name "*.yaml" -exec git add {} \;
-            git add -A singbox/
-            
-            # 检查是否有改动
-            if git diff --staged --quiet; then
-              echo "No changes to commit"
-            else
-              git commit -m "chore: Auto Convert"
-              git pull --rebase origin main
-              git push origin HEAD:main
-            fi
-          else
-            echo "No yaml files found in cat/"
-            exit 1
-          fi
+      - name: Convert, validate and publish both formats
+        run: python3 scripts/auto_convert.py --attempts 3
