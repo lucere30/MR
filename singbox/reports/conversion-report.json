@@ -2,22 +2,22 @@
   "files": [
     {
       "source": "lq/adlite.list",
-      "converted_lines": 60998,
-      "unique_entries": 60966,
+      "converted_lines": 38604,
+      "unique_entries": 38571,
       "types": {
-        "DOMAIN-SUFFIX": 60870,
-        "IP-CIDR": 128
+        "DOMAIN-SUFFIX": 38479,
+        "IP-CIDR": 125
       },
-      "no_resolve_lines": 128,
+      "no_resolve_lines": 125,
       "skipped": [],
       "outputs": {
         "domain": {
           "path": "adlite_domain.json",
-          "entries": 60841
+          "entries": 38449
         },
         "ip": {
           "path": "adlite_ip.json",
-          "entries": 125
+          "entries": 122
         }
       }
     },
