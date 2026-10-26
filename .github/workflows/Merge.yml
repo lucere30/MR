@@ -1,112 +1,41 @@
 name: Merge
 
 on:
-  # 每天定时触发（UTC 时间20:00）以及手动触发
   schedule:
-    - cron: '0 20 * * *'
+    - cron: '0 20 * * *'  # UTC 20:00 / SGT 04:00 next day
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/Merge.yml'
+      - 'scripts/sync_rules.py'
+      - 'tests/test_sync_rules.py'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-merge-main
+  cancel-in-progress: false
 
 jobs:
   update-rules:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      # 检出仓库代码
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Checkout main
+        uses: actions/checkout@v7
+        with:
+          ref: main
 
-      # 从多个 URL 下载规则文件，并合并为一个总文件
-      - name: Download source rules from multiple URLs
+      - name: Test validation and publication
         run: |
-          # 定义多个规则文件的 URL
-          urls=(
-            "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/ProxyLite/ProxyLite.list"
-            "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Global/Global.list"
-            "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Proxy/Proxy.list"
-            "https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/ruleset/gfw.txt"
-            "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/GlobalMedia/GlobalMedia.list"
-          )
-          # 分别下载并保存为不同的文件
-          for url in "${urls[@]}"; do
-            filename=$(basename "$url")
-            echo "Downloading $url to source_rules_${filename}"
-            curl -sSL "$url" -o "source_rules_${filename}"
-          done
-          # 将所有下载的文件合并到一个 source_rules.txt 文件中
-          cat source_rules_* > source_rules.txt
-
-      # 使用 Python 处理规则：对非 IP-CIDR 规则进行去重，对 IP-CIDR 和 IP-CIDR6 规则进行合并，并在输出时追加 ,no-resolve
-      - name: Process rules (deduplicate & merge IP-CIDR and IP-CIDR6 with no-resolve)
-        run: |
-          python - << 'EOF'
-          import ipaddress
-
-          # 读取所有规则，过滤掉空行和注释行
-          with open('source_rules.txt', 'r') as f:
-              lines = [line.strip() for line in f if line.strip() and not line.startswith('#')]
-
-          # 用于存储非 IP-CIDR 和 IP-CIDR6 规则（直接集合去重）
-          others = set()
-          # 用于存储 IP-CIDR 和 IP-CIDR6 规则的 ipaddress 对象
-          ipcidr_networks = []
-          ipcidr6_networks = []
-
-          for line in lines:
-              # 判断规则是否为 IP-CIDR 或 IP-CIDR6 规则（格式：IP-CIDR,网络[,其他] 或 IP-CIDR6,网络[,其他]）
-              if line.startswith("IP-CIDR,"):
-                  parts = line.split(',')
-                  if len(parts) >= 2:
-                      network_str = parts[1].strip()
-                      try:
-                          net = ipaddress.ip_network(network_str, strict=False)
-                          ipcidr_networks.append(net)
-                      except ValueError:
-                          # 如果解析失败，则视为普通规则
-                          others.add(line)
-                  else:
-                      others.add(line)
-              elif line.startswith("IP-CIDR6,"):
-                  parts = line.split(',')
-                  if len(parts) >= 2:
-                      network_str = parts[1].strip()
-                      try:
-                          net = ipaddress.ip_network(network_str, strict=False)
-                          ipcidr6_networks.append(net)
-                      except ValueError:
-                          # 如果解析失败，则视为普通规则
-                          others.add(line)
-                  else:
-                      others.add(line)
-              else:
-                  others.add(line)
-
-          # 合并 IP-CIDR 和 IP-CIDR6 网络（collapse_addresses 会同时去重和合并相邻/包含的网段）
-          merged_ipcidrs = list(ipaddress.collapse_addresses(ipcidr_networks))
-          merged_ipcidr6s = list(ipaddress.collapse_addresses(ipcidr6_networks))
-
-          # 将结果写入 merged_rules.txt 文件
-          with open('merged_rules.txt', 'w') as out:
-              # 先写入其他规则（按字母排序）
-              for rule in sorted(others):
-                  out.write(rule + "\n")
-              # 再写入合并后的 IP-CIDR 规则，末尾追加 ,no-resolve
-              for net in sorted(merged_ipcidrs, key=lambda n: (n.version, n.network_address, n.prefixlen)):
-                  out.write("IP-CIDR," + str(net) + ",no-resolve\n")
-              # 再写入合并后的 IP-CIDR6 规则，末尾追加 ,no-resolve
-              for net in sorted(merged_ipcidr6s, key=lambda n: (n.version, n.network_address, n.prefixlen)):
-                  out.write("IP-CIDR6," + str(net) + ",no-resolve\n")
-          EOF
-
-      # 如果生成的 merged_rules.txt 有变化，则提交更新到仓库
-      - name: Commit and push changes
-        run: |
-          git config user.name "GitHub Action"
-          git config user.email "action@github.com"
-          mkdir -p lq  # 确保 lq 目录存在
-          mv merged_rules.txt lq/  # 移动文件到 lq 目录
-          git add lq/merged_rules.txt  # 添加 lq 目录下的文件
-          if ! git diff --cached --quiet; then
-              git commit -m "Update merged rules [skip ci]"
-              git push origin HEAD:main
+          if python3 -m unittest discover -s tests -p 'test_sync_rules.py' -v; then
+            echo 'Rule sync tests passed.' >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo 'Rule sync tests failed; publication was skipped.' >> "$GITHUB_STEP_SUMMARY"
+            exit 1
           fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Download, validate and publish
+        run: python3 scripts/sync_rules.py merge --publish --attempts 3
