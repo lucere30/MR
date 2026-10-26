@@ -11,7 +11,7 @@
 
 以上文件都直接位于 `singbox/`。域名文件只包含 `domain`、`domain_suffix`、`domain_keyword`；IP 文件只包含 `ip_cidr`（包括 IPv4 和 IPv6）。每个源文件都生成两份文件，缺少某类规则时使用 `"rules": []` 表示不匹配任何目标，绝不生成可能匹配全部目标的空规则对象 `{}`。
 
-旧的 `adlite.json`、`direct.json`、`proxy.json`、`merged_rules.json` 按不删除约定保留，但不再更新。请把旧订阅切换到新的 `_domain.json` / `_ip.json`；需要覆盖原有全部条件时引用两份规则集，并按主配置安排匹配顺序。
+旧的 `adlite.json`、`direct.json`、`proxy.json`、`merged_rules.json` 已移除，旧地址不再可用。请把旧订阅切换到新的 `_domain.json` / `_ip.json`；需要覆盖原有全部条件时引用两份规则集，并按主配置安排匹配顺序。
 
 ## 开关
 
