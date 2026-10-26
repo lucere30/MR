@@ -10,7 +10,14 @@ workflow、共用脚本或测试也会触发验证及同步。成功后仍由现
 ## 处理约定
 
 - Merge 保留非 IP 规则去重、排序，以及 IPv4 / IPv6 分别合并网段的逻辑。
-- ADLite 保留注释、空行、规则顺序和重复规则。仅 IP 规则补充一个 `no-resolve`，
+- 两个同步任务都执行域名覆盖去重：同一输出中，`DOMAIN-SUFFIX,example.com`
+  可以去掉子域名后缀，以及 `example.com` 本身和子域名的 `DOMAIN` 规则。
+  按域名标签边界检查父域名集合，不会把 `notexample.com` 当作子域名；不跨文件去重。
+  仅处理无额外选项的小写 ASCII 普通域名（至少两段）。大小写混合、前后带点、
+  通配符、Unicode 等特殊写法保留，关键词、正则和 UA 不参与覆盖判断。
+  完全相同的行仍由 Merge 原有逻辑去重，ADLite 不额外删除这类重复行。
+  Actions 摘要分别统计被覆盖的后缀规则和精确域名规则数量。
+- ADLite 保留注释、空行及剩余规则的顺序。仅 IP 规则补充一个 `no-resolve`，
   同时处理 IPv4 和 IPv6，保留上游地址写法。
 - 当前支持 `DOMAIN`、`DOMAIN-SUFFIX`、`DOMAIN-KEYWORD`、`USER-AGENT`、
   `URL-REGEX`、`IP-CIDR` 和 `IP-CIDR6`。UA 和 URL 表达式保持原样。

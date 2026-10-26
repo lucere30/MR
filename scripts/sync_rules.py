@@ -27,6 +27,52 @@ OUTPUTS = {"merge": "lq/merged_rules.txt", "adlite": "lq/adlite.list"}
 WORKFLOWS = {"merge": "Merge.yml", "adlite": "Sync and Process ADLite.yml"}
 DOMAIN_TYPES = {"DOMAIN", "DOMAIN-SUFFIX", "DOMAIN-KEYWORD"}
 TEXT_TYPES = DOMAIN_TYPES | {"USER-AGENT", "URL-REGEX"}
+PLAIN_LABEL = re.compile(r"[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\Z")
+
+
+def remove_covered_domains(lines, report):
+    """Remove only plain DNS names covered by a DOMAIN-SUFFIX in this list.
+
+    Use label-boundary ancestor lookups, not pairwise comparisons. Keep the
+    original spelling/order of retained lines, including comments and blanks.
+    Unusual spellings, wildcards and rules with options are left untouched.
+    """
+    candidates = {}
+    suffixes = set()
+    for index, original in enumerate(lines):
+        fields = original.strip().split(",")
+        if len(fields) != 2 or fields[0] not in {"DOMAIN", "DOMAIN-SUFFIX"}:
+            continue
+        kind, domain = fields
+        labels = domain.split(".")
+        if (len(domain) > 253 or len(labels) < 2
+                or not all(PLAIN_LABEL.fullmatch(label) for label in labels)):
+            continue
+        try:
+            ipaddress.ip_address(domain)
+        except ValueError:
+            pass
+        else:
+            continue
+        candidates[index] = (kind, domain, labels)
+        if kind == "DOMAIN-SUFFIX":
+            suffixes.add(domain)
+
+    removed = set()
+    counts = {"DOMAIN": 0, "DOMAIN-SUFFIX": 0}
+    for index, (kind, domain, labels) in candidates.items():
+        covered = kind == "DOMAIN" and domain in suffixes
+        if not covered:
+            covered = any(".".join(labels[start:]) in suffixes
+                          for start in range(1, len(labels)))
+        if covered:
+            removed.add(index)
+            counts[kind] += 1
+    report.update(domain_coverage_candidates=len(candidates),
+                  domain_coverage_removed=counts["DOMAIN"],
+                  suffix_coverage_removed=counts["DOMAIN-SUFFIX"],
+                  coverage_removed_total=len(removed))
+    return [line for index, line in enumerate(lines) if index not in removed]
 
 
 def parse_rules(text, source):
@@ -88,7 +134,8 @@ def process(sources, mode, report):
                 # Validate the address, but preserve upstream spelling/host bits.
                 address = line.split(",")[1].strip()
                 lines[number - 1] = f"{kind},{address},no-resolve"
-        report["output_rules"] = len(rules)
+        lines = remove_covered_domains(lines, report)
+        report["output_rules"] = len(rules) - report["coverage_removed_total"]
         return "\n".join(lines) + "\n"
 
     others, ipv4, ipv6 = set(), [], []
@@ -102,12 +149,14 @@ def process(sources, mode, report):
                 (ipv4 if network.version == 4 else ipv6).append(network)
     merged4 = list(ipaddress.collapse_addresses(ipv4))
     merged6 = list(ipaddress.collapse_addresses(ipv6))
-    output = sorted(others)
+    non_ip_unique = len(others)
+    output = remove_covered_domains(sorted(others), report)
+    non_ip_after = len(output)
     for kind, networks in (("IP-CIDR", merged4), ("IP-CIDR6", merged6)):
         for network in sorted(networks, key=lambda n: (n.network_address, n.prefixlen)):
             output.append(f"{kind},{network},no-resolve")
     report.update(output_rules=len(output), non_ip_before=non_ip_count,
-                  non_ip_after=len(others), ipv4_before=len(ipv4),
+                  non_ip_unique=non_ip_unique, non_ip_after=non_ip_after, ipv4_before=len(ipv4),
                   ipv4_after=len(merged4), ipv6_before=len(ipv6), ipv6_after=len(merged6))
     return "\n".join(output) + "\n"
 
@@ -204,6 +253,13 @@ def summary(mode, report):
     for label in ("non_ip", "ipv4", "ipv6"):
         if f"{label}_before" in report:
             rows += ["", f"{label}: {report[label + '_before']} → {report[label + '_after']}"]
+    if "coverage_removed_total" in report:
+        rows += ["", "Domain coverage deduplication:", "",
+                 f"- Covered DOMAIN-SUFFIX removed: {report['suffix_coverage_removed']}",
+                 f"- Covered DOMAIN removed: {report['domain_coverage_removed']}",
+                 f"- Total covered rules removed: {report['coverage_removed_total']}"]
+    if "non_ip_unique" in report:
+        rows += ["", f"Non-IP exact duplicates removed: {report['non_ip_before'] - report['non_ip_unique']}"]
     if "error" in report:
         rows += ["", "Error: <pre>" + html.escape(report["error"]) + "</pre>"]
     result = "\n".join(rows) + "\n"

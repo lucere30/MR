@@ -3,6 +3,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import io
 import os
 from pathlib import Path
+import random
 import subprocess
 import sys
 import tempfile
@@ -12,6 +13,88 @@ from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 import sync_rules as sync
+
+
+class DomainCoverageTests(unittest.TestCase):
+    def test_suffix_covers_descendants_and_exact_apex_regardless_of_order(self):
+        lines = ["DOMAIN-SUFFIX,a.b.example.com", "DOMAIN,www.example.com",
+                 "DOMAIN-SUFFIX,b.example.com", "DOMAIN,example.com",
+                 "DOMAIN-SUFFIX,example.com", "DOMAIN,notexample.com",
+                 "DOMAIN-SUFFIX,otherexample.com", "DOMAIN,example.com.other"]
+        report = {}
+        result = sync.remove_covered_domains(lines, report)
+        self.assertEqual(result, lines[4:])
+        self.assertEqual(report["suffix_coverage_removed"], 2)
+        self.assertEqual(report["domain_coverage_removed"], 2)
+        self.assertEqual(report["coverage_removed_total"], 4)
+        self.assertEqual(sync.remove_covered_domains(result, {}), result)
+
+    def test_exact_domain_does_not_cover_any_other_rule(self):
+        lines = ["DOMAIN,example.com", "DOMAIN,sub.example.com",
+                 "DOMAIN-SUFFIX,sub.example.com", "DOMAIN-SUFFIX,example.net"]
+        self.assertEqual(sync.remove_covered_domains(lines, {}), [lines[0], *lines[2:]])
+
+    def test_preserves_non_candidates_and_duplicate_suffixes(self):
+        lines = ["# DOMAIN,a.example.com", "", "DOMAIN-SUFFIX,example.com",
+                 "DOMAIN-SUFFIX,example.com", "DOMAIN-KEYWORD,example.com",
+                 "URL-REGEX,^https://a.example.com/", "USER-AGENT,*example.com*",
+                 "IP-CIDR,192.0.2.0/24,no-resolve", "DOMAIN,Example.com",
+                 "DOMAIN,a.example.com.", "DOMAIN-SUFFIX,.example.com",
+                 "DOMAIN,*.example.com", "DOMAIN,_srv.example.com",
+                 "DOMAIN,中文.example.com", "DOMAIN,a.example.com,Proxy",
+                 "DOMAIN-SUFFIX,com", "DOMAIN,192.0.2.1"]
+        self.assertEqual(sync.remove_covered_domains(lines, {}), lines)
+
+    def test_policy_or_unusual_suffix_is_never_used_for_coverage(self):
+        for suffix in ["example.com,Proxy", ".example.com", "Example.com", "*.example.com"]:
+            lines = [f"DOMAIN-SUFFIX,{suffix}", "DOMAIN,a.example.com"]
+            self.assertEqual(sync.remove_covered_domains(lines, {}), lines)
+
+    def test_each_rule_set_is_independent(self):
+        sync.remove_covered_domains(["DOMAIN-SUFFIX,example.com"], {})
+        other = ["DOMAIN,a.example.com"]
+        self.assertEqual(sync.remove_covered_domains(other, {}), other)
+
+    def test_both_sync_modes_apply_coverage_and_report_it(self):
+        text = ("# keep\nDOMAIN,a.example.com\nDOMAIN-SUFFIX,example.com\n"
+                "DOMAIN-SUFFIX,b.example.com\nIP-CIDR,192.0.2.0/24\n")
+        for mode in ("merge", "adlite"):
+            report = {}
+            result = sync.process([("input", text)], mode, report)
+            self.assertNotIn("DOMAIN,a.example.com", result)
+            self.assertNotIn("DOMAIN-SUFFIX,b.example.com", result)
+            self.assertIn("IP-CIDR,192.0.2.0/24,no-resolve", result)
+            self.assertEqual(report["coverage_removed_total"], 2)
+            self.assertEqual(report["output_rules"], 2)
+            if mode == "adlite":
+                self.assertTrue(result.startswith("# keep\nDOMAIN-SUFFIX,example.com\n"))
+
+    def test_randomized_against_pairwise_oracle_and_matching_behavior(self):
+        rng = random.Random(20261026)
+
+        def matches(lines, host):
+            for line in lines:
+                kind, domain = line.split(",")
+                if host == domain or (kind == "DOMAIN-SUFFIX" and host.endswith("." + domain)):
+                    return True
+            return False
+
+        for _ in range(60):
+            names = [".".join([rng.choice(["a", "b", "c"])
+                               for _ in range(rng.randrange(4))] + ["example", "com"])
+                     for _ in range(30)]
+            lines = [rng.choice(["DOMAIN,", "DOMAIN-SUFFIX,"]) + name for name in names]
+            suffixes = [line.split(",")[1] for line in lines if line.startswith("DOMAIN-SUFFIX,")]
+            expected = []
+            for line in lines:
+                kind, name = line.split(",")
+                if not any(name.endswith("." + suffix) or
+                           (kind == "DOMAIN" and name == suffix) for suffix in suffixes):
+                    expected.append(line)
+            result = sync.remove_covered_domains(lines, {})
+            self.assertEqual(result, expected)
+            for host in names + ["x." + name for name in names] + ["notexample.com"]:
+                self.assertEqual(matches(lines, host), matches(result, host), host)
 
 
 class ProcessingTests(unittest.TestCase):
