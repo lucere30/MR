@@ -13,18 +13,20 @@
 
 旧的 `adlite.json`、`direct.json`、`proxy.json`、`merged_rules.json` 已移除，旧地址不再可用。请把旧订阅切换到新的 `_domain.json` / `_ip.json`；需要覆盖原有全部条件时引用两份规则集，并按主配置安排匹配顺序。
 
+当前 sing-box 自动转换默认关闭，仅自动更新 Mihomo / Clash 规则（`cat/*.yaml`）。本目录已有文件保留，但不会随源规则自动更新；需要时可重新开启。
+
 ## 开关
 
-两个开关默认开启，关闭时跳过该格式的测试、转换和发布，保留已发布文件。
+workflow 中 Mihomo / Clash 默认开启，sing-box 默认关闭。关闭时跳过该格式的测试、转换和发布，保留已发布文件。
 
 - **手动运行**：Actions → Auto Convert → Run workflow，分别勾选 `enable_clash` 和 `enable_singbox`。手动选项优先于仓库变量。
-- **定时、push、上游完成触发**：在仓库 Settings → Secrets and variables → Actions → Variables 中设置 `ENABLE_CLASH` / `ENABLE_SINGBOX`，值为小写 `true` 或 `false`。未设置时默认为 `true`。
+- **定时、push、上游完成触发**：在仓库 Settings → Secrets and variables → Actions → Variables 中设置 `ENABLE_CLASH` / `ENABLE_SINGBOX`，值为小写 `true` 或 `false`。未设置时 `ENABLE_CLASH` 默认为 `true`，`ENABLE_SINGBOX` 默认为 `false`。
 - 两项都关闭时不转换、不提交；非法值会报错，避免误开启。公共发布器测试仍可运行。
 - 命令行：`python3 scripts/auto_convert.py --clash false --singbox true`（会向 `origin/main` 推送）。
 
 ## 自动更新
 
-`Auto Convert` 保留原有 Clash 转换，并生成、提交 sing-box 规则集和转换报告。支持手动运行、源文件/转换器变更触发、每天 UTC 21:00（北京时间次日 05:00）定时运行，以及 `Merge`、`Sync and Process ADLite` 成功完成后触发。后者也能处理由 `GITHUB_TOKEN` 提交规则时不会继续触发 push workflow 的情况。
+`Auto Convert` 默认只运行 Mihomo / Clash 转换；重新开启 sing-box 开关后，才会生成、提交 sing-box 规则集和转换报告。支持手动运行、源文件/转换器变更触发、每天 UTC 21:00（北京时间次日 05:00）定时运行，以及 `Merge`、`Sync and Process ADLite` 成功完成后触发。后者也能处理由 `GITHUB_TOKEN` 提交规则时不会继续触发 push workflow 的情况。
 
 转换和发布由三个脚本负责：
 
