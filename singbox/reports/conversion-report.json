@@ -9,7 +9,17 @@
         "IP-CIDR": 128
       },
       "no_resolve_lines": 128,
-      "skipped": []
+      "skipped": [],
+      "outputs": {
+        "domain": {
+          "path": "adlite_domain.json",
+          "entries": 60841
+        },
+        "ip": {
+          "path": "adlite_ip.json",
+          "entries": 125
+        }
+      }
     },
     {
       "source": "lq/direct.list",
@@ -20,7 +30,17 @@
         "DOMAIN-SUFFIX": 5
       },
       "no_resolve_lines": 0,
-      "skipped": []
+      "skipped": [],
+      "outputs": {
+        "domain": {
+          "path": "direct_domain.json",
+          "entries": 7
+        },
+        "ip": {
+          "path": "direct_ip.json",
+          "entries": 0
+        }
+      }
     },
     {
       "source": "lq/merged_rules.txt",
@@ -430,7 +450,17 @@
           "rule": "USER-AGENT,mytv*",
           "reason": "No equivalent sing-box headless rule field"
         }
-      ]
+      ],
+      "outputs": {
+        "domain": {
+          "path": "merged_rules_domain.json",
+          "entries": 7660
+        },
+        "ip": {
+          "path": "merged_rules_ip.json",
+          "entries": 1028
+        }
+      }
     },
     {
       "source": "lq/proxy.list",
@@ -442,7 +472,17 @@
         "DOMAIN-SUFFIX": 30
       },
       "no_resolve_lines": 0,
-      "skipped": []
+      "skipped": [],
+      "outputs": {
+        "domain": {
+          "path": "proxy_domain.json",
+          "entries": 33
+        },
+        "ip": {
+          "path": "proxy_ip.json",
+          "entries": 0
+        }
+      }
     }
   ]
 }

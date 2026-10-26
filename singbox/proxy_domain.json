@@ -1,0 +1,50 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain": [
+        "gateway.icloud.com",
+        "xp.apple.com"
+      ]
+    },
+    {
+      "domain_keyword": [
+        "pikpak"
+      ]
+    },
+    {
+      "domain_suffix": [
+        ".me",
+        ".win",
+        "51cg1.com",
+        "apnews.com",
+        "apple-relay.apple.com",
+        "apple-relay.cloudflare.com",
+        "apple-relay.fastly-edge.com",
+        "apps.mzstatic.com",
+        "bookkeeper.itunes.apple.com",
+        "cp4.cloudflare.com",
+        "deepseek.com",
+        "gspe1-ssl.ls.apple.com",
+        "guzzoni.apple.com",
+        "hero-sms.com",
+        "jinglongyu.com",
+        "kelee.one",
+        "lainbo.com",
+        "limbopro.com",
+        "linux.do",
+        "m.stripe.network",
+        "mesu.apple.com",
+        "nvidia.rip",
+        "play.itunes.apple.com",
+        "podcasts.apple.com",
+        "podcasts.itunes.apple.com",
+        "portal101.com",
+        "sntp.uk",
+        "t.cnmjcn.cyou",
+        "volces.com",
+        "whatshub.top"
+      ]
+    }
+  ]
+}
