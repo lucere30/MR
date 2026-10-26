@@ -76,13 +76,26 @@ def generate(source_dir, output_dir, report_path):
     # Validate the entire input before changing any generated output.
     for path in files:
         name = path.stem + ".json"
-        if name in outputs:
+        if path.stem + "_domain.json" in outputs:
             raise ValueError(f"Duplicate output filename: {name}")
         data, report = convert(path.read_text(encoding="utf-8-sig"), path.as_posix())
-        outputs[name] = data
+        categories = {
+            "domain": [rule for rule in data["rules"] if "ip_cidr" not in rule],
+            "ip": [rule for rule in data["rules"] if "ip_cidr" in rule],
+        }
+        report["outputs"] = {}
+        for category, rules in categories.items():
+            relative = f"{path.stem}_{category}.json"
+            # Empty category means no matches, never an empty {} match-all rule.
+            outputs[relative] = {"version": data["version"], "rules": rules}
+            report["outputs"][category] = {
+                "path": relative,
+                "entries": sum(len(values) for rule in rules for values in rule.values()),
+            }
         reports.append(report)
     output_dir.mkdir(parents=True, exist_ok=True)
     for name, data in outputs.items():
+        (output_dir / name).parent.mkdir(parents=True, exist_ok=True)
         (output_dir / name).write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     # Retain old files even when their source disappears; no automatic deletion.
     report_path.parent.mkdir(parents=True, exist_ok=True)

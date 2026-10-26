@@ -20,6 +20,15 @@ on:
     types: [completed]
     branches: [main]
   workflow_dispatch:
+    inputs:
+      enable_clash:
+        description: Convert and publish Clash rules
+        type: boolean
+        default: true
+      enable_singbox:
+        description: Convert and publish sing-box domain/IP rules
+        type: boolean
+        default: true
 
 permissions:
   contents: write
@@ -33,6 +42,10 @@ jobs:
     if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    env:
+      # Stringify manual booleans so false does not fall through to the default.
+      ENABLE_CLASH: ${{ github.event_name == 'workflow_dispatch' && format('{0}', inputs.enable_clash) || vars.ENABLE_CLASH || 'true' }}
+      ENABLE_SINGBOX: ${{ github.event_name == 'workflow_dispatch' && format('{0}', inputs.enable_singbox) || vars.ENABLE_SINGBOX || 'true' }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -41,10 +54,11 @@ jobs:
           fetch-depth: 0
 
       - name: Install YAML validator
+        if: env.ENABLE_CLASH == 'true'
         run: python3 -m pip install --disable-pip-version-check PyYAML==6.0.3
 
       - name: Test publication and retry behavior
         run: python3 -m unittest discover -s tests -p 'test_auto_convert.py' -v
 
       - name: Convert, validate and publish both formats
-        run: python3 scripts/auto_convert.py --attempts 3
+        run: python3 scripts/auto_convert.py --attempts 3 --clash "$ENABLE_CLASH" --singbox "$ENABLE_SINGBOX"

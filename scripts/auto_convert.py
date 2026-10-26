@@ -27,10 +27,14 @@ def fetch_head(repo):
     return git(repo, "rev-parse", "FETCH_HEAD").stdout.strip()
 
 
-def convert_formats(worktree, staging):
+def convert_formats(worktree, staging, enabled=None):
+    enabled = {item[0] for item in FORMATS} if enabled is None else set(enabled)
     successful = []
     failed = []
     for name, test, script, directory in FORMATS:
+        if name not in enabled:
+            print(f"{name}: disabled; skipping tests, conversion and publication", flush=True)
+            continue
         print(f"::group::{name}: tests and conversion", flush=True)
         try:
             if not (worktree / "tests" / test).is_file():
@@ -59,8 +63,9 @@ def convert_formats(worktree, staging):
     return successful, failed
 
 
-def finish(base, successful, failed, changed):
+def finish(base, successful, failed, changed, disabled=()):
     message = f"Source commit: {base}\nValidated formats: {', '.join(successful) or 'none'}\nFailed formats: {', '.join(failed) or 'none'}\nResult: {'published updates' if changed else 'no output changes'}\n"
+    message += f"Disabled formats: {', '.join(disabled) or 'none'}\n"
     print(message, flush=True)
     summary = os.environ.get("GITHUB_STEP_SUMMARY")
     if summary:
@@ -71,7 +76,11 @@ def finish(base, successful, failed, changed):
     return int(bool(failed))
 
 
-def publish(repo, attempts=3):
+def publish(repo, attempts=3, enabled=None):
+    enabled = {item[0] for item in FORMATS} if enabled is None else set(enabled)
+    disabled = [item[0] for item in FORMATS if item[0] not in enabled]
+    if not enabled:
+        return finish("not fetched (both formats disabled)", [], [], False, disabled)
     for attempt in range(1, attempts + 1):
         print(f"Publication attempt {attempt}/{attempts}", flush=True)
         try:
@@ -80,7 +89,7 @@ def publish(repo, attempts=3):
                 worktree = Path(temporary) / "checkout"
                 git(repo, "worktree", "add", "--detach", str(worktree), base)
                 try:
-                    successful, failed = convert_formats(worktree, Path(temporary) / "outputs")
+                    successful, failed = convert_formats(worktree, Path(temporary) / "outputs", enabled)
                     # A remote change requires fresh inputs AND fresh converter code.
                     if fetch_head(repo) != base:
                         print("Remote main changed; regenerating from its latest commit.", flush=True)
@@ -89,14 +98,14 @@ def publish(repo, attempts=3):
                     if changed not in (0, 1):
                         raise RuntimeError("Cannot inspect staged changes")
                     if not changed:
-                        return finish(base, successful, failed, False)
+                        return finish(base, successful, failed, False, disabled)
                     # Never publish deletions or changes outside generated directories.
                     if git(worktree, "diff", "--cached", "--diff-filter=D", "--name-only").stdout.strip():
                         raise RuntimeError("Refusing to publish file deletions")
                     git(worktree, "-c", "user.name=GitHub Action", "-c", "user.email=action@github.com", "commit", "-m", "chore: Auto Convert")
                     result = git(worktree, "push", "origin", "HEAD:refs/heads/main", check=False)
                     if result.returncode == 0:
-                        return finish(base, successful, failed, True)
+                        return finish(base, successful, failed, True, disabled)
                     print(f"Push failed; fetching and regenerating before retry: {result.stderr.strip()}", flush=True)
                 finally:
                     # Remove only the disposable worktree, never repository outputs.
@@ -110,11 +119,14 @@ def publish(repo, attempts=3):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--attempts", type=int, default=3)
+    parser.add_argument("--clash", choices=("true", "false"), default="true")
+    parser.add_argument("--singbox", choices=("true", "false"), default="true")
     args = parser.parse_args()
     if args.attempts < 1:
         parser.error("--attempts must be positive")
     repo = Path(git(Path.cwd(), "rev-parse", "--show-toplevel").stdout.strip())
-    return publish(repo, args.attempts)
+    enabled = [name for name, flag in (("Clash", args.clash), ("sing-box", args.singbox)) if flag == "true"]
+    return publish(repo, args.attempts, enabled)
 
 
 if __name__ == "__main__":

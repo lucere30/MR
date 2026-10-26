@@ -10,6 +10,27 @@ spec.loader.exec_module(converter)
 
 
 class ConversionTests(unittest.TestCase):
+    def test_split_categories_and_clear_empty_category_without_deleting(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source, output = root / "lq", root / "singbox"
+            source.mkdir()
+            path = source / "mixed.list"
+            path.write_text("DOMAIN,a.example\nDOMAIN-KEYWORD,video\nIP-CIDR,192.0.2.0/24,no-resolve\nIP-CIDR6,2001:db8::/32\n")
+            report = output / "reports/report.json"
+            converter.generate(source, output, report)
+            domains = json.loads((output / "mixed_domain.json").read_text())
+            ips = json.loads((output / "mixed_ip.json").read_text())
+            self.assertTrue(all(set(rule) <= {"domain", "domain_suffix", "domain_keyword"} for rule in domains["rules"]))
+            self.assertEqual(ips["rules"], [{"ip_cidr": ["192.0.2.0/24", "2001:db8::/32"]}])
+            self.assertFalse((output / "mixed.json").exists())
+            path.write_text("DOMAIN,a.example\n")
+            converter.generate(source, output, report)
+            self.assertEqual(json.loads((output / "mixed_ip.json").read_text()), {"version": 2, "rules": []})
+            path.write_text("IP-CIDR,192.0.2.0/24\n")
+            converter.generate(source, output, report)
+            self.assertEqual(json.loads((output / "mixed_domain.json").read_text()), {"version": 2, "rules": []})
+
     def test_matching_fields_and_deduplication(self):
         data, report = converter.convert("\ufeff# comment\r\nDOMAIN,example.com\nDOMAIN,example.com\nDOMAIN-SUFFIX,.example.org\nDOMAIN-KEYWORD,video\nIP-CIDR,192.0.2.3/24,no-resolve\nIP-CIDR6,2001:db8::1/32,no-resolve\n", "sample.list")
         self.assertEqual(data, {"version": 2, "rules": [
@@ -42,16 +63,16 @@ class ConversionTests(unittest.TestCase):
             (output / "README.md").write_text("keep")
             report = output / "reports/conversion-report.json"
             converter.generate(source, output, report)
-            first = (output / "proxy.json").read_bytes()
+            first = (output / "proxy_domain.json").read_bytes()
             converter.generate(source, output, report)
-            self.assertEqual(first, (output / "proxy.json").read_bytes())
+            self.assertEqual(first, (output / "proxy_domain.json").read_bytes())
             self.assertEqual((output / "old.json").read_text(), "{}")
             self.assertTrue((output / "README.md").exists())
             self.assertEqual(len(json.loads(report.read_text())["files"]), 1)
             (source / "broken.list").write_text("DOMAIN,a.example,PROXY")
             with self.assertRaises(ValueError):
                 converter.generate(source, output, report)
-            self.assertEqual(first, (output / "proxy.json").read_bytes())
+            self.assertEqual(first, (output / "proxy_domain.json").read_bytes())
 
     def test_duplicate_stems_fail_before_writing(self):
         with tempfile.TemporaryDirectory() as temp:

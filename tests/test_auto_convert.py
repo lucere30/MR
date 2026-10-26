@@ -67,6 +67,27 @@ class PublicationTests(unittest.TestCase):
         self.assertEqual(publisher.publish(self.worker), 0)
         self.assertEqual(self.command(self.remote, "rev-parse", "main"), head)
 
+    def test_each_switch_skips_disabled_tests_and_preserves_published_files(self):
+        # Disabled converters must not execute even if their tests are broken.
+        for name, test, _, directory in publisher.FORMATS:
+            (self.seed / "tests" / test).write_text("raise RuntimeError('disabled test must not execute')\n")
+        self.commit_seed()
+        head = self.command(self.remote, "rev-parse", "main")
+        with patch.object(publisher, "fetch_head", side_effect=AssertionError("both disabled must not fetch")):
+            self.assertEqual(publisher.publish(self.worker, enabled=[]), 0)
+        self.assertEqual(self.command(self.remote, "rev-parse", "main"), head)
+        for enabled, test, _, directory in publisher.FORMATS:
+            self.command(self.seed, "pull", "--ff-only", "origin", "main")
+            for name, filename, _, _ in publisher.FORMATS:
+                content = "import unittest\nclass Smoke(unittest.TestCase):\n def test_ok(self): self.assertTrue(True)\n" if name == enabled else "raise RuntimeError('disabled')\n"
+                (self.seed / "tests" / filename).write_text(content)
+            other = "singbox" if directory == "cat" else "cat"
+            other_suffix = "json" if other == "singbox" else "yaml"
+            (self.seed / other / f"rules.{other_suffix}").write_text("preserve-disabled")
+            self.commit_seed()
+            self.assertEqual(publisher.publish(self.worker, enabled=[enabled]), 0)
+            self.assertEqual(self.remote_file(f"{other}/rules.{other_suffix}"), "preserve-disabled")
+
     def test_failed_singbox_does_not_publish_partial_output_or_block_clash(self):
         script = self.seed / "scripts/loon_to_singbox.py"
         script.write_text(script.read_text() + "raise SystemExit(1)\n")
@@ -124,8 +145,8 @@ class PublicationTests(unittest.TestCase):
         original_convert = publisher.convert_formats
         conversions = []
 
-        def racing_conversion(worktree, staging):
-            result = original_convert(worktree, staging)
+        def racing_conversion(worktree, staging, enabled=None):
+            result = original_convert(worktree, staging, enabled)
             conversions.append(True)
             if len(conversions) == 1:
                 (self.seed / "lq/rules.list").write_text("updated-during-conversion")

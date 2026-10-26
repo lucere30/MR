@@ -1,13 +1,26 @@
 # sing-box 规则集
 
-由 `scripts/loon_to_singbox.py` 将 `lq/*.list` 和 `lq/*.txt` 自动转换为同名 JSON source rule-set，使用规则集版本 2（sing-box 1.10.0+）。此目录根部的 JSON 均为生成文件，请修改 `lq/` 中的源规则。
+由 `scripts/loon_to_singbox.py` 将 `lq/*.list` 和 `lq/*.txt` 自动转换为分离的域名和 IP JSON source rule-set，使用规则集版本 2（sing-box 1.10.0+）。此目录根部的 JSON 均为生成文件，请修改 `lq/` 中的源规则。
 
-| Loon 源文件 | sing-box 文件 |
-| --- | --- |
-| `lq/adlite.list` | `singbox/adlite.json` |
-| `lq/direct.list` | `singbox/direct.json` |
-| `lq/proxy.list` | `singbox/proxy.json` |
-| `lq/merged_rules.txt` | `singbox/merged_rules.json` |
+| Loon 源文件 | 域名规则集 | IP 规则集 |
+| --- | --- | --- |
+| `lq/adlite.list` | `adlite_domain.json` | `adlite_ip.json` |
+| `lq/direct.list` | `direct_domain.json` | `direct_ip.json` |
+| `lq/proxy.list` | `proxy_domain.json` | `proxy_ip.json` |
+| `lq/merged_rules.txt` | `merged_rules_domain.json` | `merged_rules_ip.json` |
+
+以上文件都直接位于 `singbox/`。域名文件只包含 `domain`、`domain_suffix`、`domain_keyword`；IP 文件只包含 `ip_cidr`（包括 IPv4 和 IPv6）。每个源文件都生成两份文件，缺少某类规则时使用 `"rules": []` 表示不匹配任何目标，绝不生成可能匹配全部目标的空规则对象 `{}`。
+
+旧的 `adlite.json`、`direct.json`、`proxy.json`、`merged_rules.json` 按不删除约定保留，但不再更新。请把旧订阅切换到新的 `_domain.json` / `_ip.json`；需要覆盖原有全部条件时引用两份规则集，并按主配置安排匹配顺序。
+
+## 开关
+
+两个开关默认开启，关闭时跳过该格式的测试、转换和发布，保留已发布文件。
+
+- **手动运行**：Actions → Auto Convert → Run workflow，分别勾选 `enable_clash` 和 `enable_singbox`。手动选项优先于仓库变量。
+- **定时、push、上游完成触发**：在仓库 Settings → Secrets and variables → Actions → Variables 中设置 `ENABLE_CLASH` / `ENABLE_SINGBOX`，值为小写 `true` 或 `false`。未设置时默认为 `true`。
+- 两项都关闭时不转换、不提交；非法值会报错，避免误开启。公共发布器测试仍可运行。
+- 命令行：`python3 scripts/auto_convert.py --clash false --singbox true`（会向 `origin/main` 推送）。
 
 ## 自动更新
 
@@ -16,7 +29,7 @@
 转换和发布由三个脚本负责：
 
 - `scripts/loon_to_clash.py`：一次遍历生成 `cat/*.yaml`，保留规则顺序和重复项，过滤清理后的空行、注释。解析生成的 YAML 并与原规则字符串逐项比较；遇到会改变 YAML 含义的字符时使用引号编码，避免 `null`、映射对象或规则截断。
-- `scripts/loon_to_singbox.py`：生成 sing-box JSON 和兼容性报告，保持现有的规则映射、去重和排序行为。
+- `scripts/loon_to_singbox.py`：分别生成 sing-box 域名/IP JSON 和兼容性报告，保持现有的规则映射、去重和排序行为。
 - `scripts/auto_convert.py`：每次从最新 `main` 的临时工作副本分别运行两种格式的测试和转换，只有某种格式全部成功后才发布该格式的结果。另一种格式失败时保留其已发布文件，workflow 仍会报告失败，不会将部分结果当成全部成功。
 
 发布前重新检查远端。远端有更新或推送被拒绝时，从最新提交重新转换，最多尝试 3 次；不再将旧转换结果直接 rebase 到新源文件上。没有输出变化时不创建提交。
@@ -53,7 +66,7 @@ python3 scripts/loon_to_singbox.py
       "type": "remote",
       "tag": "mr-proxy",
       "format": "source",
-      "url": "https://raw.githubusercontent.com/lucere30/MR/main/singbox/proxy.json",
+      "url": "https://raw.githubusercontent.com/lucere30/MR/main/singbox/proxy_domain.json",
       "update_interval": "1d"
     }
   ],
@@ -63,12 +76,12 @@ python3 scripts/loon_to_singbox.py
 }
 ```
 
-其他规则集使用同目录下的 `adlite.json`、`direct.json`、`merged_rules.json`。例如广告规则可在主配置中使用 `action: reject`，直连规则指向已有直连出站。按需要安排规则顺序。
+其他域名规则集使用同目录下的 `adlite_domain.json`、`direct_domain.json`、`merged_rules_domain.json`；IP 规则集使用对应的 `_ip.json`。例如广告规则可在主配置中使用 `action: reject`，直连规则指向已有直连出站。按需要安排规则顺序。
 
 如需二进制文件，可自行编译（本仓库自动发布 JSON）：
 
 ```sh
-sing-box rule-set compile --output proxy.srs singbox/proxy.json
+sing-box rule-set compile --output proxy.srs singbox/proxy_domain.json
 ```
 
 官方文档：[Source Format](https://sing-box.sagernet.org/configuration/rule-set/source-format/) · [Headless Rule](https://sing-box.sagernet.org/configuration/rule-set/headless-rule/)
