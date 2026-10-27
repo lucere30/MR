@@ -3,7 +3,7 @@ version: 1
 targets:
   loon: true
   mihomo: true
-  singbox: true
+  singbox: false
 rulesets:
   direct:
     sources:
