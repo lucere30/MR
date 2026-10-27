@@ -6,7 +6,7 @@
         "engine": "3bb6303ce3382eb78f23e76b6e9e2308821c999e0fcee8b5265773025d88367d",
         "inputs": [
           {
-            "sha256": "cd4c0f3367745418ba38575b844d8a3311ca71ca3a8f73792949b6a5b6645a54",
+            "sha256": "4c159e41b7052e1d28d6411900d752c38a3dd142dbb62af564f813a2593ace85",
             "source": "https://raw.githubusercontent.com/deezertidal/private/refs/heads/main/rule/ADLite.list"
           }
         ],
@@ -21,7 +21,7 @@
         "engine": "3bb6303ce3382eb78f23e76b6e9e2308821c999e0fcee8b5265773025d88367d",
         "inputs": [
           {
-            "sha256": "cd4c0f3367745418ba38575b844d8a3311ca71ca3a8f73792949b6a5b6645a54",
+            "sha256": "4c159e41b7052e1d28d6411900d752c38a3dd142dbb62af564f813a2593ace85",
             "source": "https://raw.githubusercontent.com/deezertidal/private/refs/heads/main/rule/ADLite.list"
           }
         ],
@@ -356,13 +356,13 @@
         "engine": "3bb6303ce3382eb78f23e76b6e9e2308821c999e0fcee8b5265773025d88367d",
         "inputs": [
           {
-            "sha256": "126774579aec5767f7ab93620d3192e86db4044fb4e6d1af11d1b3f9480f0a4d",
+            "sha256": "70c7babde180465f220fce280b39265a3cae5b614df892e522eab61d70d551eb",
             "source": "lq/manual/proxy.list"
           }
         ],
         "omitted": {},
         "outputs": {},
-        "rules": 33,
+        "rules": 30,
         "subscription": "lq/manual/proxy.list"
       },
       "mihomo": {
@@ -370,15 +370,15 @@
         "engine": "3bb6303ce3382eb78f23e76b6e9e2308821c999e0fcee8b5265773025d88367d",
         "inputs": [
           {
-            "sha256": "126774579aec5767f7ab93620d3192e86db4044fb4e6d1af11d1b3f9480f0a4d",
+            "sha256": "70c7babde180465f220fce280b39265a3cae5b614df892e522eab61d70d551eb",
             "source": "lq/manual/proxy.list"
           }
         ],
         "omitted": {},
         "outputs": {
-          "cat/proxy.yaml": "85e6105fdf43f8ac572ddca479ebc575016354db809535aec81af1056b9c36b8"
+          "cat/proxy.yaml": "ca5297d4af5a45de6976994e14160310a0756a1290e688bc22336000ffecfb09"
         },
-        "rules": 33
+        "rules": 30
       },
       "singbox": {
         "config_sha256": "a14a8f09134ceaac123be259754bcdb190523002f7150c85393d3ac4736f8f37",
