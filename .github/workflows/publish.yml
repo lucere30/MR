@@ -2,7 +2,7 @@ name: Publish subscriptions
 
 on:
   schedule:
-    - cron: '20 20 * * *' # Daily 04:20 Asia/Singapore
+    - cron: '55 0 * * *' # Daily 08:55 Asia/Singapore (00:55 UTC)
   push:
     branches: [main]
     paths:
