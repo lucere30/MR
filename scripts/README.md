@@ -4,8 +4,27 @@
 `lq/merged_rules.txt` 和 `lq/adlite.list`。原有上游地址保存在脚本的 `SOURCES` 中。
 
 两个 workflow 保留每天 UTC 20:00（次日 SGT 04:00）和手动触发；修改各自的
-workflow、共用脚本或测试也会触发验证及同步。成功后仍由现有 `Auto Convert`
-的 `workflow_run` 触发后续转换。
+workflow、共用脚本或测试也会触发验证及同步。成功后由 `Auto Convert Clash`
+和 `Auto Convert Singbox` 各自的 `workflow_run` 触发后续转换（受各自开关控制）。
+
+## 独立格式转换
+
+- `Auto Convert Clash` 只测试、转换及发布 `cat/`；`Auto Convert Singbox`
+  只测试、转换及发布 `singbox/`，仍按 `_domain.json`、`_ip.json` 区分规则。
+- 两者分别保留每日 UTC 21:00（次日 SGT 05:00）、`lq/` 源文件 push、
+  上游同步成功和手动触发。修改某种格式的转换器、测试或 workflow 只触发该格式；
+  修改共用发布脚本或其测试则触发两者。发布只允许在 `main` 上运行。
+- 自动运行继续读取仓库 Actions 变量 `ENABLE_CLASH`、`ENABLE_SINGBOX`，
+  值为字符串 `true` / `false`；未设置时 Clash 开启、sing-box 关闭。
+  手动运行使用各自的 `enabled` 复选框覆盖变量，仅影响这一次；
+  默认 Clash 勾选、sing-box 不勾选。关闭时整个转换 job 跳过。
+- 两个 workflow 使用不同的并发组，运行状态、重跑和停用互不依赖；
+  共用 `auto_convert.py` 的发布逻辑，固定只启用自己的格式。
+  共用发布测试使用临时 Git 仓库和模拟转换器，不执行另一格式的真实转换测试。
+- 同时推送到 `main` 时，保留现有最多 3 次重新获取最新提交、重新生成和推送的机制，
+  不强制推送、不删除已有规则文件。两个格式分别提交，不保证同一时刻来自同一源提交。
+- 保留 `workflow_run` 是因为上游使用 `GITHUB_TOKEN` 提交时不会再次触发 push workflow。
+  转换摘要写入各自 Actions 运行记录，既有 sing-box 转换报告仍保留原位置。
 
 ## 处理约定
 
