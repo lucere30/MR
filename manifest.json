@@ -6,7 +6,7 @@
         "engine": "3bb6303ce3382eb78f23e76b6e9e2308821c999e0fcee8b5265773025d88367d",
         "inputs": [
           {
-            "sha256": "868aff004c5be13ad3c1ce5fa6ffef5916ba1492c0d3102dbf88ee47a572a5f0",
+            "sha256": "cd4c0f3367745418ba38575b844d8a3311ca71ca3a8f73792949b6a5b6645a54",
             "source": "https://raw.githubusercontent.com/deezertidal/private/refs/heads/main/rule/ADLite.list"
           }
         ],
@@ -21,7 +21,7 @@
         "engine": "3bb6303ce3382eb78f23e76b6e9e2308821c999e0fcee8b5265773025d88367d",
         "inputs": [
           {
-            "sha256": "868aff004c5be13ad3c1ce5fa6ffef5916ba1492c0d3102dbf88ee47a572a5f0",
+            "sha256": "cd4c0f3367745418ba38575b844d8a3311ca71ca3a8f73792949b6a5b6645a54",
             "source": "https://raw.githubusercontent.com/deezertidal/private/refs/heads/main/rule/ADLite.list"
           }
         ],
