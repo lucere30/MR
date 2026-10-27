@@ -1,0 +1,57 @@
+name: Auto Convert Singbox
+
+on:
+  schedule:
+    - cron: '0 21 * * *'  # UTC 21:00 / SGT 05:00 next day
+  push:
+    branches: [main]
+    paths:
+      - 'lq/*.list'
+      - 'lq/*.txt'
+      - 'scripts/loon_to_singbox.py'
+      - 'scripts/auto_convert.py'
+      - 'tests/test_loon_to_singbox.py'
+      - 'tests/test_auto_convert.py'
+      - '.github/workflows/Auto Convert Singbox.yml'
+  workflow_run:
+    workflows: [Merge, Sync and Process ADLite]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      enabled:
+        description: Convert and publish sing-box domain/IP rules for this run
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: auto-convert-singbox-main
+  cancel-in-progress: false
+
+jobs:
+  convert:
+    # Manual runs use the checkbox; automatic runs use the repository variable.
+    if: >-
+      github.ref == 'refs/heads/main' &&
+      (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') &&
+      (
+        (github.event_name == 'workflow_dispatch' && inputs.enabled) ||
+        (github.event_name != 'workflow_dispatch' && (vars.ENABLE_SINGBOX || 'false') == 'true')
+      )
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Test publication and retry behavior
+        run: python3 -m unittest discover -s tests -p 'test_auto_convert.py' -v
+
+      - name: Convert, validate and publish Singbox
+        run: python3 scripts/auto_convert.py --attempts 3 --clash false --singbox true

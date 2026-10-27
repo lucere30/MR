@@ -124,6 +124,41 @@ class PublicationTests(unittest.TestCase):
         self.assertEqual(self.remote_file("cat/rules.yaml"), "new-source")
         self.assertEqual(self.remote_file("singbox/rules.json"), "new-source")
 
+    def test_independent_formats_retry_racing_publications_without_overwriting_each_other(self):
+        other_worker = self.root / "other-worker"
+        self.command(self.root, "clone", str(self.remote), str(other_worker))
+        original_git = publisher.git
+        for first, second, directory, suffix in (
+            ("Clash", "sing-box", "cat", "yaml"),
+            ("sing-box", "Clash", "singbox", "json"),
+        ):
+            with self.subTest(first=first):
+                self.command(self.seed, "pull", "--ff-only", "origin", "main")
+                source = f"source-for-{first}"
+                (self.seed / "lq/rules.list").write_text(source)
+                self.commit_seed()
+                raced = False
+
+                def racing_git(repo, *args, **kwargs):
+                    nonlocal raced
+                    if args and args[0] == "push" and not raced:
+                        raced = True
+                        # The other workflow wins immediately before this push.
+                        self.assertEqual(publisher.publish(other_worker, enabled=[second]), 0)
+                    return original_git(repo, *args, **kwargs)
+
+                with patch.object(publisher, "git", side_effect=racing_git):
+                    self.assertEqual(publisher.publish(self.worker, enabled=[first]), 0)
+                self.assertTrue(raced)
+                self.assertEqual(self.remote_file("cat/rules.yaml"), source)
+                self.assertEqual(self.remote_file("singbox/rules.json"), source)
+                self.assertEqual(self.remote_file("cat/retained.yaml"), "keep-clash")
+                self.assertEqual(self.remote_file("singbox/retained.json"), "keep-singbox")
+                self.assertEqual(
+                    self.command(self.remote, "diff-tree", "--no-commit-id", "--name-only", "-r", "main"),
+                    f"{directory}/rules.{suffix}",
+                )
+
     def test_push_failure_stops_after_retry_limit(self):
         original_git = publisher.git
         pushes = []
