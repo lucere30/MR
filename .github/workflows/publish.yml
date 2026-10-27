@@ -1,0 +1,63 @@
+name: Publish subscriptions
+
+on:
+  schedule:
+    - cron: '20 20 * * *' # Daily 04:20 Asia/Singapore
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'tools/**'
+      - 'tests/**'
+      - 'custom/**'
+      - 'lq/manual/**'
+      - 'rkit.yaml'
+      - 'pyproject.toml'
+      - '.github/workflows/publish.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: rkit-publish-main
+  cancel-in-progress: false
+
+jobs:
+  build-publish:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          ref: main
+      - uses: actions/setup-python@v7.1.0
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -e .
+      - run: python -m unittest discover -s tests -v
+      - name: Build independent rulesets from fixed source snapshots
+        id: build
+        continue-on-error: true
+        run: rkit build --output .rkit-stage
+      - name: Validate with pinned client binaries
+        if: ${{ !cancelled() && hashFiles('.rkit-stage/plan.json') != '' }}
+        run: python tools/validate_clients.py .rkit-stage
+      - name: Publish successful rulesets with one guarded commit
+        if: ${{ success() && hashFiles('.rkit-stage/plan.json') != '' }}
+        run: rkit publish --stage .rkit-stage
+      - name: Retain complete conversion and omission report
+        if: always()
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: rkit-build-report
+          path: .rkit-stage/plan.json
+          if-no-files-found: ignore
+          retention-days: 14
+          include-hidden-files: true
+      - name: Mark partial or fatal build failures
+        if: ${{ steps.build.outcome == 'failure' }}
+        run: exit 1

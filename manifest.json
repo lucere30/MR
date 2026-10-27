@@ -1,0 +1,99 @@
+{
+  "rulesets": {
+    "adlite": {
+      "loon": {
+        "outputs": {
+          "lq/adlite.list": "b1c2c26c68b6727d47c2a95547ff30e527aa675bf26264c6e869ce22929c5108"
+        }
+      },
+      "mihomo": {
+        "outputs": {
+          "cat/adlite.yaml": "ad2eaa11c3a33c48d568c6b0cee33f3637115beb989c4998c1beb44cb0c29b21"
+        }
+      },
+      "singbox": {
+        "outputs": {
+          "singbox/adlite_domain.json": "63d0e22240994ffaeeab974052b143eafc5ede80f5a77828c3ae5aba00478b73",
+          "singbox/adlite_ip.json": "2b1b0aa4e0bd8c46902affd0b970a36ae10c040d53a5730b80cda461b0857524"
+        }
+      }
+    },
+    "bitget": {
+      "loon": {
+        "outputs": {
+          "lq/bitget.list": "e71da320397077c63f577d44defb1e22172e83a633907367388373c95a7b69c4"
+        }
+      },
+      "mihomo": {
+        "outputs": {
+          "cat/bitget.yaml": "0e32b336a82d729b34a666b6b5e10f65d55e007d4114b844e87c77d28390f7c0"
+        }
+      }
+    },
+    "direct": {
+      "mihomo": {
+        "outputs": {
+          "cat/direct.yaml": "2ecc1c09c97bbcdc3a28b7e41f3b235383497f4e9271809a6b6196f8ecea62dd"
+        }
+      },
+      "singbox": {
+        "outputs": {
+          "singbox/direct_domain.json": "0d91280bb4edef7d21200a67a324f1214c6905cd798466e7fad9bb7cf9325f8e",
+          "singbox/direct_ip.json": "2db6ae8eb9d24cb86924a7020c6f3eebfa41b5fc5848a53e239465db622c2312"
+        }
+      }
+    },
+    "espn": {
+      "loon": {
+        "outputs": {
+          "lq/espn.list": "1d14ff1e94af551158e09a9a8ddee8404a9d359a0784926064129f842af20bc9"
+        }
+      },
+      "mihomo": {
+        "outputs": {
+          "cat/espn.yaml": "a9a22f61838c26d4792568ed5436fb1a2af1c8a1f184809154686412d696e4a3"
+        }
+      }
+    },
+    "fakeip-filter": {
+      "mihomo": {
+        "outputs": {
+          "cat/fakeip-filter.yaml": "fcc3dc6725d86cf54bc962e3b88df8f4a223c6bb032a436a8c138e5a3a7f2c72"
+        }
+      }
+    },
+    "merged_rules": {
+      "loon": {
+        "outputs": {
+          "lq/merged_rules.txt": "93e5ce9bd48f9ef74edc88f8b7be55cdbd0a92a55cecc3d55f74bc585b3a0723"
+        }
+      },
+      "mihomo": {
+        "outputs": {
+          "cat/merged_rules.yaml": "a2d694c9308a69b005b9285865e09528d071cff1e54d48d3aa1884070df0d2c2"
+        }
+      },
+      "singbox": {
+        "outputs": {
+          "singbox/merged_rules_domain.json": "ecc1e6cf86330e4970ffb48bcc9680fbe37cf4db14c0212c582ccdfac98664db",
+          "singbox/merged_rules_ip.json": "98073ac6e25a04398e36cc28b0bcdf76f1a8fca47d2a73eea6b9cd045df1a01a",
+          "singbox/reports/conversion-report.json": "6bef092319681c0d5bc5582bd485f828c61725aae449926fb2e3dfec1e808faf"
+        }
+      }
+    },
+    "proxy": {
+      "mihomo": {
+        "outputs": {
+          "cat/proxy.yaml": "1220139a62f575f3834f9eb31ae7b66e7246ba575224d516e46dcca6ec6bf867"
+        }
+      },
+      "singbox": {
+        "outputs": {
+          "singbox/proxy_domain.json": "671615d06500551ab7d061b73e30cabba569046d6a5f67e8d5dfa3572a6c150a",
+          "singbox/proxy_ip.json": "2db6ae8eb9d24cb86924a7020c6f3eebfa41b5fc5848a53e239465db622c2312"
+        }
+      }
+    }
+  },
+  "version": 1
+}

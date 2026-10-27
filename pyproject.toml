@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rkit"
+version = "0.1.0"
+description = "Configuration-driven rule subscriptions for Loon, Mihomo and sing-box"
+requires-python = ">=3.11"
+dependencies = ["PyYAML==6.0.3"]
+
+[project.scripts]
+rkit = "rkit.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

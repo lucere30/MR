@@ -1,0 +1,90 @@
+# Enable/disable targets here; all outputs of one ruleset share one source snapshot.
+version: 1
+targets:
+  loon: true
+  mihomo: true
+  singbox: true
+rulesets:
+  direct:
+    sources:
+    - path: lq/manual/direct.list
+      format: classical
+    targets:
+    - loon
+    - mihomo
+    - singbox
+  proxy:
+    sources:
+    - path: lq/manual/proxy.list
+      format: classical
+    targets:
+    - loon
+    - mihomo
+    - singbox
+  merged_rules:
+    sources:
+    - url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/ProxyLite/ProxyLite.list
+      format: classical
+    - url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Global/Global.list
+      format: classical
+    - url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Proxy/Proxy.list
+      format: classical
+    - url: https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/ruleset/gfw.txt
+      format: classical
+    - url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/GlobalMedia/GlobalMedia.list
+      format: classical
+    targets:
+    - loon
+    - mihomo
+    - singbox
+    collapse_ip: true
+    omit:
+      mihomo:
+      - USER-AGENT
+      - URL-REGEX
+      singbox:
+      - USER-AGENT
+      - URL-REGEX
+  adlite:
+    sources:
+    - url: https://raw.githubusercontent.com/deezertidal/private/refs/heads/main/rule/ADLite.list
+      format: classical
+    targets:
+    - loon
+    - mihomo
+    - singbox
+    collapse_ip: false
+    omit:
+      mihomo:
+      - USER-AGENT
+      - URL-REGEX
+      singbox:
+      - USER-AGENT
+      - URL-REGEX
+  espn:
+    sources:
+    - url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Espn/Espn_No_Resolve.yaml
+      format: clash-classical
+    additions: custom/espn.list
+    targets:
+    - loon
+    - mihomo
+    - singbox
+  bitget:
+    sources:
+    - url: https://raw.githubusercontent.com/uhovohu/clash/main/Rules/bitget.yaml
+      format: clash-domain
+    additions: custom/bitget.list
+    targets:
+    - loon
+    - mihomo
+    - singbox
+    exclusions: custom/bitget-exclude.list
+  fakeip-filter:
+    sources:
+    - url: https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/fakeip-filter.list
+      format: domain-list
+    additions: custom/fakeip-filter.list
+    targets:
+    - mihomo
+    purpose: fakeip
