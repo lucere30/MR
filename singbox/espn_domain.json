@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain": [
+        "espn.hb.omtrdc.net",
+        "espndotcom.tt.omtrdc.net"
+      ]
+    },
+    {
+      "domain_suffix": [
+        "bamgrid.com",
+        "cws.conviva.com",
+        "dtci.co",
+        "dtci.technology",
+        "espn.co.uk",
+        "espn.com",
+        "espn.hb-api.omtrdc.net",
+        "espn.net",
+        "espncdn.com",
+        "espnqa.com",
+        "imrworldwide.com",
+        "media.dssott.com",
+        "p1.parsely.com",
+        "pespn.chartbeat.net",
+        "scorecardresearch.com",
+        "vision.fn-pz.com",
+        "watchespn.com"
+      ]
+    }
+  ]
+}

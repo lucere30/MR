@@ -1,6 +1,3 @@
-# Generated from https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/fakeip-filter.list
-# Edit custom/fakeip-filter.list; this file is regenerated.
-# Mihomo: behavior: domain, format: yaml
 payload:
   - "adguardteam.github.io"
   - "adrules.top"

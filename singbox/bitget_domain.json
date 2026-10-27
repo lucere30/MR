@@ -1,0 +1,53 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain_suffix": [
+        "abcdstable.com",
+        "bgstatic.com",
+        "bitapi.vip",
+        "bitget.com",
+        "bitgetapp.com",
+        "bitgetapps.com",
+        "bitgetimg.com",
+        "bitgettr.com",
+        "bitkeep.app",
+        "bitkeep.asia",
+        "bitkeep.biz",
+        "bitkeep.com",
+        "bitkeep.fun",
+        "bitkeep.life",
+        "bitkeep.top",
+        "bitkeep.vip",
+        "bjxnyj.com",
+        "brindovaxel.online",
+        "bwb.global",
+        "bwb.online",
+        "chainnear.com",
+        "eidtokencloud.com",
+        "fluvenkarthon.info",
+        "gdrichem.com",
+        "gm816.com",
+        "gurenla.com",
+        "hdmune.cn",
+        "jjdsn.site",
+        "jjdsn.vip",
+        "krbitget.com",
+        "ljhsnzpc.com",
+        "lymryy.com",
+        "megacheck.net",
+        "megacheck.vip",
+        "nlviwq.cn",
+        "noxiaohao.com",
+        "quorbentaxil.cc",
+        "sbxgh.top",
+        "spindlembed.com",
+        "turingfraud.net",
+        "wwmxd.fun",
+        "wwmxd.org",
+        "wwmxd.shop",
+        "zysh.xyz"
+      ]
+    }
+  ]
+}

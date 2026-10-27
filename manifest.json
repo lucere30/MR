@@ -2,96 +2,399 @@
   "rulesets": {
     "adlite": {
       "loon": {
+        "config_sha256": "a79a8ed7c506f260765fe93b7eedea1482f54a4a9e5e3ceeef104dbea59b4c52",
+        "engine": "3bb6303ce3382eb78f23e76b6e9e2308821c999e0fcee8b5265773025d88367d",
+        "inputs": [
+          {
+            "sha256": "868aff004c5be13ad3c1ce5fa6ffef5916ba1492c0d3102dbf88ee47a572a5f0",
+            "source": "https://raw.githubusercontent.com/deezertidal/private/refs/heads/main/rule/ADLite.list"
+          }
+        ],
+        "omitted": {},
         "outputs": {
-          "lq/adlite.list": "b1c2c26c68b6727d47c2a95547ff30e527aa675bf26264c6e869ce22929c5108"
-        }
+          "lq/generated/adlite.list": "f59da9ddd08d53311daa8c222706334370c8a061dd2b26400d42b7cccca9cb4c"
+        },
+        "rules": 49958
       },
       "mihomo": {
+        "config_sha256": "a79a8ed7c506f260765fe93b7eedea1482f54a4a9e5e3ceeef104dbea59b4c52",
+        "engine": "3bb6303ce3382eb78f23e76b6e9e2308821c999e0fcee8b5265773025d88367d",
+        "inputs": [
+          {
+            "sha256": "868aff004c5be13ad3c1ce5fa6ffef5916ba1492c0d3102dbf88ee47a572a5f0",
+            "source": "https://raw.githubusercontent.com/deezertidal/private/refs/heads/main/rule/ADLite.list"
+          }
+        ],
+        "omitted": {},
         "outputs": {
-          "cat/adlite.yaml": "ad2eaa11c3a33c48d568c6b0cee33f3637115beb989c4998c1beb44cb0c29b21"
-        }
+          "cat/adlite.yaml": "ec5de8ad899969f8c7263b50930a7696212d4c0f85f0b7be3e88040c779ec832"
+        },
+        "rules": 49958
       },
       "singbox": {
+        "config_sha256": "a79a8ed7c506f260765fe93b7eedea1482f54a4a9e5e3ceeef104dbea59b4c52",
+        "engine": "3bb6303ce3382eb78f23e76b6e9e2308821c999e0fcee8b5265773025d88367d",
+        "inputs": [
+          {
+            "sha256": "868aff004c5be13ad3c1ce5fa6ffef5916ba1492c0d3102dbf88ee47a572a5f0",
+            "source": "https://raw.githubusercontent.com/deezertidal/private/refs/heads/main/rule/ADLite.list"
+          }
+        ],
+        "omitted": {},
         "outputs": {
-          "singbox/adlite_domain.json": "63d0e22240994ffaeeab974052b143eafc5ede80f5a77828c3ae5aba00478b73",
-          "singbox/adlite_ip.json": "2b1b0aa4e0bd8c46902affd0b970a36ae10c040d53a5730b80cda461b0857524"
-        }
+          "singbox/adlite_domain.json": "ae0a0ba836c233879a403db9b89ae77ed95c352ec87456d6bc0f959a1b9dfb68",
+          "singbox/adlite_ip.json": "576634736595c26b1b23434e849243c5fe45d31ce300e1164b0261c3a3ed89da"
+        },
+        "rules": 49958
       }
     },
     "bitget": {
       "loon": {
+        "config_sha256": "0d5e43576cdde2b5317fa02f5aca2d23596f134bc45fc20c4d7d44dde5b3c951",
+        "engine": "3bb6303ce3382eb78f23e76b6e9e2308821c999e0fcee8b5265773025d88367d",
+        "inputs": [
+          {
+            "sha256": "dc583a63b81a8ff203a64155fbfb7111e6bcd4476aa615141bbb2e58d5643cca",
+            "source": "https://raw.githubusercontent.com/uhovohu/clash/main/Rules/bitget.yaml"
+          },
+          {
+            "sha256": "73cd3cedd999879971efc762b991e021f218f80d4831a9307bb50caa50e7e527",
+            "source": "custom/bitget-exclude.list"
+          },
+          {
+            "sha256": "8e959bb1f267e6706dec56005ddeab91886fa9af04b0cc7b5f8f63bdc2cb3531",
+            "source": "custom/bitget.list"
+          }
+        ],
+        "omitted": {},
         "outputs": {
-          "lq/bitget.list": "e71da320397077c63f577d44defb1e22172e83a633907367388373c95a7b69c4"
-        }
+          "lq/generated/bitget.list": "73b0e094ad04f5106fdf4863e626816c97b9860673c53f55717394a343da7ff8"
+        },
+        "rules": 44
       },
       "mihomo": {
+        "config_sha256": "0d5e43576cdde2b5317fa02f5aca2d23596f134bc45fc20c4d7d44dde5b3c951",
+        "engine": "3bb6303ce3382eb78f23e76b6e9e2308821c999e0fcee8b5265773025d88367d",
+        "inputs": [
+          {
+            "sha256": "dc583a63b81a8ff203a64155fbfb7111e6bcd4476aa615141bbb2e58d5643cca",
+            "source": "https://raw.githubusercontent.com/uhovohu/clash/main/Rules/bitget.yaml"
+          },
+          {
+            "sha256": "73cd3cedd999879971efc762b991e021f218f80d4831a9307bb50caa50e7e527",
+            "source": "custom/bitget-exclude.list"
+          },
+          {
+            "sha256": "8e959bb1f267e6706dec56005ddeab91886fa9af04b0cc7b5f8f63bdc2cb3531",
+            "source": "custom/bitget.list"
+          }
+        ],
+        "omitted": {},
         "outputs": {
-          "cat/bitget.yaml": "0e32b336a82d729b34a666b6b5e10f65d55e007d4114b844e87c77d28390f7c0"
-        }
+          "cat/bitget.yaml": "94a1afe93247859a74f8f188eaed087e7d0ed126dc3a8eb41829f87c8ed9bb55"
+        },
+        "rules": 44
+      },
+      "singbox": {
+        "config_sha256": "0d5e43576cdde2b5317fa02f5aca2d23596f134bc45fc20c4d7d44dde5b3c951",
+        "engine": "3bb6303ce3382eb78f23e76b6e9e2308821c999e0fcee8b5265773025d88367d",
+        "inputs": [
+          {
+            "sha256": "dc583a63b81a8ff203a64155fbfb7111e6bcd4476aa615141bbb2e58d5643cca",
+            "source": "https://raw.githubusercontent.com/uhovohu/clash/main/Rules/bitget.yaml"
+          },
+          {
+            "sha256": "73cd3cedd999879971efc762b991e021f218f80d4831a9307bb50caa50e7e527",
+            "source": "custom/bitget-exclude.list"
+          },
+          {
+            "sha256": "8e959bb1f267e6706dec56005ddeab91886fa9af04b0cc7b5f8f63bdc2cb3531",
+            "source": "custom/bitget.list"
+          }
+        ],
+        "omitted": {},
+        "outputs": {
+          "singbox/bitget_domain.json": "c52c73960f7cf34685884ff9b821474c0c9b7a2618d80ba1408a8ddf86bd65fe",
+          "singbox/bitget_ip.json": "2db6ae8eb9d24cb86924a7020c6f3eebfa41b5fc5848a53e239465db622c2312"
+        },
+        "rules": 44
       }
     },
     "direct": {
+      "loon": {
+        "config_sha256": "9bf22da0372257d210352129ea8b19a0425c79e6a68be35ddf6f3af0279aaab9",
+        "engine": "3bb6303ce3382eb78f23e76b6e9e2308821c999e0fcee8b5265773025d88367d",
+        "inputs": [
+          {
+            "sha256": "05c84ca7fca72deff24822a4de46611ae35b2dfd331aab7ec56f0663d35fd7f1",
+            "source": "lq/manual/direct.list"
+          }
+        ],
+        "omitted": {},
+        "outputs": {},
+        "rules": 7,
+        "subscription": "lq/manual/direct.list"
+      },
       "mihomo": {
+        "config_sha256": "9bf22da0372257d210352129ea8b19a0425c79e6a68be35ddf6f3af0279aaab9",
+        "engine": "3bb6303ce3382eb78f23e76b6e9e2308821c999e0fcee8b5265773025d88367d",
+        "inputs": [
+          {
+            "sha256": "05c84ca7fca72deff24822a4de46611ae35b2dfd331aab7ec56f0663d35fd7f1",
+            "source": "lq/manual/direct.list"
+          }
+        ],
+        "omitted": {},
         "outputs": {
-          "cat/direct.yaml": "2ecc1c09c97bbcdc3a28b7e41f3b235383497f4e9271809a6b6196f8ecea62dd"
-        }
+          "cat/direct.yaml": "a9563681503d4becaacbeed7e0f6f467a993df93e5c0271f365f1223a614bb73"
+        },
+        "rules": 7
       },
       "singbox": {
+        "config_sha256": "9bf22da0372257d210352129ea8b19a0425c79e6a68be35ddf6f3af0279aaab9",
+        "engine": "3bb6303ce3382eb78f23e76b6e9e2308821c999e0fcee8b5265773025d88367d",
+        "inputs": [
+          {
+            "sha256": "05c84ca7fca72deff24822a4de46611ae35b2dfd331aab7ec56f0663d35fd7f1",
+            "source": "lq/manual/direct.list"
+          }
+        ],
+        "omitted": {},
         "outputs": {
           "singbox/direct_domain.json": "0d91280bb4edef7d21200a67a324f1214c6905cd798466e7fad9bb7cf9325f8e",
           "singbox/direct_ip.json": "2db6ae8eb9d24cb86924a7020c6f3eebfa41b5fc5848a53e239465db622c2312"
-        }
+        },
+        "rules": 7
       }
     },
     "espn": {
       "loon": {
+        "config_sha256": "42daba81cdb37c8dacdc3d66840f18888c8357cf85069c6a0fccf8d12f939e82",
+        "engine": "3bb6303ce3382eb78f23e76b6e9e2308821c999e0fcee8b5265773025d88367d",
+        "inputs": [
+          {
+            "sha256": "1512b8b80b2177b975ef0b0a13459adeb27dd37d6579b103816185ae33825baa",
+            "source": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Espn/Espn_No_Resolve.yaml"
+          },
+          {
+            "sha256": "0b81ab34a8acdac2b0b79b9fb1d331b66255a462c1d266f0cf8abbd120612bc0",
+            "source": "custom/espn.list"
+          }
+        ],
+        "omitted": {},
         "outputs": {
-          "lq/espn.list": "1d14ff1e94af551158e09a9a8ddee8404a9d359a0784926064129f842af20bc9"
-        }
+          "lq/generated/espn.list": "f91d2f14a1083d4912deb6405c6877b85cf8b5c49eca46d012013842fbf14ee7"
+        },
+        "rules": 19
       },
       "mihomo": {
+        "config_sha256": "42daba81cdb37c8dacdc3d66840f18888c8357cf85069c6a0fccf8d12f939e82",
+        "engine": "3bb6303ce3382eb78f23e76b6e9e2308821c999e0fcee8b5265773025d88367d",
+        "inputs": [
+          {
+            "sha256": "1512b8b80b2177b975ef0b0a13459adeb27dd37d6579b103816185ae33825baa",
+            "source": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Espn/Espn_No_Resolve.yaml"
+          },
+          {
+            "sha256": "0b81ab34a8acdac2b0b79b9fb1d331b66255a462c1d266f0cf8abbd120612bc0",
+            "source": "custom/espn.list"
+          }
+        ],
+        "omitted": {},
         "outputs": {
-          "cat/espn.yaml": "a9a22f61838c26d4792568ed5436fb1a2af1c8a1f184809154686412d696e4a3"
-        }
+          "cat/espn.yaml": "15caf3f3b9ce9b62906b124253d385a89a72e0f096a3010e24555f1db136daad"
+        },
+        "rules": 19
+      },
+      "singbox": {
+        "config_sha256": "42daba81cdb37c8dacdc3d66840f18888c8357cf85069c6a0fccf8d12f939e82",
+        "engine": "3bb6303ce3382eb78f23e76b6e9e2308821c999e0fcee8b5265773025d88367d",
+        "inputs": [
+          {
+            "sha256": "1512b8b80b2177b975ef0b0a13459adeb27dd37d6579b103816185ae33825baa",
+            "source": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Espn/Espn_No_Resolve.yaml"
+          },
+          {
+            "sha256": "0b81ab34a8acdac2b0b79b9fb1d331b66255a462c1d266f0cf8abbd120612bc0",
+            "source": "custom/espn.list"
+          }
+        ],
+        "omitted": {},
+        "outputs": {
+          "singbox/espn_domain.json": "a23d899d5b37b22962cdd4d4393de39b457e8ba7d4034d888c271771a802676e",
+          "singbox/espn_ip.json": "2db6ae8eb9d24cb86924a7020c6f3eebfa41b5fc5848a53e239465db622c2312"
+        },
+        "rules": 19
       }
     },
     "fakeip-filter": {
       "mihomo": {
+        "config_sha256": "3ff4d3dfbad44ac04146146e657613be71b427b198198909ede321af8e202cc1",
+        "engine": "3bb6303ce3382eb78f23e76b6e9e2308821c999e0fcee8b5265773025d88367d",
+        "inputs": [
+          {
+            "sha256": "92234d0fd12da71a602d1299f258e9c51f2e5c5535998dfa766356ff2d7904f1",
+            "source": "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/fakeip-filter.list"
+          },
+          {
+            "sha256": "7d3227d61c8050ac5bc6536314673e2b69225f65b46e28ad68da486e01be8f77",
+            "source": "custom/fakeip-filter.list"
+          }
+        ],
+        "omitted": {},
         "outputs": {
-          "cat/fakeip-filter.yaml": "fcc3dc6725d86cf54bc962e3b88df8f4a223c6bb032a436a8c138e5a3a7f2c72"
-        }
+          "cat/fakeip-filter.yaml": "bd2b9ff7934bbb2dacee27aa88c2190e177aeca50912ceef40a4eae39987a5ff"
+        },
+        "rules": 569
       }
     },
     "merged_rules": {
       "loon": {
+        "config_sha256": "596cd9d3621aab4de6f31fb39957b14ec8515052071359ac38aea4817af93b44",
+        "engine": "3bb6303ce3382eb78f23e76b6e9e2308821c999e0fcee8b5265773025d88367d",
+        "inputs": [
+          {
+            "sha256": "03fdfc75b6d42893dc8636cea8a81e72c559a6f7e3063af5683455f494fd54a1",
+            "source": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/ProxyLite/ProxyLite.list"
+          },
+          {
+            "sha256": "2a90f04f79b8ba85e9dff7f1c8f03c532bbaf981cd7f7c95e7c5276aa6cbc9db",
+            "source": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Global/Global.list"
+          },
+          {
+            "sha256": "9d64e0fe06a55eea536c999c9a05ef35734772c140bf33d38bbec5a69f361f38",
+            "source": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Proxy/Proxy.list"
+          },
+          {
+            "sha256": "30376a06c72c823bfd842259dc8da41ee5c182f59d07246c3a49bc6b4c593e4c",
+            "source": "https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/ruleset/gfw.txt"
+          },
+          {
+            "sha256": "58b12feef7998d92a61da653a0af097bb07268631fafc9647df293d2ec89f71e",
+            "source": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/GlobalMedia/GlobalMedia.list"
+          }
+        ],
+        "omitted": {},
         "outputs": {
-          "lq/merged_rules.txt": "93e5ce9bd48f9ef74edc88f8b7be55cdbd0a92a55cecc3d55f74bc585b3a0723"
-        }
+          "lq/generated/merged_rules.list": "7879273be530907c1d73518bb923bb4559c570f2dfec0d87cf4f3bd25a6188e8"
+        },
+        "rules": 8496
       },
       "mihomo": {
+        "config_sha256": "596cd9d3621aab4de6f31fb39957b14ec8515052071359ac38aea4817af93b44",
+        "engine": "3bb6303ce3382eb78f23e76b6e9e2308821c999e0fcee8b5265773025d88367d",
+        "inputs": [
+          {
+            "sha256": "03fdfc75b6d42893dc8636cea8a81e72c559a6f7e3063af5683455f494fd54a1",
+            "source": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/ProxyLite/ProxyLite.list"
+          },
+          {
+            "sha256": "2a90f04f79b8ba85e9dff7f1c8f03c532bbaf981cd7f7c95e7c5276aa6cbc9db",
+            "source": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Global/Global.list"
+          },
+          {
+            "sha256": "9d64e0fe06a55eea536c999c9a05ef35734772c140bf33d38bbec5a69f361f38",
+            "source": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Proxy/Proxy.list"
+          },
+          {
+            "sha256": "30376a06c72c823bfd842259dc8da41ee5c182f59d07246c3a49bc6b4c593e4c",
+            "source": "https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/ruleset/gfw.txt"
+          },
+          {
+            "sha256": "58b12feef7998d92a61da653a0af097bb07268631fafc9647df293d2ec89f71e",
+            "source": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/GlobalMedia/GlobalMedia.list"
+          }
+        ],
+        "omitted": {
+          "URL-REGEX": 1,
+          "USER-AGENT": 78
+        },
         "outputs": {
-          "cat/merged_rules.yaml": "a2d694c9308a69b005b9285865e09528d071cff1e54d48d3aa1884070df0d2c2"
-        }
+          "cat/merged_rules.yaml": "96df0feae3792d39ad08bd81b418cdd06c55565a1eb85cac552684a391db5855"
+        },
+        "rules": 8417
       },
       "singbox": {
+        "config_sha256": "596cd9d3621aab4de6f31fb39957b14ec8515052071359ac38aea4817af93b44",
+        "engine": "3bb6303ce3382eb78f23e76b6e9e2308821c999e0fcee8b5265773025d88367d",
+        "inputs": [
+          {
+            "sha256": "03fdfc75b6d42893dc8636cea8a81e72c559a6f7e3063af5683455f494fd54a1",
+            "source": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/ProxyLite/ProxyLite.list"
+          },
+          {
+            "sha256": "2a90f04f79b8ba85e9dff7f1c8f03c532bbaf981cd7f7c95e7c5276aa6cbc9db",
+            "source": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Global/Global.list"
+          },
+          {
+            "sha256": "9d64e0fe06a55eea536c999c9a05ef35734772c140bf33d38bbec5a69f361f38",
+            "source": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Proxy/Proxy.list"
+          },
+          {
+            "sha256": "30376a06c72c823bfd842259dc8da41ee5c182f59d07246c3a49bc6b4c593e4c",
+            "source": "https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/ruleset/gfw.txt"
+          },
+          {
+            "sha256": "58b12feef7998d92a61da653a0af097bb07268631fafc9647df293d2ec89f71e",
+            "source": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/GlobalMedia/GlobalMedia.list"
+          }
+        ],
+        "omitted": {
+          "URL-REGEX": 1,
+          "USER-AGENT": 78
+        },
         "outputs": {
           "singbox/merged_rules_domain.json": "ecc1e6cf86330e4970ffb48bcc9680fbe37cf4db14c0212c582ccdfac98664db",
-          "singbox/merged_rules_ip.json": "98073ac6e25a04398e36cc28b0bcdf76f1a8fca47d2a73eea6b9cd045df1a01a",
-          "singbox/reports/conversion-report.json": "6bef092319681c0d5bc5582bd485f828c61725aae449926fb2e3dfec1e808faf"
-        }
+          "singbox/merged_rules_ip.json": "98073ac6e25a04398e36cc28b0bcdf76f1a8fca47d2a73eea6b9cd045df1a01a"
+        },
+        "rules": 8417
       }
     },
     "proxy": {
+      "loon": {
+        "config_sha256": "a14a8f09134ceaac123be259754bcdb190523002f7150c85393d3ac4736f8f37",
+        "engine": "3bb6303ce3382eb78f23e76b6e9e2308821c999e0fcee8b5265773025d88367d",
+        "inputs": [
+          {
+            "sha256": "126774579aec5767f7ab93620d3192e86db4044fb4e6d1af11d1b3f9480f0a4d",
+            "source": "lq/manual/proxy.list"
+          }
+        ],
+        "omitted": {},
+        "outputs": {},
+        "rules": 33,
+        "subscription": "lq/manual/proxy.list"
+      },
       "mihomo": {
+        "config_sha256": "a14a8f09134ceaac123be259754bcdb190523002f7150c85393d3ac4736f8f37",
+        "engine": "3bb6303ce3382eb78f23e76b6e9e2308821c999e0fcee8b5265773025d88367d",
+        "inputs": [
+          {
+            "sha256": "126774579aec5767f7ab93620d3192e86db4044fb4e6d1af11d1b3f9480f0a4d",
+            "source": "lq/manual/proxy.list"
+          }
+        ],
+        "omitted": {},
         "outputs": {
-          "cat/proxy.yaml": "1220139a62f575f3834f9eb31ae7b66e7246ba575224d516e46dcca6ec6bf867"
-        }
+          "cat/proxy.yaml": "85e6105fdf43f8ac572ddca479ebc575016354db809535aec81af1056b9c36b8"
+        },
+        "rules": 33
       },
       "singbox": {
+        "config_sha256": "a14a8f09134ceaac123be259754bcdb190523002f7150c85393d3ac4736f8f37",
+        "engine": "3bb6303ce3382eb78f23e76b6e9e2308821c999e0fcee8b5265773025d88367d",
+        "inputs": [
+          {
+            "sha256": "126774579aec5767f7ab93620d3192e86db4044fb4e6d1af11d1b3f9480f0a4d",
+            "source": "lq/manual/proxy.list"
+          }
+        ],
+        "omitted": {},
         "outputs": {
           "singbox/proxy_domain.json": "671615d06500551ab7d061b73e30cabba569046d6a5f67e8d5dfa3572a6c150a",
           "singbox/proxy_ip.json": "2db6ae8eb9d24cb86924a7020c6f3eebfa41b5fc5848a53e239465db622c2312"
-        }
+        },
+        "rules": 33
       }
     }
   },
