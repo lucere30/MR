@@ -1,0 +1,22 @@
+# Upstream: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Espn/Espn_No_Resolve.yaml
+# Edit custom/espn.list; this file is regenerated.
+# Assign the ESPN policy in your client subscription.
+DOMAIN,espn.hb.omtrdc.net
+DOMAIN,espndotcom.tt.omtrdc.net
+DOMAIN-SUFFIX,dtci.co
+DOMAIN-SUFFIX,dtci.technology
+DOMAIN-SUFFIX,espn.co.uk
+DOMAIN-SUFFIX,espn.com
+DOMAIN-SUFFIX,espn.net
+DOMAIN-SUFFIX,espncdn.com
+DOMAIN-SUFFIX,espnqa.com
+DOMAIN-SUFFIX,watchespn.com
+DOMAIN-SUFFIX,bamgrid.com
+DOMAIN-SUFFIX,cws.conviva.com
+DOMAIN-SUFFIX,imrworldwide.com
+DOMAIN-SUFFIX,espn.hb-api.omtrdc.net
+DOMAIN-SUFFIX,scorecardresearch.com
+DOMAIN-SUFFIX,media.dssott.com
+DOMAIN-SUFFIX,pespn.chartbeat.net
+DOMAIN-SUFFIX,p1.parsely.com
+DOMAIN-SUFFIX,vision.fn-pz.com

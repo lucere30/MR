@@ -1,0 +1,38 @@
+name: Sync Custom Rules
+
+on:
+  schedule:
+    - cron: '20 20 * * *' # UTC 20:20 / SGT 04:20 next day
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'custom/**'
+      - 'scripts/sync_custom_rules.py'
+      - 'scripts/sync_rules.py'
+      - 'tests/test_sync_custom_rules.py'
+      - '.github/workflows/Sync Custom Rules.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-custom-rules-main
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Install YAML parser
+        run: python3 -m pip install --disable-pip-version-check PyYAML==6.0.3
+      - name: Test custom rules and publication
+        run: python3 -m unittest discover -s tests -p 'test_sync_custom_rules.py' -v
+      - name: Merge upstream and custom rules, validate and publish
+        run: python3 scripts/sync_custom_rules.py --publish --attempts 3

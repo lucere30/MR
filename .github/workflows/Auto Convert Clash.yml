@@ -14,7 +14,7 @@ on:
       - 'tests/test_auto_convert.py'
       - '.github/workflows/Auto Convert Clash.yml'
   workflow_run:
-    workflows: [Merge, Sync and Process ADLite]
+    workflows: [Merge, Sync and Process ADLite, Sync Custom Rules]
     types: [completed]
     branches: [main]
   workflow_dispatch:

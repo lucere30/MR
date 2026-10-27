@@ -1,0 +1,15 @@
+# Add persistent Fake-IP exclusions here, one Mihomo domain pattern per line.
++.counter-strike.cn
++.counter-strike.com.cn
++.csgo.com.cn
++.laohu.com
++.pwrdoverseagame.com
++.pwrdoverseas.com
++.wanmei.com
++.wanmei.net
++.wmupd.com
++.wmupd.com.cn
++.wmwm.com
+pwaweblogin.wmpvp.com
+# Keep this even while the upstream +.steamcontent.com covers it.
+lancache.steamcontent.com

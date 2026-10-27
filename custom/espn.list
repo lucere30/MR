@@ -1,0 +1,10 @@
+# Persistent ESPN additions. Assign the ESPN policy when subscribing in the client.
+DOMAIN-SUFFIX,bamgrid.com
+DOMAIN-SUFFIX,cws.conviva.com
+DOMAIN-SUFFIX,imrworldwide.com
+DOMAIN-SUFFIX,espn.hb-api.omtrdc.net
+DOMAIN-SUFFIX,scorecardresearch.com
+DOMAIN-SUFFIX,media.dssott.com
+DOMAIN-SUFFIX,pespn.chartbeat.net
+DOMAIN-SUFFIX,p1.parsely.com
+DOMAIN-SUFFIX,vision.fn-pz.com
