@@ -66,5 +66,5 @@ python3 scripts/sync_rules.py adlite --output /tmp/adlite.list
 ## 上游订阅与自定义规则合并
 
 `Sync Custom Rules` 使用 `sync_custom_rules.py` 每天新加坡时间 04:20 更新
-`cat/fakeip-filter.yaml` 与 `lq/espn.list`，成功后触发各格式转换。
+`cat/fakeip-filter.yaml`、`lq/espn.list` 与 `lq/bitget.list`，成功后触发各格式转换。
 自定义源、语法、失败保护及手动运行说明见 [custom/README.md](../custom/README.md)。

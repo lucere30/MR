@@ -1,0 +1,47 @@
+# Upstream: https://raw.githubusercontent.com/uhovohu/clash/main/Rules/bitget.yaml
+# Edit custom/bitget.list for additions; custom/bitget-exclude.list for upstream exclusions.
+# Generated domain rules; assign the policy in your client subscription.
+DOMAIN-SUFFIX,abcdstable.com
+DOMAIN-SUFFIX,bgstatic.com
+DOMAIN-SUFFIX,bitget.com
+DOMAIN-SUFFIX,bitgetapp.com
+DOMAIN-SUFFIX,bitgetapps.com
+DOMAIN-SUFFIX,bitgetimg.com
+DOMAIN-SUFFIX,bitgettr.com
+DOMAIN-SUFFIX,bjxnyj.com
+DOMAIN-SUFFIX,gdrichem.com
+DOMAIN-SUFFIX,gm816.com
+DOMAIN-SUFFIX,gurenla.com
+DOMAIN-SUFFIX,hdmune.cn
+DOMAIN-SUFFIX,megacheck.net
+DOMAIN-SUFFIX,megacheck.vip
+DOMAIN-SUFFIX,nlviwq.cn
+DOMAIN-SUFFIX,noxiaohao.com
+DOMAIN-SUFFIX,sbxgh.top
+DOMAIN-SUFFIX,turingfraud.net
+DOMAIN-SUFFIX,zysh.xyz
+DOMAIN-SUFFIX,bitkeep.app
+DOMAIN-SUFFIX,bitkeep.asia
+DOMAIN-SUFFIX,bitkeep.biz
+DOMAIN-SUFFIX,bitkeep.com
+DOMAIN-SUFFIX,bitkeep.fun
+DOMAIN-SUFFIX,bitkeep.life
+DOMAIN-SUFFIX,bitkeep.top
+DOMAIN-SUFFIX,bitkeep.vip
+DOMAIN-SUFFIX,bitapi.vip
+DOMAIN-SUFFIX,bwb.global
+DOMAIN-SUFFIX,bwb.online
+DOMAIN-SUFFIX,chainnear.com
+DOMAIN-SUFFIX,jjdsn.vip
+DOMAIN-SUFFIX,ljhsnzpc.com
+DOMAIN-SUFFIX,lymryy.com
+DOMAIN-SUFFIX,wwmxd.fun
+DOMAIN-SUFFIX,wwmxd.org
+DOMAIN-SUFFIX,wwmxd.shop
+DOMAIN-SUFFIX,spindlembed.com
+DOMAIN-SUFFIX,eidtokencloud.com
+DOMAIN-SUFFIX,krbitget.com
+DOMAIN-SUFFIX,jjdsn.site
+DOMAIN-SUFFIX,fluvenkarthon.info
+DOMAIN-SUFFIX,quorbentaxil.cc
+DOMAIN-SUFFIX,brindovaxel.online

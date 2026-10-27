@@ -16,9 +16,13 @@ from sync_rules import download, fetch_head, git, parse_rules, remove_covered_do
 SOURCES = {
     'fakeip': 'https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/fakeip-filter.list',
     'espn': 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Espn/Espn_No_Resolve.yaml',
+    'bitget': 'https://raw.githubusercontent.com/uhovohu/clash/main/Rules/bitget.yaml',
 }
-CUSTOM = {'fakeip': 'custom/fakeip-filter.list', 'espn': 'custom/espn.list'}
-OUTPUTS = {'fakeip': 'cat/fakeip-filter.yaml', 'espn': 'lq/espn.list'}
+CUSTOM = {'fakeip': 'custom/fakeip-filter.list', 'espn': 'custom/espn.list',
+          'bitget': 'custom/bitget.list'}
+BITGET_EXCLUDE = 'custom/bitget-exclude.list'
+OUTPUTS = {'fakeip': 'cat/fakeip-filter.yaml', 'espn': 'lq/espn.list',
+           'bitget': 'lq/bitget.list'}
 GUARDS = ('scripts/sync_custom_rules.py', 'scripts/sync_rules.py',
           'tests/test_sync_custom_rules.py', '.github/workflows/Sync Custom Rules.yml')
 LABEL = re.compile(r'[a-z0-9_](?:[a-z0-9_-]{0,61}[a-z0-9_])?\Z', re.I)
@@ -84,11 +88,67 @@ def merge_espn(upstream, custom):
     return content
 
 
+def bitget_rule(rule, source):
+    """Convert only exact and +. patterns; never broaden wildcard semantics."""
+    if not isinstance(rule, str) or rule != rule.strip():
+        raise ValueError(f'{source}: expected a domain string')
+    kind, domain = ('DOMAIN-SUFFIX', rule[2:]) if rule.startswith('+.') else ('DOMAIN', rule)
+    if (not domain or len(domain) > 253
+            or not all(LABEL.fullmatch(label) for label in domain.split('.'))):
+        raise ValueError(f'{source}: unsupported domain pattern: {rule!r}')
+    return f'{kind},{domain.lower()}'
+
+
+def bitget_custom_rules(text, source):
+    result = []
+    for rule in lines(text):
+        fields = rule.split(',')
+        if len(fields) != 2 or fields[0] not in {'DOMAIN', 'DOMAIN-SUFFIX'}:
+            raise ValueError(f'{source}: expected DOMAIN or DOMAIN-SUFFIX without a policy')
+        prefix = '+.' if fields[0] == 'DOMAIN-SUFFIX' else ''
+        normalized = bitget_rule(prefix + fields[1], source)
+        # DOMAIN,+.example.com is not an exact rule; reject ambiguous input.
+        if normalized.split(',')[0] != fields[0]:
+            raise ValueError(f'{source}: domain syntax does not match rule type')
+        result.append(normalized)
+    return result
+
+
+def merge_bitget(upstream, custom, exclusions):
+    data = yaml.safe_load(upstream)
+    if (not isinstance(data, dict) or not isinstance(data.get('payload'), list)
+            or not data['payload']):
+        raise ValueError('Bitget upstream must contain a nonempty domain payload')
+    # Validate every upstream entry before applying the exclusions.
+    upstream_rules = [bitget_rule(rule, SOURCES['bitget']) for rule in data['payload']]
+    excluded = bitget_custom_rules(exclusions, BITGET_EXCLUDE)
+    excluded_exact = {r.split(',')[1] for r in excluded if r.startswith('DOMAIN,')}
+    excluded_suffix = {r.split(',')[1] for r in excluded if r.startswith('DOMAIN-SUFFIX,')}
+    retained = []
+    for rule in upstream_rules:
+        kind, domain = rule.split(',')
+        labels = domain.split('.')
+        covered = any('.'.join(labels[i:]) in excluded_suffix for i in range(len(labels)))
+        if not covered and not (kind == 'DOMAIN' and domain in excluded_exact):
+            retained.append(rule)
+    # Exclusions apply to upstream only; explicit custom additions override them.
+    additions = bitget_custom_rules(custom, CUSTOM['bitget'])
+    rules = remove_covered_domains(list(dict.fromkeys(retained + additions)), {})
+    content = (f'# Upstream: {SOURCES["bitget"]}\n'
+               '# Edit custom/bitget.list for additions; custom/bitget-exclude.list for upstream exclusions.\n'
+               '# Generated domain rules; assign the policy in your client subscription.\n'
+               + '\n'.join(rules) + '\n')
+    parse_rules(content, OUTPUTS['bitget'])
+    return content
+
+
 def generate(read_custom, downloader=download):
-    # Fully validate both sources before exposing any outputs to publication.
+    # Fully validate all sources before exposing any outputs to publication.
     return {
         OUTPUTS['fakeip']: merge_fakeip(downloader(SOURCES['fakeip']), read_custom(CUSTOM['fakeip'])),
         OUTPUTS['espn']: merge_espn(downloader(SOURCES['espn']), read_custom(CUSTOM['espn'])),
+        OUTPUTS['bitget']: merge_bitget(downloader(SOURCES['bitget']), read_custom(CUSTOM['bitget']),
+                                        read_custom(BITGET_EXCLUDE)),
     }
 
 
@@ -114,7 +174,7 @@ def publish(repo, attempts=3, downloader=download):
                          'commit-tree', tree, '-p', base, '-m', 'Update upstream and custom rules').stdout.strip()
             pushed = git(repo, 'push', 'origin', f'{commit}:refs/heads/main', check=False)
             if pushed.returncode == 0:
-                return f'Published both rulesets: {commit}'
+                return f'Published {len(outputs)} rulesets: {commit}'
             print(f'Push rejected ({attempt}/{attempts}); reloading latest sources', flush=True)
     raise RuntimeError('Could not publish after retries; no forced push was attempted')
 
@@ -138,7 +198,7 @@ def main():
                 target = args.output_dir / path
                 target.parent.mkdir(parents=True, exist_ok=True)
                 target.write_text(content, encoding='utf-8')
-            result = 'Validated both rulesets locally'
+            result = f'Validated {len(outputs)} rulesets locally'
     except (ValueError, RuntimeError, OSError, yaml.YAMLError, subprocess.TimeoutExpired) as error:
         result = f'Failed; publication skipped: {error}'
         code = 1

@@ -1,0 +1,30 @@
+# Shared services excluded from the upstream Bitget ruleset only.
+# DOMAIN-SUFFIX excludes the named domain and its descendants, on label boundaries.
+# This does not block traffic or force DIRECT; other client routing rules still apply.
+# Restore specific hosts in custom/bitget.list if required by your traffic logs.
+
+# Shared certificate infrastructure
+# https://www.amazontrust.com/ https://www.rapidssl.com/
+# ss2.us is also required by unrelated software; see the linked review notes.
+DOMAIN-SUFFIX,amazontrust.com
+DOMAIN-SUFFIX,rapidssl.com
+DOMAIN-SUFFIX,ss2.us
+
+# General messaging, verification and error monitoring services
+# https://www.engagelab.com/ https://www.geetest.com/ https://www.airbrake.io/
+DOMAIN-SUFFIX,engagelab.com
+DOMAIN-SUFFIX,engagelab.cc
+DOMAIN-SUFFIX,geetest.com
+DOMAIN-SUFFIX,airbrake.io
+
+# General blockchain and wallet connection infrastructure
+# https://www.alchemy.com/ https://arbitrum.io/ https://docs.reown.com/
+DOMAIN-SUFFIX,alchemy.com
+DOMAIN-SUFFIX,arbitrum.io
+DOMAIN-SUFFIX,web3modal.org
+
+# Payment platforms used beyond Bitget
+# https://fiat24.com/ https://www.marqeta.com/ https://www.paydify.com/
+DOMAIN-SUFFIX,fiat24.com
+DOMAIN-SUFFIX,marqeta.com
+DOMAIN-SUFFIX,paydify.com
