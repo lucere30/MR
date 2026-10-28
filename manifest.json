@@ -6,30 +6,30 @@
         "engine": "cb45abe11642cea6af9d38ee67f0b0f5120b4c562abe2f39be687eae23238597",
         "inputs": [
           {
-            "sha256": "9b2e3e58fce6091db102f4d84959f9878ee7a60077ba1b5d076a22061141dd9b",
+            "sha256": "aa11c0745264acf20a383466d5ad824932ef8cac3f8f1c759f1fcc1aa066e3d1",
             "source": "https://raw.githubusercontent.com/deezertidal/private/refs/heads/main/rule/ADLite.list"
           }
         ],
         "omitted": {},
         "outputs": {
-          "lq/generated/adlite.list": "f59da9ddd08d53311daa8c222706334370c8a061dd2b26400d42b7cccca9cb4c"
+          "lq/generated/adlite.list": "6db3e5e05db912331e66ba404d7c99dfa5c0befad2bb18abb95bb917d1c49dc1"
         },
-        "rules": 49958
+        "rules": 50316
       },
       "mihomo": {
         "config_sha256": "a79a8ed7c506f260765fe93b7eedea1482f54a4a9e5e3ceeef104dbea59b4c52",
         "engine": "cb45abe11642cea6af9d38ee67f0b0f5120b4c562abe2f39be687eae23238597",
         "inputs": [
           {
-            "sha256": "9b2e3e58fce6091db102f4d84959f9878ee7a60077ba1b5d076a22061141dd9b",
+            "sha256": "aa11c0745264acf20a383466d5ad824932ef8cac3f8f1c759f1fcc1aa066e3d1",
             "source": "https://raw.githubusercontent.com/deezertidal/private/refs/heads/main/rule/ADLite.list"
           }
         ],
         "omitted": {},
         "outputs": {
-          "cat/adlite.yaml": "ec5de8ad899969f8c7263b50930a7696212d4c0f85f0b7be3e88040c779ec832"
+          "cat/adlite.yaml": "1d6550c559b6e1cb6e0400a2911b151c47803fd09207edc7f4902d7bcaceaec9"
         },
-        "rules": 49958
+        "rules": 50316
       },
       "singbox": {
         "config_sha256": "a79a8ed7c506f260765fe93b7eedea1482f54a4a9e5e3ceeef104dbea59b4c52",
@@ -275,7 +275,7 @@
             "source": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/ProxyLite/ProxyLite.list"
           },
           {
-            "sha256": "2a90f04f79b8ba85e9dff7f1c8f03c532bbaf981cd7f7c95e7c5276aa6cbc9db",
+            "sha256": "c5fd540781605fa2b0e9fc8ee08698799559fae8ad296f33e70890f9cd36b9f7",
             "source": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Global/Global.list"
           },
           {
@@ -306,7 +306,7 @@
             "source": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/ProxyLite/ProxyLite.list"
           },
           {
-            "sha256": "2a90f04f79b8ba85e9dff7f1c8f03c532bbaf981cd7f7c95e7c5276aa6cbc9db",
+            "sha256": "c5fd540781605fa2b0e9fc8ee08698799559fae8ad296f33e70890f9cd36b9f7",
             "source": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Global/Global.list"
           },
           {
