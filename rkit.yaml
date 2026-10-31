@@ -82,6 +82,15 @@ rulesets:
     - loon
     - mihomo
     - singbox
+  f1tv:
+    sources:
+    - url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/classical/formula1.yaml
+      format: clash-classical
+    additions: custom/f1tv.list
+    targets:
+    - loon
+    - mihomo
+    - singbox
   bitget:
     sources:
     - url: https://raw.githubusercontent.com/uhovohu/clash/main/Rules/bitget.yaml

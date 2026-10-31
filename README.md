@@ -12,7 +12,10 @@
 | ADLite | [list](https://raw.githubusercontent.com/lucere30/rkit/main/lq/generated/adlite.list) | [yaml](https://raw.githubusercontent.com/lucere30/rkit/main/cat/adlite.yaml) |
 | ESPN | [list](https://raw.githubusercontent.com/lucere30/rkit/main/lq/generated/espn.list) | [yaml](https://raw.githubusercontent.com/lucere30/rkit/main/cat/espn.yaml) |
 | Bitget | [list](https://raw.githubusercontent.com/lucere30/rkit/main/lq/generated/bitget.list) | [yaml](https://raw.githubusercontent.com/lucere30/rkit/main/cat/bitget.yaml) |
+| F1 TV | [list](https://raw.githubusercontent.com/lucere30/rkit/main/lq/generated/f1tv.list) | [yaml](https://raw.githubusercontent.com/lucere30/rkit/main/cat/f1tv.yaml) |
 
 Mihomo Fake-IP：[fakeip-filter.yaml](https://raw.githubusercontent.com/lucere30/rkit/main/cat/fakeip-filter.yaml)（`behavior: domain`；其余规则集为 `classical`）。
 
 配置与上游：[rkit.yaml](rkit.yaml) · 手动规则：`lq/manual/` · 自定义规则：`custom/` · 自动构建：[Actions](../../actions)
+
+F1 TV：上游使用 [MetaCubeX formula1](https://github.com/MetaCubeX/meta-rules-dat/blob/meta/geo/geosite/classical/formula1.yaml)，播放 CDN 补充见 `custom/f1tv.list`。将此规则放在通用 Proxy/Merged 规则之前，并绑定所需策略组。规则覆盖 F1 站点及已知播放域名，未进行实际账号播放测试。sing-box 随全局目标开关控制，当前关闭。

@@ -244,6 +244,46 @@
         "rules": 19
       }
     },
+    "f1tv": {
+      "loon": {
+        "config_sha256": "3dbf08451bdeb7ad58f25761ec9e791515bc7fb0378e5781e869900a98617eb2",
+        "engine": "cb45abe11642cea6af9d38ee67f0b0f5120b4c562abe2f39be687eae23238597",
+        "inputs": [
+          {
+            "sha256": "71189609d9ab0dfe7b72920719775c11f2336c0c41a8118e2b8edaf8eb5ed36c",
+            "source": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/classical/formula1.yaml"
+          },
+          {
+            "sha256": "4dc491541bdada497ddbf7ef1364c7c50f8ef4183e823db5c4356f4a1c31dea3",
+            "source": "custom/f1tv.list"
+          }
+        ],
+        "omitted": {},
+        "outputs": {
+          "lq/generated/f1tv.list": "3385d5c5b09c881d6580f785572d1c3e7f24f2659abe88dbc4bfd361e723b86f"
+        },
+        "rules": 5
+      },
+      "mihomo": {
+        "config_sha256": "3dbf08451bdeb7ad58f25761ec9e791515bc7fb0378e5781e869900a98617eb2",
+        "engine": "cb45abe11642cea6af9d38ee67f0b0f5120b4c562abe2f39be687eae23238597",
+        "inputs": [
+          {
+            "sha256": "71189609d9ab0dfe7b72920719775c11f2336c0c41a8118e2b8edaf8eb5ed36c",
+            "source": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/classical/formula1.yaml"
+          },
+          {
+            "sha256": "4dc491541bdada497ddbf7ef1364c7c50f8ef4183e823db5c4356f4a1c31dea3",
+            "source": "custom/f1tv.list"
+          }
+        ],
+        "omitted": {},
+        "outputs": {
+          "cat/f1tv.yaml": "e11a34202ccdf9316ca7216624abc72dfe7886bd10ff5b041737c6c62c7a67d0"
+        },
+        "rules": 5
+      }
+    },
     "fakeip-filter": {
       "mihomo": {
         "config_sha256": "3ff4d3dfbad44ac04146146e657613be71b427b198198909ede321af8e202cc1",

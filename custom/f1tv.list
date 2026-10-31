@@ -1,0 +1,6 @@
+# F1 playback CDN additions reviewed from ACL4SSR/ACL4SSR:
+# https://github.com/ACL4SSR/ACL4SSR/blob/master/Clash/Ruleset/F1.list
+# Snapshot blob: 26e86d2537c9fc41315918a0d6453cc6148a63a2
+# Exact hosts only: do not route shared cloudfront.net/akamaized.net parent domains.
+DOMAIN,d2n9h2wits23hf.cloudfront.net
+DOMAIN,f1prodlive.akamaized.net
