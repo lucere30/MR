@@ -97,9 +97,15 @@ def load(root):
         if not isinstance(sources, list) or not sources:
             raise ValueError(f"{name}: missing sources")
         for source in sources:
-            keys(source, {"url", "path", "format"}, {"format"})
+            keys(source, {"url", "path", "format", "include_types"}, {"format"})
             if ("url" in source) == ("path" in source) or source["format"] not in PARSERS:
                 raise ValueError(f"{name}: source requires one url/path and known format")
+            if "include_types" in source:
+                kinds = source["include_types"]
+                if ("url" not in source or not isinstance(kinds, list) or not kinds
+                        or any(not isinstance(k, str) or k not in RULE_TYPES for k in kinds)
+                        or len(set(kinds)) != len(kinds)):
+                    raise ValueError(f"{name}: include_types requires a remote source and unique known rule types")
             if "url" in source:
                 if not isinstance(source["url"], str) or not source["url"].startswith("https://"):
                     raise ValueError("remote sources must use HTTPS")

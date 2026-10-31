@@ -46,6 +46,56 @@ class Project(unittest.TestCase):
 
 
 class PipelineTests(Project):
+    def test_filtered_source_merges_deduplicates_and_tracks_both_upstreams(self):
+        cdn_url = "https://example.test/cdn"
+        self.cfg["rulesets"]["x"]["sources"].append({
+            "url": cdn_url, "format": "classical", "include_types": ["DOMAIN"]})
+        self.save()
+        data = {
+            "https://example.test/x": b"DOMAIN-SUFFIX,formula1.com\nDOMAIN,cdn.example.net\n",
+            cdn_url: b"DOMAIN-SUFFIX,bitmovin.com\nDOMAIN,cdn.example.net\nDOMAIN,old.cloudfront.net\n"}
+        first = self.run_build(data.__getitem__)
+        self.assertFalse(first["report"]["failed"])
+        self.assertEqual(first["report"]["successful"]["x"]["output_rules"], 3)
+        payload = yaml.safe_load(first["outputs"]["cat/x.yaml"])["payload"]
+        self.assertEqual(payload.count("DOMAIN,cdn.example.net"), 1)
+        self.assertNotIn("DOMAIN-SUFFIX,bitmovin.com", payload)
+        inputs = json.loads(first["outputs"]["manifest.json"])["rulesets"]["x"]["mihomo"]["inputs"]
+        self.assertEqual((inputs[1]["parsed_rules"], inputs[1]["selected_rules"]), (3, 2))
+        self.accept(first)
+        data["https://example.test/x"] = b"DOMAIN-SUFFIX,f1tv.com\n"
+        data[cdn_url] = b"DOMAIN,new.cloudfront.net\nDOMAIN-SUFFIX,racetrack.test\n"
+        second = self.run_build(data.__getitem__)
+        payload = yaml.safe_load(second["outputs"]["cat/x.yaml"])["payload"]
+        self.assertEqual(payload, ["DOMAIN-SUFFIX,f1tv.com", "DOMAIN,new.cloudfront.net"])
+
+    def test_empty_source_filter_preserves_previous_complete_union(self):
+        cdn_url = "https://example.test/cdn"
+        self.cfg["rulesets"]["x"]["sources"].append({
+            "url": cdn_url, "format": "classical", "include_types": ["DOMAIN"]})
+        self.save()
+        first = self.run_build(lambda _: b"DOMAIN,old.example.net\n")
+        self.accept(first)
+        old = json.loads(first["outputs"]["manifest.json"])["rulesets"]["x"]
+        result = self.run_build(lambda _: b"DOMAIN-SUFFIX,new.example.net\n")
+        self.assertIn("include_types matched no rules", result["report"]["failed"]["x"])
+        self.assertEqual(set(result["outputs"]), {"manifest.json"})
+        self.assertEqual(json.loads(result["outputs"]["manifest.json"])["rulesets"]["x"], old)
+        self.assertFalse(result["delete"])
+
+    def test_source_filters_reject_invalid_types_and_direct_subscription_filters(self):
+        for kinds in (None, [], "DOMAIN", ["UNKNOWN"], ["DOMAIN", "DOMAIN"], [{}]):
+            self.cfg["rulesets"]["x"]["sources"][0]["include_types"] = kinds
+            self.save()
+            with self.assertRaisesRegex(ValueError, "include_types"):
+                load(self.root)
+        self.write("lq/manual/x.list", "DOMAIN,example.net\n")
+        self.cfg["rulesets"]["x"]["sources"] = [{
+            "path": "lq/manual/x.list", "format": "classical", "include_types": ["DOMAIN"]}]
+        self.save()
+        with self.assertRaisesRegex(ValueError, "include_types"):
+            load(self.root)
+
     def test_process_ruleset_only_builds_mihomo_with_all_platforms_enabled(self):
         self.cfg["rulesets"] = {"download": {
             "sources": [{"path": "custom/download.list", "format": "classical"}],

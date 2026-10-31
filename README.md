@@ -18,4 +18,4 @@ Mihomo Fake-IP：[fakeip-filter.yaml](https://raw.githubusercontent.com/lucere30
 
 配置与上游：[rkit.yaml](rkit.yaml) · 手动规则：`lq/manual/` · 自定义规则：`custom/` · 自动构建：[Actions](../../actions)
 
-F1 TV：上游使用 [MetaCubeX formula1](https://github.com/MetaCubeX/meta-rules-dat/blob/meta/geo/geosite/classical/formula1.yaml)，播放 CDN 补充见 `custom/f1tv.list`。将此规则放在通用 Proxy/Merged 规则之前，并绑定所需策略组。规则覆盖 F1 站点及已知播放域名，未进行实际账号播放测试。sing-box 随全局目标开关控制，当前关闭。
+F1 TV：每次构建同时拉取 [MetaCubeX formula1](https://github.com/MetaCubeX/meta-rules-dat/blob/meta/geo/geosite/classical/formula1.yaml) 与 [ACL4SSR F1](https://github.com/ACL4SSR/ACL4SSR/blob/master/Clash/Ruleset/F1.list)，合并去重后生成订阅。MetaCubeX 全量采用；ACL4SSR 通过源级 `include_types: [DOMAIN]` 只采用精确域名项，当前为两个 CDN 主机，后续随该源新增、修改、删除，不引入其赛道、商城或共享服务的整域后缀规则。任一源下载/解析失败或筛选结果为空时保留上次完整结果。`custom/f1tv.list` 仅用于额外手动补充，不再固定上游 CDN。将此规则放在通用 Proxy/Merged 规则之前，并绑定所需策略组。未进行实际账号播放测试。sing-box 随全局目标开关控制，当前关闭。

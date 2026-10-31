@@ -81,8 +81,16 @@ def build_one(root, name, spec, enabled, remote, engine):
         if isinstance(data, Exception):
             raise ValueError(f"{ref}: {data}")
         kwargs = {"manual": True} if source.get("path", "").startswith("lq/manual/") else {}
-        upstream += parse(data.decode("utf-8-sig"), source["format"], ref, **kwargs)
-        inputs.append({"source": ref, "sha256": digest(data)})
+        parsed = parse(data.decode("utf-8-sig"), source["format"], ref, **kwargs)
+        entry = {"source": ref, "sha256": digest(data)}
+        if "include_types" in source:
+            selected = [r for r in parsed if r.kind in source["include_types"]]
+            if not selected:
+                raise ValueError(f"{ref}: include_types matched no rules; retaining previous subscription")
+            entry.update(parsed_rules=len(parsed), selected_rules=len(selected))
+            parsed = selected
+        upstream += parsed
+        inputs.append(entry)
     purpose = spec.get("purpose", "route")
     overlays = {}
     for field in ("exclusions", "additions"):

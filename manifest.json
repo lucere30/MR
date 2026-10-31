@@ -246,15 +246,21 @@
     },
     "f1tv": {
       "loon": {
-        "config_sha256": "3dbf08451bdeb7ad58f25761ec9e791515bc7fb0378e5781e869900a98617eb2",
-        "engine": "cb45abe11642cea6af9d38ee67f0b0f5120b4c562abe2f39be687eae23238597",
+        "config_sha256": "8486a0678d15ee8af9f5aef482d2da4952a14f9dca55e4fab374420f9abc40b8",
+        "engine": "7bee1719df034796ea3b4cbabbe083b109a5b5f9c12c01410a1aaeb6bd9a10e8",
         "inputs": [
           {
             "sha256": "71189609d9ab0dfe7b72920719775c11f2336c0c41a8118e2b8edaf8eb5ed36c",
             "source": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/classical/formula1.yaml"
           },
           {
-            "sha256": "4dc491541bdada497ddbf7ef1364c7c50f8ef4183e823db5c4356f4a1c31dea3",
+            "parsed_rules": 39,
+            "selected_rules": 2,
+            "sha256": "2feed4a75d25d41afc8ee3994fd578022652fe54f5548d0c57ca32562a5e6348",
+            "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/F1.list"
+          },
+          {
+            "sha256": "7b60b8fd2d3fcefad6b0d37fe28e4dd0c4947d28a912aaecb77f9360804548cf",
             "source": "custom/f1tv.list"
           }
         ],
@@ -265,15 +271,21 @@
         "rules": 5
       },
       "mihomo": {
-        "config_sha256": "3dbf08451bdeb7ad58f25761ec9e791515bc7fb0378e5781e869900a98617eb2",
-        "engine": "cb45abe11642cea6af9d38ee67f0b0f5120b4c562abe2f39be687eae23238597",
+        "config_sha256": "8486a0678d15ee8af9f5aef482d2da4952a14f9dca55e4fab374420f9abc40b8",
+        "engine": "7bee1719df034796ea3b4cbabbe083b109a5b5f9c12c01410a1aaeb6bd9a10e8",
         "inputs": [
           {
             "sha256": "71189609d9ab0dfe7b72920719775c11f2336c0c41a8118e2b8edaf8eb5ed36c",
             "source": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/classical/formula1.yaml"
           },
           {
-            "sha256": "4dc491541bdada497ddbf7ef1364c7c50f8ef4183e823db5c4356f4a1c31dea3",
+            "parsed_rules": 39,
+            "selected_rules": 2,
+            "sha256": "2feed4a75d25d41afc8ee3994fd578022652fe54f5548d0c57ca32562a5e6348",
+            "source": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/F1.list"
+          },
+          {
+            "sha256": "7b60b8fd2d3fcefad6b0d37fe28e4dd0c4947d28a912aaecb77f9360804548cf",
             "source": "custom/f1tv.list"
           }
         ],

@@ -86,6 +86,11 @@ rulesets:
     sources:
     - url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/classical/formula1.yaml
       format: clash-classical
+    - url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/F1.list
+      format: classical
+      # Exact hosts only; do not import the broad brand/circuit/shared-service suffixes.
+      include_types:
+      - DOMAIN
     additions: custom/f1tv.list
     targets:
     - loon
