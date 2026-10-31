@@ -6984,6 +6984,7 @@ DOMAIN-SUFFIX,aboluowang.com
 DOMAIN-SUFFIX,addyoutube.com
 DOMAIN-SUFFIX,ads-twitter.com
 DOMAIN-SUFFIX,agoogleaday.com
+DOMAIN-SUFFIX,anthropic.auth0.com
 DOMAIN-SUFFIX,anthropic.com
 DOMAIN-SUFFIX,api.steampowered.com
 DOMAIN-SUFFIX,appbrain.com
@@ -7055,11 +7056,15 @@ DOMAIN-SUFFIX,blogspot.sn
 DOMAIN-SUFFIX,blogspot.tw
 DOMAIN-SUFFIX,blogspot.ug
 DOMAIN-SUFFIX,bloomberg.cn
+DOMAIN-SUFFIX,bsky.chat
 DOMAIN-SUFFIX,caoporn.us
 DOMAIN-SUFFIX,cdn-telegram.org
 DOMAIN-SUFFIX,cdninstagram.com
 DOMAIN-SUFFIX,chatgpt.com
 DOMAIN-SUFFIX,claude.ai
+DOMAIN-SUFFIX,claude.app
+DOMAIN-SUFFIX,claudemcpcontent.com
+DOMAIN-SUFFIX,claudeusercontent.com
 DOMAIN-SUFFIX,connect.facebook.net
 DOMAIN-SUFFIX,daxa.cn
 DOMAIN-SUFFIX,dcs-spotify.megaphone.fm
